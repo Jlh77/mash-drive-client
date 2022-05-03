@@ -1,65 +1,122 @@
-import { useState } from "react";
-import { TextInput, ScrollView, View, StyleSheet, Button } from "react-native";
-import { ActivityIndicator } from "react-native-web";
-import firebase from "./firebase.config";
+import * as React from "react";
+import { Button, LogoTitle, View, Text } from 'react-native';
+import { NavigationContainer, useNavigation } from "@react-navigation/native";
+import { createStackNavigator } from "@react-navigation/stack";
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
-const Login = ({ navigation }) => {
-  const [dbRef, setDbRef] = useState(firebase.firestore().collection("users"));
-  const [isLoading, setIsLoading] = useState(true);
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
 
-  const loginUser = () => {};
+//should probably index
+import Gallery from './screens/Gallery';
+import Account from './screens/Account';
+import Home from './screens/Home';
+import Leaderboard from './screens/Leaderboard';
+import Login from './screens/Login';
+import Post from './screens/Post';
+import Register from './screens/Register';
+import Upload from './screens/Upload';
+import User from './screens/User';
+import NavScreen from './screens/NavScreen';
 
-  if (isLoading)
-    return (
-      <View style={styles.preloader}>
-        <ActivityIndicator size="large"></ActivityIndicator>
-      </View>
-    );
+const Stack = createStackNavigator();
+const Tab = createBottomTabNavigator();
+
+function MyTabs() {
+  const navigation = useNavigation();
 
   return (
-    <ScrollView style={styles.container}>
-      <View style={styles.inputGroup}>
-        <TextInput
-          placeholder={"username"}
-          value={username}
-          onChangeText={setUsername}
-        ></TextInput>
-      </View>
-      <View style={styles.inputGroup}>
-        <TextInput
-          placeholder={"password"}
-          value={password}
-          onChangeText={setPassword}
-        ></TextInput>
-      </View>
-      <View style={styles.button}>
-        <Button title="Login" onPress={loginUser}></Button>
-      </View>
-    </ScrollView>
+    <Tab.Navigator screenOptions={{
+       
+      headerLeft: () => (
+        <Button
+          onPress={() => navigation.navigate('Account')}
+          title="👨"
+          color="#fff"
+          backgroundColor="#000"
+        />
+      ),
+    }}>
+      <Tab.Screen name="Home1" component={Home} />
+      <Tab.Screen name="Leaderboard" component={Leaderboard} />
+      <Tab.Screen name="Post" component={Post} />
+    </Tab.Navigator>
+  )
+}
+
+function MyStack() {
+  return (
+    <Stack.Navigator initialRouteName='Home'
+      screenOptions={{
+        headerStyle: {
+          backgroundColor: "#621FF7",
+        },
+        headerTintColor: "#fff",
+        headerTitleStyle: {
+          fontWeight: "bold",
+        },
+      }}
+      >
+       <Stack.Screen
+        name="Home"
+        component={Home}
+        options={{
+          headerTitle: "Home", 
+          headerLeft: () => (
+            <Button
+              onPress={() => navigation.navigate('Account')}
+              title="👨"
+              color="#fff"
+              backgroundColor="#000"
+            />
+          ),
+        }}
+      />
+      <Stack.Screen
+        name="Gallery"
+        component={Gallery}
+        options={{ title: "Gallery" }}
+      />
+      <Stack.Screen
+        name="Account"
+        component={Account}
+        options={{ title: "Account" }}
+      />
+      <Stack.Screen
+        name="Leaderboard"
+        component={Leaderboard}
+        options={{ title: "Leaderboard" }}
+      />
+      <Stack.Screen
+        name="Login"
+        component={Login}
+        options={{ title: "Login" }}
+      />
+      <Stack.Screen
+        name="Post"
+        component={Post}
+        options={{ title: "Post" }}
+      />
+      <Stack.Screen
+        name="Register"
+        component={Register}
+        options={{ title: "Register" }}
+      />
+      <Stack.Screen
+        name="Upload"
+        component={Upload}
+        options={{ title: "Upload" }}
+      />
+      <Stack.Screen
+        name="User"
+        component={User}
+        options={{ title: "User" }}
+      />
+    </Stack.Navigator>
   );
-};
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    padding: 35,
-  },
-  inputGroup: {
-    flex: 1,
-    padding: 0,
-    marginBottom: 15,
-    borderBottomWidth: 1,
-    borderBottomColor: "#cccccc",
-  },
-  preloader: {
-    left: 0,
-    right: 0,
-    top: 0,
-    bottom: 0,
-    position: "absolute",
-    alignItems: "center",
-    justifyContent: "center",
-  },
-});
-export default Login;
+} 
+export default function App() {
+  return (
+    <NavigationContainer>
+      <MyTabs />
+    </NavigationContainer>
+  );
+}
