@@ -1,21 +1,20 @@
 import * as React from "react";
-import { Button, LogoTitle, View, Text } from 'react-native';
+import { Button, LogoTitle, View, Text } from "react-native";
 import { NavigationContainer, useNavigation } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-
+import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 
 //should probably index
-import Gallery from './screens/Gallery';
-import Account from './screens/Account';
-import Home from './screens/Home';
-import Leaderboard from './screens/Leaderboard';
-import Login from './screens/Login';
-import Post from './screens/Post';
-import Register from './screens/Register';
-import Upload from './screens/Upload';
-import User from './screens/User';
-import NavScreen from './screens/NavScreen';
+import Gallery from "./screens/Gallery";
+import Account from "./screens/Account";
+import Home from "./screens/Home";
+import Leaderboard from "./screens/Leaderboard";
+import Login from "./screens/Login";
+import Post from "./screens/Post";
+import Register from "./screens/Register";
+import Upload from "./screens/Upload";
+import User from "./screens/User";
+import NavScreen from "./screens/NavScreen";
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -24,27 +23,29 @@ function MyTabs() {
   const navigation = useNavigation();
 
   return (
-    <Tab.Navigator screenOptions={{
-       
-      headerLeft: () => (
-        <Button
-          onPress={() => navigation.navigate('Account')}
-          title="👨"
-          color="#fff"
-          backgroundColor="#000"
-        />
-      ),
-    }}>
+    <Tab.Navigator
+      screenOptions={{
+        headerLeft: () => (
+          <Button
+            onPress={() => navigation.navigate("Account")}
+            title="👨"
+            color="#fff"
+            backgroundColor="#000"
+          />
+        ),
+      }}
+    >
       <Tab.Screen name="Home1" component={Home} />
-      <Tab.Screen name="Leaderboard" component={Leaderboard} />
-      <Tab.Screen name="Post" component={Post} />
+      <Tab.Screen name="Leaderboard" component={Login} />
+      <Tab.Screen name="Post" component={Register} />
     </Tab.Navigator>
-  )
+  );
 }
 
 function MyStack() {
   return (
-    <Stack.Navigator initialRouteName='Home'
+    <Stack.Navigator
+      initialRouteName="Home"
       screenOptions={{
         headerStyle: {
           backgroundColor: "#621FF7",
@@ -54,15 +55,15 @@ function MyStack() {
           fontWeight: "bold",
         },
       }}
-      >
-       <Stack.Screen
+    >
+      <Stack.Screen
         name="Home"
         component={Home}
         options={{
-          headerTitle: "Home", 
+          headerTitle: "Home",
           headerLeft: () => (
             <Button
-              onPress={() => navigation.navigate('Account')}
+              onPress={() => navigation.navigate("Account")}
               title="👨"
               color="#fff"
               backgroundColor="#000"
@@ -90,11 +91,7 @@ function MyStack() {
         component={Login}
         options={{ title: "Login" }}
       />
-      <Stack.Screen
-        name="Post"
-        component={Post}
-        options={{ title: "Post" }}
-      />
+      <Stack.Screen name="Post" component={Post} options={{ title: "Post" }} />
       <Stack.Screen
         name="Register"
         component={Register}
@@ -105,14 +102,10 @@ function MyStack() {
         component={Upload}
         options={{ title: "Upload" }}
       />
-      <Stack.Screen
-        name="User"
-        component={User}
-        options={{ title: "User" }}
-      />
+      <Stack.Screen name="User" component={User} options={{ title: "User" }} />
     </Stack.Navigator>
   );
-} 
+}
 export default function App() {
   return (
     <NavigationContainer>

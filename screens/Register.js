@@ -35,7 +35,9 @@ const Register = ({ navigation }) => {
           setEmail("");
           setPassword("");
           setIsLoading(false);
-          navigation.navigate("Account");
+
+          // hmmmmmmm
+          //navigation.navigate("Account");
         })
         .catch((err) => {
           console.log("ERRR>>>>>>>>>>", err);
