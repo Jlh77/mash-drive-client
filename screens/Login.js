@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { TextInput, ScrollView, View, StyleSheet, Button } from "react-native";
 import { ActivityIndicator } from "react-native-web";
-import firebase from "./firebase.config";
+import firebase from "../firebase.config";
 
 const Login = ({ navigation }) => {
   const [dbRef, setDbRef] = useState(firebase.firestore().collection("users"));

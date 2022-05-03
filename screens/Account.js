@@ -65,13 +65,3 @@ const styles = StyleSheet.create({
     marginBottom: 7,
   },
 });
-=======
-import { View, Text } from 'react-native';
-
-const Account = () => {
-  return (
-    <View>
-      <Text>Account Page</Text>
-    </View>
-  );
-};
