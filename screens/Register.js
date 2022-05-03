@@ -2,17 +2,18 @@ import { useState } from "react";
 import { TextInput, ScrollView, View, StyleSheet, Button } from "react-native";
 import { ActivityIndicator } from "react-native-web";
 import firebase from "../firebase.config";
-import { UserProvider } from "../contexts/User";
+import { useAuth } from "../contexts/User";
 
 const Register = ({ navigation }) => {
   const [dbRef, setDbRef] = useState(firebase.firestore().collection("users"));
-  const [isLoading, setIsLoading] = useState(false);
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const { register } = UserProvider;
+  const [isLoading, setIsLoading] = useState(false);
+  // Should probably have an error state, currently uses alerts
+  const { register } = useAuth();
 
-  const storeUser = () => {
+  const storeUser = async () => {
     if (username === "") {
       alert("Please enter a username");
     } else if (
@@ -22,13 +23,21 @@ const Register = ({ navigation }) => {
           /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
         )
     ) {
-      alert("Please enter an email");
+      alert("Please enter a valid email address");
     } else if (password.length < 6) {
       alert("Please enter a password at least 6 characters long");
     } else {
       setIsLoading(true);
 
-      register(email, password);
+      try {
+        setIsLoading(true);
+        await register(email, password);
+      } catch (err) {
+        alert(`Error: ${err}`);
+      }
+
+      setIsLoading(false);
+
       // old
       // dbRef
       //   .add({
