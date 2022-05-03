@@ -1,20 +1,82 @@
-import { StatusBar } from "expo-status-bar";
-import { StyleSheet, Text, View } from "react-native";
+import * as React from "react";
+import { NavigationContainer } from "@react-navigation/native";
+import { createStackNavigator } from "@react-navigation/stack";
+import Gallery from './screens/Gallery';
+import Account from './screens/Account';
+import Home from './screens/Home';
+import Leaderboard from './screens/Leaderboard';
+import Login from './screens/Login';
+import Post from './screens/Post';
+import Register from './screens/Register';
+import Upload from './screens/Upload';
+import User from './screens/User';
 
-export default function App() {
+const Stack = createStackNavigator();
+function MyStack() {
   return (
-    <View style={styles.container}>
-      <Text>Mash Drive</Text>
-      <StatusBar style="auto" />
-    </View>
+    <Stack.Navigator
+      screenOptions={{
+        headerStyle: {
+          backgroundColor: "#621FF7",
+        },
+        headerTintColor: "#fff",
+        headerTitleStyle: {
+          fontWeight: "bold",
+        },
+      }}
+      >
+      <Stack.Screen
+        name="Home"
+        component={Home}
+        options={{ title: "Home" }}
+      />
+      <Stack.Screen
+        name="Gallery"
+        component={Gallery}
+        options={{ title: "Gallery" }}
+      />
+      <Stack.Screen
+        name="Account"
+        component={Account}
+        options={{ title: "Account" }}
+      />
+      <Stack.Screen
+        name="Leaderboard"
+        component={Leaderboard}
+        options={{ title: "Leaderboard" }}
+      />
+      <Stack.Screen
+        name="Login"
+        component={Login}
+        options={{ title: "Login" }}
+      />
+      <Stack.Screen
+        name="Post"
+        component={Post}
+        options={{ title: "Post" }}
+      />
+      <Stack.Screen
+        name="Register"
+        component={Register}
+        options={{ title: "Register" }}
+      />
+      <Stack.Screen
+        name="Upload"
+        component={Upload}
+        options={{ title: "Upload" }}
+      />
+      <Stack.Screen
+        name="User"
+        component={User}
+        options={{ title: "User" }}
+      />
+    </Stack.Navigator>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#fff",
-    alignItems: "center",
-    justifyContent: "center",
-  },
-});
+export default function App() {
+  return (
+    <NavigationContainer>
+      <MyStack />
+    </NavigationContainer>
+  );
+}

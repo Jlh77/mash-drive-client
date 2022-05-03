@@ -1,11 +1,11 @@
 import { View, Text } from 'react-native'
 
-const Account = () => {
+const Upload = () => {
     return (
     <View>
-        <Text>Account Page</Text>
+        <Text>Upload Page</Text>
     </View>
     )
 }
 
-export default Account;
+export default Upload;

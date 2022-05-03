@@ -1,11 +1,11 @@
 import { View, Text } from 'react-native'
 
-const Account = () => {
+const Gallery = () => {
     return (
     <View>
-        <Text>Account Page</Text>
+        <Text>Gallery Page</Text>
     </View>
     )
 }
 
-export default Account;
+export default Gallery;

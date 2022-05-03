@@ -1,11 +1,11 @@
 import { View, Text } from 'react-native'
 
-const Account = () => {
+const Home = () => {
     return (
     <View>
-        <Text>Account Page</Text>
+        <Text>Home Page</Text>
     </View>
     )
 }
 
-export default Account;
+export default Home;
