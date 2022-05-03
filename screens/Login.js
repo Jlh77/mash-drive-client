@@ -63,15 +63,3 @@ const styles = StyleSheet.create({
   },
 });
 export default Login;
-=======
-import { View, Text } from 'react-native'
-
-const Login = () => {
-    return (
-    <View>
-        <Text>Login Page</Text>
-    </View>
-    )
-}
-
-export default Login;
