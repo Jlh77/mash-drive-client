@@ -1,6 +1,11 @@
 import * as React from "react";
-import { NavigationContainer } from "@react-navigation/native";
+import { Button, LogoTitle, View, Text } from 'react-native';
+import { NavigationContainer, useNavigation } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+
+
+//should probably index
 import Gallery from './screens/Gallery';
 import Account from './screens/Account';
 import Home from './screens/Home';
@@ -10,11 +15,36 @@ import Post from './screens/Post';
 import Register from './screens/Register';
 import Upload from './screens/Upload';
 import User from './screens/User';
+import NavScreen from './screens/NavScreen';
 
 const Stack = createStackNavigator();
-function MyStack() {
+const Tab = createBottomTabNavigator();
+
+function MyTabs() {
+  const navigation = useNavigation();
+
   return (
-    <Stack.Navigator
+    <Tab.Navigator screenOptions={{
+       
+      headerLeft: () => (
+        <Button
+          onPress={() => navigation.navigate('Account')}
+          title="👨"
+          color="#fff"
+          backgroundColor="#000"
+        />
+      ),
+    }}>
+      <Tab.Screen name="Home" component={Home} />
+      <Tab.Screen name="Leaderboard" component={Leaderboard} />
+      <Tab.Screen name="Post" component={Post} />
+    </Tab.Navigator>
+  )
+}
+
+/* function MyStack() {
+  return (
+    <Stack.Navigator initialRouteName='Home'
       screenOptions={{
         headerStyle: {
           backgroundColor: "#621FF7",
@@ -25,10 +55,20 @@ function MyStack() {
         },
       }}
       >
-      <Stack.Screen
+       <Stack.Screen
         name="Home"
         component={Home}
-        options={{ title: "Home" }}
+        options={{
+          headerTitle: "Home", 
+          headerLeft: () => (
+            <Button
+              onPress={() => navigation.navigate('Account')}
+              title="👨"
+              color="#fff"
+              backgroundColor="#000"
+            />
+          ),
+        }}
       />
       <Stack.Screen
         name="Gallery"
@@ -72,11 +112,11 @@ function MyStack() {
       />
     </Stack.Navigator>
   );
-}
+} */
 export default function App() {
   return (
     <NavigationContainer>
-      <MyStack />
+      <MyTabs />
     </NavigationContainer>
   );
 }

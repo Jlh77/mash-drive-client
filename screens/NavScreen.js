@@ -1,11 +1,11 @@
 import { View, Text } from 'react-native';
 
-const Account = () => {
+const NavScreen = () => {
   return (
     <View>
-      <Text>Account Page</Text>
+      <Text>NavScreen Page</Text>
     </View>
   );
 };
 
-export default Account;
+export default NavScreen;
