@@ -35,14 +35,14 @@ function MyTabs() {
         />
       ),
     }}>
-      <Tab.Screen name="Home" component={Home} />
+      <Tab.Screen name="Home1" component={Home} />
       <Tab.Screen name="Leaderboard" component={Leaderboard} />
       <Tab.Screen name="Post" component={Post} />
     </Tab.Navigator>
   )
 }
 
-/* function MyStack() {
+function MyStack() {
   return (
     <Stack.Navigator initialRouteName='Home'
       screenOptions={{
@@ -112,7 +112,7 @@ function MyTabs() {
       />
     </Stack.Navigator>
   );
-} */
+} 
 export default function App() {
   return (
     <NavigationContainer>
