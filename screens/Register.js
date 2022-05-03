@@ -76,13 +76,7 @@ const Register = ({ navigation }) => {
         ></TextInput>
       </View>
       <View>
-        <Button
-          title="Sign Up"
-          onPress={() => {
-            console.log("here");
-            storeUser();
-          }}
-        ></Button>
+        <Button title="Sign Up" onPress={storeUser}></Button>
       </View>
     </ScrollView>
   );
