@@ -1,7 +1,8 @@
 import { useState } from "react";
 import { TextInput, ScrollView, View, StyleSheet, Button } from "react-native";
 import { ActivityIndicator } from "react-native-web";
-import firebase from "./firebase.config";
+import firebase from "../firebase.config";
+import { UserProvider } from "../contexts/User";
 
 const Register = ({ navigation }) => {
   const [dbRef, setDbRef] = useState(firebase.firestore().collection("users"));
@@ -9,6 +10,7 @@ const Register = ({ navigation }) => {
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const { register } = UserProvider;
 
   const storeUser = () => {
     if (username === "") {
@@ -25,23 +27,26 @@ const Register = ({ navigation }) => {
       alert("Please enter a password at least 6 characters long");
     } else {
       setIsLoading(true);
-      dbRef
-        .add({
-          username,
-          email,
-        })
-        .then((res) => {
-          setUsername("");
-          setEmail("");
-          setPassword("");
-          setIsLoading(false);
-          navigation.navigate("Account");
-        })
-        .catch((err) => {
-          console.log("ERRR>>>>>>>>>>", err);
-          setIsLoading(false);
-          alert("Something went very very wrong");
-        });
+
+      register(email, password);
+      // old
+      // dbRef
+      //   .add({
+      //     username,
+      //     email,
+      //   })
+      //   .then((res) => {
+      //     setUsername("");
+      //     setEmail("");
+      //     setPassword("");
+      //     setIsLoading(false);
+      //     navigation.navigate("Account");
+      //   })
+      //   .catch((err) => {
+      //     console.log("ERRR>>>>>>>>>>", err);
+      //     setIsLoading(false);
+      //     alert("Something went very very wrong");
+      //   });
     }
   };
 
