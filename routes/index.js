@@ -1,5 +1,5 @@
-import HomeStack from './HomeStack';
-import LeaderboardStack from './LeaderboardStack';
-import UploadStack from './LeaderboardStack';
+import HomeStackScreen from './HomeStack';
+import LeaderboardStackScreen from './LeaderboardStack';
+import UploadStackScreen from './LeaderboardStack';
 
-export { HomeStack, LeaderboardStack, UploadStack };
+export { HomeStackScreen, LeaderboardStackScreen, UploadStackScreen };
