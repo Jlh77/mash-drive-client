@@ -11,11 +11,10 @@ export const UserProvider = (props) => {
   const [currentUser, setCurrentUser] = useState({});
   const [isLoading, setIsLoading] = useState(true);
 
-  const register = (email, password, username) => {
-    return auth.createUserWithEmailAndPassword(email, password).then((cred) => {
-      return db.collection("users").doc(cred.user.uid).set({
-        username,
-      });
+  const register = async (email, password, username) => {
+    const cred = await auth.createUserWithEmailAndPassword(email, password);
+    return await db.collection("users").doc(cred.user.uid).set({
+      username,
     });
   };
 
@@ -33,7 +32,7 @@ export const UserProvider = (props) => {
 
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged((user) => {
-      setCurrentUser(user);
+      setCurrentUser({ user, snapshot });
       setIsLoading(false);
     });
 
