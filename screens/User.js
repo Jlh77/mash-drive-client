@@ -1,9 +1,10 @@
 import { View, Text } from 'react-native'
 
-const User = () => {
+const User = ({ route, navigation }) => {
+    const { userId } = route.params;
     return (
     <View>
-        <Text>User Page</Text>
+        <Text>User id : {userId}s' Page</Text>
     </View>
     )
 }

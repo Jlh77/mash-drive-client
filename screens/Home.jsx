@@ -7,7 +7,7 @@ const Home = ({ navigation }) => {
   const [dbRef, setDbRef] = useState(db.collection("users"));
 
   useEffect(() => {
-    console.log(dbRef);
+   // console.log(dbRef);
   }, []);
   return (
     <View>
