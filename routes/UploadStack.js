@@ -1,27 +1,36 @@
-import { NavigationContainer } from '@react-navigation/native';
-import { createStackNavigator } from '@react-navigation/stack';
-import { createAppContainer } from 'react-navigation';
-import { Account, Gallery, Home, Leaderboard, Login, Post, Register, Upload, User } from '../screens/index';
+import { NavigationContainer } from "@react-navigation/native";
+import { createStackNavigator } from "@react-navigation/stack";
+import { createAppContainer } from "react-navigation";
+import {
+  Account,
+  Gallery,
+  Home,
+  Leaderboard,
+  Login,
+  Post,
+  Register,
+  Upload,
+  User,
+} from "../screens/index";
+import { useAuth } from "../contexts/User";
 
 const UploadStack = createStackNavigator();
 
 function UploadStackScreen({ isSignedIn }) {
-
-    return (
-        isSignedIn ? (
-            <>
-            <UploadStack.Screen name="Post" component={Post} />
-            <UploadStack.Screen name="Home" component={Home} />
-            <UploadStack.Screen name="Account" component={Account} />
-            <UploadStack.Screen name="User" component={User} />
-            </>
-        ) : (
-            <>
-            <UploadStack.Screen name="Login" component={Login} />
-            <UploadStack.Screen name="Register" component={Register} />
-            </>
-        )
-    )
+  const { currentUser } = useAuth();
+  return currentUser ? (
+    <>
+      <UploadStack.Screen name="Post" component={Post} />
+      <UploadStack.Screen name="Home" component={Home} />
+      <UploadStack.Screen name="Account" component={Account} />
+      <UploadStack.Screen name="User" component={User} />
+    </>
+  ) : (
+    <>
+      <UploadStack.Screen name="Login" component={Login} />
+      <UploadStack.Screen name="Register" component={Register} />
+    </>
+  );
 
   /* return (
     <UploadStack.Navigator headerMode="none">

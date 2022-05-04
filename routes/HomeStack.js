@@ -1,27 +1,37 @@
-import React, { useState } from 'react';
-import { NavigationContainer } from '@react-navigation/native';
-import { createStackNavigator } from '@react-navigation/stack';
-import { createAppContainer } from 'react-navigation';
-import { Account, Gallery, Home, Leaderboard, Login, Post, Register, Upload, User } from '../screens/index';
+import React, { useState } from "react";
+import { NavigationContainer } from "@react-navigation/native";
+import { createStackNavigator } from "@react-navigation/stack";
+import { createAppContainer } from "react-navigation";
+import {
+  Account,
+  Gallery,
+  Home,
+  Leaderboard,
+  Login,
+  Post,
+  Register,
+  Upload,
+  User,
+} from "../screens/index";
+import { useAuth } from "../contexts/User";
 
 const HomeStack = createStackNavigator();
 
 function HomeStackScreen({ isSignedIn }) {
-    return (
-        isSignedIn ? (
-            <>
-            <HomeStack.Screen name="Home" component={Home} />
-            <HomeStack.Screen name="Account" component={Account} />
-            <HomeStack.Screen name="Post" component={Post} />
-            <HomeStack.Screen name="User" component={User} />
-            </>
-        ) : (
-            <>
-            <HomeStack.Screen name="Login" component={Login} />
-            <HomeStack.Screen name="Register" component={Register} />
-            </>
-        )
-    )
+  const { currentUser } = useAuth();
+  return currentUser ? (
+    <>
+      <HomeStack.Screen name="Home" component={Home} />
+      <HomeStack.Screen name="Account" component={Account} />
+      <HomeStack.Screen name="Post" component={Post} />
+      <HomeStack.Screen name="User" component={User} />
+    </>
+  ) : (
+    <>
+      <HomeStack.Screen name="Login" component={Login} />
+      <HomeStack.Screen name="Register" component={Register} />
+    </>
+  );
 
   /* return (
     <HomeStack.Navigator headerMode="none">

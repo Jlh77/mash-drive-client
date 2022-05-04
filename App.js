@@ -4,21 +4,36 @@ import { NavigationContainer, useNavigation } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 
-import { Ionicons } from '@expo/vector-icons';
+import { Ionicons } from "@expo/vector-icons";
 
-import { Account, Gallery, Home, Leaderboard, Login, Post, Register, Upload, User } from './screens/index';
-import { HomeStackScreen, LeaderboardStackScreen, UploadStackScreen } from './routes/index';
+import {
+  Account,
+  Gallery,
+  Home,
+  Leaderboard,
+  Login,
+  Post,
+  Register,
+  Upload,
+  User,
+} from "./screens/index";
+import {
+  HomeStackScreen,
+  LeaderboardStackScreen,
+  UploadStackScreen,
+} from "./routes/index";
 import { UserProvider } from "./contexts/User";
 
 const Tab = createBottomTabNavigator();
 
 function MyTabs() {
-  
   return (
     <Tab.Navigator>
       <Tab.Screen name="Home" component={HomeStackScreen} />
       <Tab.Screen name="Leaderboard" component={LeaderboardStackScreen} />
-      <Tab.Screen name="Upload" component={UploadStackScreen} /> 
+      <Tab.Screen name="Upload" component={UploadStackScreen} />
+      <Tab.Screen name="Account" component={Account} />
+      <Tab.Screen name="Login" component={Login} />
     </Tab.Navigator>
   );
 }

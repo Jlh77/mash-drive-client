@@ -20,6 +20,7 @@ const Account = ({ navigation }) => {
   const handleDelete = async () => {};
 
   const handleLogout = async () => {
+    console.log(currentUser);
     try {
       await logout();
     } catch (err) {
@@ -43,7 +44,7 @@ const Account = ({ navigation }) => {
       </View>
       <View style={styles.inputGroup}>
         <Text>Email:</Text>
-        <TextInput value={currentUser.email}></TextInput>
+        <TextInput></TextInput>
       </View>
       <View>
         <Button title="Logout" onPress={handleLogout} color="#E37399" />
