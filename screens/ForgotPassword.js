@@ -11,25 +11,36 @@ import { ActivityIndicator } from "react-native-web";
 import { db } from "../firebase.config";
 import { useAuth } from "../contexts/User";
 
-const Login = ({ navigation }) => {
+const ForgotPassword = ({ navigation }) => {
   const [dbRef, setDbRef] = useState(db.collection("users"));
   const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
   const [isLoading, setIsLoading] = useState(false);
-  // Also should use an error state and stuff
-  const { login } = useAuth();
+  // Should probably have an error state, currently uses alerts
+  const { currentUser, resetPassword } = useAuth();
 
-  const loginUser = async () => {
+  const handleForgotPassword = async () => {
     if (email === "") {
-      alert("Please enter an email");
+      alert(
+        "Enter the email address of your account to receive a reset password link"
+      );
+    } else if (
+      !email
+        .toLowerCase()
+        .match(
+          /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+        )
+    ) {
+      alert("Please enter a valid email address");
     } else {
       setIsLoading(true);
 
       try {
         setIsLoading(true);
-        await login(email, password);
+        await resetPassword(email);
+        alert("Check your inbox to reset your password.");
       } catch (err) {
-        alert(`Error: ${err}`);
+        //IMPORTANT --------- Firebase throws an error if there is no record, we don't want user to know if it exists or not, so we should do the same either way (left this alert here for now for testing)
+        alert(`Failed to reset password: ${err}`);
       }
 
       setIsLoading(false);
@@ -45,23 +56,16 @@ const Login = ({ navigation }) => {
 
   return (
     <ScrollView style={styles.container}>
-      <Text style={{ fontWeight: "bold", fontSize: 40 }}>Login</Text>
+      <Text style={{ fontWeight: "bold", fontSize: 40 }}>Forgot Password</Text>
       <View style={styles.inputGroup}>
         <TextInput
           placeholder={"email"}
-          value={email}
+          value={currentUser.email ? currentUser.email : email}
           onChangeText={setEmail}
         ></TextInput>
       </View>
-      <View style={styles.inputGroup}>
-        <TextInput
-          placeholder={"password"}
-          value={password}
-          onChangeText={setPassword}
-        ></TextInput>
-      </View>
-      <View style={styles.button}>
-        <Button title="Login" onPress={loginUser}></Button>
+      <View>
+        <Button title="Reset Password" onPress={handleForgotPassword}></Button>
       </View>
     </ScrollView>
   );
@@ -88,4 +92,4 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
 });
-export default Login;
+export default ForgotPassword;
