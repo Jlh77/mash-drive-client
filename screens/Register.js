@@ -1,16 +1,26 @@
 import { useState } from "react";
-import { TextInput, ScrollView, View, StyleSheet, Button } from "react-native";
+import {
+  TextInput,
+  ScrollView,
+  View,
+  StyleSheet,
+  Button,
+  Text,
+} from "react-native";
 import { ActivityIndicator } from "react-native-web";
-import firebase from "../firebase.config";
+import { db } from "../firebase.config";
+import { useAuth } from "../contexts/User";
 
 const Register = ({ navigation }) => {
-  const [dbRef, setDbRef] = useState(firebase.firestore().collection("users"));
-  const [isLoading, setIsLoading] = useState(false);
+  const [dbRef, setDbRef] = useState(db.collection("users"));
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
+  // Should probably have an error state, currently uses alerts
+  const { register } = useAuth();
 
-  const storeUser = () => {
+  const storeUser = async () => {
     if (username === "") {
       alert("Please enter a username");
     } else if (
@@ -20,30 +30,20 @@ const Register = ({ navigation }) => {
           /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
         )
     ) {
-      alert("Please enter an email");
+      alert("Please enter a valid email address");
     } else if (password.length < 6) {
       alert("Please enter a password at least 6 characters long");
     } else {
       setIsLoading(true);
-      dbRef
-        .add({
-          username,
-          email,
-        })
-        .then((res) => {
-          setUsername("");
-          setEmail("");
-          setPassword("");
-          setIsLoading(false);
 
-          // hmmmmmmm
-          //navigation.navigate("Account");
-        })
-        .catch((err) => {
-          console.log("ERRR>>>>>>>>>>", err);
-          setIsLoading(false);
-          alert("Something went very very wrong");
-        });
+      try {
+        setIsLoading(true);
+        await register(email, password, username);
+      } catch (err) {
+        alert(`Error: ${err}`);
+      }
+
+      setIsLoading(false);
     }
   };
 
@@ -56,6 +56,7 @@ const Register = ({ navigation }) => {
 
   return (
     <ScrollView style={styles.container}>
+      <Text style={{ fontWeight: "bold", fontSize: 40 }}>Register</Text>
       <View style={styles.inputGroup}>
         <TextInput
           placeholder={"username"}

@@ -3,6 +3,7 @@ import { Button, LogoTitle, View, Text } from "react-native";
 import { NavigationContainer, useNavigation } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import { UserProvider } from "./contexts/User";
 
 //should probably index
 import Gallery from "./screens/Gallery";
@@ -10,6 +11,7 @@ import Account from "./screens/Account";
 import Home from "./screens/Home";
 import Leaderboard from "./screens/Leaderboard";
 import Login from "./screens/Login";
+import ForgotPassword from "./screens/ForgotPassword";
 import Post from "./screens/Post";
 import Register from "./screens/Register";
 import Upload from "./screens/Upload";
@@ -22,7 +24,9 @@ const Tab = createBottomTabNavigator();
 function MyTabs() {
   const navigation = useNavigation();
 
+
   return (
+    
     <Tab.Navigator
       screenOptions={{
         headerLeft: () => (
@@ -39,11 +43,13 @@ function MyTabs() {
       <Tab.Screen name="Leaderboard" component={Login} />
       <Tab.Screen name="Post" component={Register} />
     </Tab.Navigator>
+
   );
 }
 
 function MyStack() {
   return (
+    <UserProvider>
     <Stack.Navigator
       initialRouteName="Home"
       screenOptions={{
@@ -104,12 +110,15 @@ function MyStack() {
       />
       <Stack.Screen name="User" component={User} options={{ title: "User" }} />
     </Stack.Navigator>
+<UserProvider />
   );
 }
 export default function App() {
   return (
+    <UserProvider>
     <NavigationContainer>
       <MyTabs />
     </NavigationContainer>
+    <UserProvider />
   );
 }
