@@ -1,6 +1,6 @@
-import { NavigationContainer } from "@react-navigation/native";
-import { createStackNavigator } from "@react-navigation/stack";
-import { createAppContainer } from "react-navigation";
+import { NavigationContainer } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
+import { createAppContainer } from 'react-navigation';
 import {
   Account,
   Gallery,
@@ -11,23 +11,27 @@ import {
   Register,
   Upload,
   User,
-} from "../screens/index";
-import { useAuth } from "../contexts/User";
+} from '../screens/index';
+import { useAuth } from '../contexts/User';
 
 const LeaderboardStack = createStackNavigator();
 
-function LeaderboardStackScreen({ isSignedIn }) {
+function LeaderboardStackScreen() {
   const { currentUser } = useAuth();
   return currentUser ? (
     <>
-      <LeaderboardStack.Screen name="Leaderboard" component={Leaderboard} />
-      <LeaderboardStack.Screen name="Post" component={Post} />
-      <LeaderboardStack.Screen name="User" component={User} />
+      <LeaderboardStack.Navigator headerMode='none'>
+        <LeaderboardStack.Screen name='Leaderboard' component={Leaderboard} />
+        <LeaderboardStack.Screen name='Post' component={Post} />
+        <LeaderboardStack.Screen name='User' component={User} />
+      </LeaderboardStack.Navigator>
     </>
   ) : (
     <>
-      <LeaderboardStack.Screen name="Login" component={Login} />
-      <LeaderboardStack.Screen name="Register" component={Register} />
+      <LeaderboardStack.Navigator headerMode='none'>
+        <LeaderboardStack.Screen name='Login' component={Login} />
+        <LeaderboardStack.Screen name='Register' component={Register} />
+      </LeaderboardStack.Navigator>
     </>
   );
 
