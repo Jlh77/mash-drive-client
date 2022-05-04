@@ -10,6 +10,7 @@ import {
 import { ActivityIndicator } from "react-native-web";
 import { db } from "../firebase.config";
 import { useAuth } from "../contexts/User";
+import { NavigationActions } from 'react-navigation';
 
 const Register = ({ navigation }) => {
   const [dbRef, setDbRef] = useState(db.collection("users"));
@@ -38,7 +39,10 @@ const Register = ({ navigation }) => {
 
       try {
         setIsLoading(true);
-        await register(email, password, username);
+        await register(email, password, username)
+        .then(() => {
+         navigation.navigate('Home')
+        })
       } catch (err) {
         alert(`Error: ${err}`);
       }

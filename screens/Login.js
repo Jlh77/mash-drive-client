@@ -27,7 +27,10 @@ const Login = ({ navigation }) => {
 
       try {
         setIsLoading(true);
-        await login(email, password);
+        await login(email, password)
+        .then(() => {
+          navigation.navigate('Home')
+         })
       } catch (err) {
         alert(`Error: ${err}`);
       }

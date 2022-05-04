@@ -32,8 +32,10 @@ function MyTabs() {
       <Tab.Screen name="Home" component={HomeStackScreen} />
       <Tab.Screen name="Leaderboard" component={LeaderboardStackScreen} />
       <Tab.Screen name="Upload" component={UploadStackScreen} />
+
+      {/* hardcoded for testing */}
       <Tab.Screen name="Account" component={Account} />
-      <Tab.Screen name="Login" component={Login} />
+      <Tab.Screen name="Register" component={Register} />
     </Tab.Navigator>
   );
 }
