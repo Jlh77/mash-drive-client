@@ -16,4 +16,4 @@ firebase.config.js
 # macOS
 .DS_Store
 
-firebase-config.js
+firebase.config.js
