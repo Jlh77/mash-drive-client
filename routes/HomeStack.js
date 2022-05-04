@@ -1,3 +1,4 @@
+import React, { useState } from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { createAppContainer } from 'react-navigation';
@@ -5,10 +6,24 @@ import { Account, Gallery, Home, Leaderboard, Login, Post, Register, Upload, Use
 
 const HomeStack = createStackNavigator();
 
-function HomeStackScreen() {
+function HomeStackScreen({ isSignedIn }) {
+    return (
+        isSignedIn ? (
+            <>
+            <HomeStack.Screen name="Home" component={Home} />
+            <HomeStack.Screen name="Account" component={Account} />
+            <HomeStack.Screen name="Post" component={Post} />
+            <HomeStack.Screen name="User" component={User} />
+            </>
+        ) : (
+            <>
+            <HomeStack.Screen name="Login" component={Login} />
+            <HomeStack.Screen name="Register" component={Register} />
+            </>
+        )
+    )
 
-
-  return (
+  /* return (
     <HomeStack.Navigator headerMode="none">
       <HomeStack.Screen name="Home" component={Home} />
       <HomeStack.Screen name="Account" component={Account} />
@@ -20,7 +35,7 @@ function HomeStackScreen() {
       <HomeStack.Screen name="Upload" component={Upload} />
       <HomeStack.Screen name="User" component={User} />
     </HomeStack.Navigator>
-  )
+  ) */
 }
 
 export default HomeStackScreen;

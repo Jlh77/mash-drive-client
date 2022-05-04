@@ -5,8 +5,24 @@ import { Account, Gallery, Home, Leaderboard, Login, Post, Register, Upload, Use
 
 const LeaderboardStack = createStackNavigator();
 
-function LeaderboardStackScreen() {
-  return (
+function LeaderboardStackScreen({ isSignedIn }) {
+
+    return (
+        isSignedIn ? (
+            <>
+            <LeaderboardStack.Screen name="Leaderboard" component={Leaderboard} />
+            <LeaderboardStack.Screen name="Post" component={Post} />
+            <LeaderboardStack.Screen name="User" component={User} />
+            </>
+        ) : (
+            <>
+            <LeaderboardStack.Screen name="Login" component={Login} />
+            <LeaderboardStack.Screen name="Register" component={Register} />
+            </>
+        )
+    )
+
+  /* return (
     <LeaderboardStack.Navigator headerMode="none">
         <LeaderboardStack.Screen name="Leaderboard" component={Leaderboard} />
         <LeaderboardStack.Screen name="Home" component={Home} />
@@ -18,7 +34,7 @@ function LeaderboardStackScreen() {
         <LeaderboardStack.Screen name="Upload" component={Upload} />
         <LeaderboardStack.Screen name="User" component={User} />
     </LeaderboardStack.Navigator>
-  )
+  ) */
 }
 
 export default LeaderboardStackScreen;
