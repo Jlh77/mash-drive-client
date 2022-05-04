@@ -1,6 +1,8 @@
-import { View, Text } from 'react-native'
+import { View, Text, Button } from 'react-native'
+import { useNavigation } from '@react-navigation/native'
 
-const Home = () => {
+const Home = ({ isSignedIn }) => {
+
     return (
     <View>
         <Text>Home Page</Text>

@@ -3,46 +3,83 @@ import { Button, LogoTitle, View, Text } from "react-native";
 import { NavigationContainer, useNavigation } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import { Ionicons } from '@expo/vector-icons';
 
-//should probably index
-import Gallery from "./screens/Gallery";
-import Account from "./screens/Account";
-import Home from "./screens/Home";
-import Leaderboard from "./screens/Leaderboard";
-import Login from "./screens/Login";
-import Post from "./screens/Post";
-import Register from "./screens/Register";
-import Upload from "./screens/Upload";
-import User from "./screens/User";
-import NavScreen from "./screens/NavScreen";
+import { Account, Gallery, Home, Leaderboard, Login, Post, Register, Upload, User } from './screens/index';
+import { HomeStack, LeaderboardStack, UploadStack } from './routes/index';
 
-const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
 
 function MyTabs() {
   const navigation = useNavigation();
-
   return (
-    <Tab.Navigator
-      screenOptions={{
-        headerLeft: () => (
-          <Button
-            onPress={() => navigation.navigate("Account")}
-            title="👨"
-            color="#fff"
-            backgroundColor="#000"
-          />
-        ),
-      }}
-    >
-      <Tab.Screen name="Home1" component={Home} />
-      <Tab.Screen name="Leaderboard" component={Login} />
-      <Tab.Screen name="Post" component={Register} />
+    <Tab.Navigator>
+      <HomeStack />
+      <LeaderboardStack />
+      <UploadStack />
     </Tab.Navigator>
   );
 }
+/* <Tab.Screen name="Home" component={HomeStackScreen} />
+<Tab.Screen name="Leaderboard" component={LeaderboardStackScreen} />
+<Tab.Screen name="Upload" component={UploadStackScreen} /> */
 
-function MyStack() {
+
+/* const HomeStack = createStackNavigator();
+
+function HomeStackScreen() {
+  return (
+    <HomeStack.Navigator headerMode="none">
+      <HomeStack.Screen name="Home" component={Home} />
+      <HomeStack.Screen name="Account" component={Account} />
+      <HomeStack.Screen name="Gallery" component={Gallery} />
+      <HomeStack.Screen name="Leaderboard" component={Leaderboard} />
+      <HomeStack.Screen name="Login" component={Login} />
+      <HomeStack.Screen name="Post" component={Post} />
+      <HomeStack.Screen name="Register" component={Register} />
+      <HomeStack.Screen name="Upload" component={Upload} />
+      <HomeStack.Screen name="User" component={User} />
+    </HomeStack.Navigator>
+  )
+}
+
+const LeaderboardStack = createStackNavigator();
+
+function LeaderboardStackScreen() {
+  return (
+    <HomeStack.Navigator headerMode="none">
+        <HomeStack.Screen name="Leaderboard" component={Leaderboard} />
+        <HomeStack.Screen name="Home" component={Home} />
+        <HomeStack.Screen name="Account" component={Account} />
+        <HomeStack.Screen name="Gallery" component={Gallery} />
+        <HomeStack.Screen name="Login" component={Login} />
+        <HomeStack.Screen name="Post" component={Post} />
+        <HomeStack.Screen name="Register" component={Register} />
+        <HomeStack.Screen name="Upload" component={Upload} />
+        <HomeStack.Screen name="User" component={User} />
+    </HomeStack.Navigator>
+  )
+}
+
+const UploadStack = createStackNavigator();
+
+function UploadStackScreen() {
+  return (
+    <HomeStack.Navigator headerMode="none">
+      <HomeStack.Screen name="Upload" component={Upload} />
+      <HomeStack.Screen name="Home" component={Home} />
+      <HomeStack.Screen name="Account" component={Account} />
+      <HomeStack.Screen name="Gallery" component={Gallery} />
+      <HomeStack.Screen name="Leaderboard" component={Leaderboard} />
+      <HomeStack.Screen name="Login" component={Login} />
+      <HomeStack.Screen name="Post" component={Post} />
+      <HomeStack.Screen name="Register" component={Register} />
+      <HomeStack.Screen name="User" component={User} />
+    </HomeStack.Navigator>
+  )
+} */
+
+/* function MyStack() {
   return (
     <Stack.Navigator
       initialRouteName="Home"
@@ -105,7 +142,7 @@ function MyStack() {
       <Stack.Screen name="User" component={User} options={{ title: "User" }} />
     </Stack.Navigator>
   );
-}
+} */
 export default function App() {
   return (
     <NavigationContainer>
