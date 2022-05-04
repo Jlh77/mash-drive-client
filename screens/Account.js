@@ -8,13 +8,24 @@ import {
   Button,
   Text,
 } from "react-native";
+import { db } from "../firebase.config";
+import { useAuth } from "../contexts/User";
 
 const Account = ({ navigation }) => {
-  const [username, setUsername] = useState("User");
-  const [email, setEmail] = useState("test@test.com");
+  const [username, setUsername] = useState("testUser");
   const [isLoading, setIsLoading] = useState(false);
+  const { currentUser, logout } = useAuth();
+  const [dbRef, setDbRef] = useState(db.collection("users"));
 
-  const handleDelete = () => {};
+  const handleDelete = async () => {};
+
+  const handleLogout = async () => {
+    try {
+      await logout();
+    } catch (err) {
+      alert(`Logout failed: ${err}`);
+    }
+  };
 
   if (isLoading)
     return (
@@ -32,7 +43,10 @@ const Account = ({ navigation }) => {
       </View>
       <View style={styles.inputGroup}>
         <Text>Email:</Text>
-        <TextInput value={email}></TextInput>
+        <TextInput value={currentUser.email}></TextInput>
+      </View>
+      <View>
+        <Button title="Logout" onPress={handleLogout} color="#E37399" />
       </View>
       <View>
         <Button title="Delete Account" onPress={handleDelete} color="#E37399" />

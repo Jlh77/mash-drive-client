@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
-import firebase from "../firebase.config";
+import { db } from "../firebase.config";
 
 const Home = () => {
   const [posts, setPosts] = useState([]);
-  const [dbRef, setDbRef] = useState(firebase.firestore().collection("users"));
+  const [dbRef, setDbRef] = useState(db.collection("users"));
 
   useEffect(() => {
     console.log(dbRef);

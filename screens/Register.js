@@ -1,11 +1,18 @@
 import { useState } from "react";
-import { TextInput, ScrollView, View, StyleSheet, Button } from "react-native";
+import {
+  TextInput,
+  ScrollView,
+  View,
+  StyleSheet,
+  Button,
+  Text,
+} from "react-native";
 import { ActivityIndicator } from "react-native-web";
-import firebase from "../firebase.config";
+import { db } from "../firebase.config";
 import { useAuth } from "../contexts/User";
 
 const Register = ({ navigation }) => {
-  const [dbRef, setDbRef] = useState(firebase.firestore().collection("users"));
+  const [dbRef, setDbRef] = useState(db.collection("users"));
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -31,31 +38,12 @@ const Register = ({ navigation }) => {
 
       try {
         setIsLoading(true);
-        await register(email, password);
+        await register(email, password, username);
       } catch (err) {
         alert(`Error: ${err}`);
       }
 
       setIsLoading(false);
-
-      // old
-      // dbRef
-      //   .add({
-      //     username,
-      //     email,
-      //   })
-      //   .then((res) => {
-      //     setUsername("");
-      //     setEmail("");
-      //     setPassword("");
-      //     setIsLoading(false);
-      //     navigation.navigate("Account");
-      //   })
-      //   .catch((err) => {
-      //     console.log("ERRR>>>>>>>>>>", err);
-      //     setIsLoading(false);
-      //     alert("Something went very very wrong");
-      //   });
     }
   };
 
@@ -68,6 +56,7 @@ const Register = ({ navigation }) => {
 
   return (
     <ScrollView style={styles.container}>
+      <Text style={{ fontWeight: "bold", fontSize: 40 }}>Register</Text>
       <View style={styles.inputGroup}>
         <TextInput
           placeholder={"username"}
