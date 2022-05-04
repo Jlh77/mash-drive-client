@@ -24,9 +24,7 @@ const Tab = createBottomTabNavigator();
 function MyTabs() {
   const navigation = useNavigation();
 
-
   return (
-    
     <Tab.Navigator
       screenOptions={{
         headerLeft: () => (
@@ -43,82 +41,89 @@ function MyTabs() {
       <Tab.Screen name="Leaderboard" component={Login} />
       <Tab.Screen name="Post" component={Register} />
     </Tab.Navigator>
-
   );
 }
 
 function MyStack() {
   return (
     <UserProvider>
-    <Stack.Navigator
-      initialRouteName="Home"
-      screenOptions={{
-        headerStyle: {
-          backgroundColor: "#621FF7",
-        },
-        headerTintColor: "#fff",
-        headerTitleStyle: {
-          fontWeight: "bold",
-        },
-      }}
-    >
-      <Stack.Screen
-        name="Home"
-        component={Home}
-        options={{
-          headerTitle: "Home",
-          headerLeft: () => (
-            <Button
-              onPress={() => navigation.navigate("Account")}
-              title="👨"
-              color="#fff"
-              backgroundColor="#000"
-            />
-          ),
+      <Stack.Navigator
+        initialRouteName="Home"
+        screenOptions={{
+          headerStyle: {
+            backgroundColor: "#621FF7",
+          },
+          headerTintColor: "#fff",
+          headerTitleStyle: {
+            fontWeight: "bold",
+          },
         }}
-      />
-      <Stack.Screen
-        name="Gallery"
-        component={Gallery}
-        options={{ title: "Gallery" }}
-      />
-      <Stack.Screen
-        name="Account"
-        component={Account}
-        options={{ title: "Account" }}
-      />
-      <Stack.Screen
-        name="Leaderboard"
-        component={Leaderboard}
-        options={{ title: "Leaderboard" }}
-      />
-      <Stack.Screen
-        name="Login"
-        component={Login}
-        options={{ title: "Login" }}
-      />
-      <Stack.Screen name="Post" component={Post} options={{ title: "Post" }} />
-      <Stack.Screen
-        name="Register"
-        component={Register}
-        options={{ title: "Register" }}
-      />
-      <Stack.Screen
-        name="Upload"
-        component={Upload}
-        options={{ title: "Upload" }}
-      />
-      <Stack.Screen name="User" component={User} options={{ title: "User" }} />
-    </Stack.Navigator>
-<UserProvider />
+      >
+        <Stack.Screen
+          name="Home"
+          component={Home}
+          options={{
+            headerTitle: "Home",
+            headerLeft: () => (
+              <Button
+                onPress={() => navigation.navigate("Account")}
+                title="👨"
+                color="#fff"
+                backgroundColor="#000"
+              />
+            ),
+          }}
+        />
+        <Stack.Screen
+          name="Gallery"
+          component={Gallery}
+          options={{ title: "Gallery" }}
+        />
+        <Stack.Screen
+          name="Account"
+          component={Account}
+          options={{ title: "Account" }}
+        />
+        <Stack.Screen
+          name="Leaderboard"
+          component={Leaderboard}
+          options={{ title: "Leaderboard" }}
+        />
+        <Stack.Screen
+          name="Login"
+          component={Login}
+          options={{ title: "Login" }}
+        />
+        <Stack.Screen
+          name="Post"
+          component={Post}
+          options={{ title: "Post" }}
+        />
+        <Stack.Screen
+          name="Register"
+          component={Register}
+          options={{ title: "Register" }}
+        />
+        <Stack.Screen
+          name="Upload"
+          component={Upload}
+          options={{ title: "Upload" }}
+        />
+        <Stack.Screen
+          name="User"
+          component={User}
+          options={{ title: "User" }}
+        />
+      </Stack.Navigator>
+    </UserProvider>
   );
 }
 export default function App() {
   return (
     <UserProvider>
-    <NavigationContainer>
-      <MyTabs />
-    </NavigationContainer>
-    <UserProvider />
+      <NavigationContainer>
+        <MyTabs />
+      </NavigationContainer>
+    </UserProvider>
   );
 }
