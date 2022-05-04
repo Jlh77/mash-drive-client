@@ -32,7 +32,7 @@ export const UserProvider = (props) => {
 
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged((user) => {
-      setCurrentUser({ user, snapshot });
+      setCurrentUser(user);
       setIsLoading(false);
     });
 
