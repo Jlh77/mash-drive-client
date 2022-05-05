@@ -103,7 +103,7 @@ const Leaderboard = ({ navigation }) => {
                 <Text>{index + 1}</Text>
                 <Link to={{screen: 'Post', params: {id: recipe.id}}}><Text>{recipe.name}</Text></Link>
                 
-                {/* FIXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX */}
+                {/* FIXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX */}
                 <Link to={{screen: 'User', params: {}}}><Text>By:{} -- Rep: {}</Text></Link>
 
                 <Text>Votes: {recipe.votes}</Text>
