@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
-import { Button, Text, View } from 'react-native';
+import { Button, Text, View, StyleSheet } from 'react-native';
 import { db } from "../firebase.config";
-import { StyleSheet, View } from 'react-native';
 import { SearchSortBar, Feed } from '../components/index';
 
 const Home = ({ navigation }) => {
