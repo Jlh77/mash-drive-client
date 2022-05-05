@@ -22,9 +22,9 @@ function LeaderboardStackScreen() {
     <>
       <LeaderboardStack.Navigator headerMode='none'>
         <LeaderboardStack.Screen name='Leaderboard' component={Leaderboard} />
-        <LeaderboardStack.Screen name='Post' component={Post} />
         <LeaderboardStack.Screen name='User' component={User} />
       </LeaderboardStack.Navigator>
+      
     </>
   ) : (
     <>

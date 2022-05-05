@@ -12,8 +12,8 @@ const Home = ({ navigation }) => {
   return (
     <View>
       <Text>Home Page</Text>
-      <Button title="dummy button/click on article link" onPress={() => navigation.navigate('Post')} color="blue" />
-      <Button title="dummy button/click on username" onPress={() => navigation.navigate('User')} color="red" />
+      {/* <Button title="dummy button/click on article link" onPress={() => navigation.navigate('Post')} color="blue" />
+      <Button title="dummy button/click on username" onPress={() => navigation.navigate('User')} color="red" /> */}
     </View>
   )
 };

@@ -4,6 +4,8 @@ import {
   Button,
   SafeAreaView,
   StyleSheet,
+  ScrollView,
+  ActivityIndicator
 } from 'react-native';
 import { useEffect, useState } from 'react';
 import { db } from '../firebase.config';
@@ -49,7 +51,6 @@ const Leaderboard = ({ navigation }) => {
       .then((snapshot) => {
         let topRecipes = [];
         snapshot.docs.forEach((doc) => {
-            console.log(doc.data().user.data(), 'doc.data')
           topRecipes.push({ ...doc.data(), id: doc.id });
         });
         topRecipes.sort((a, b) => {
@@ -73,7 +74,6 @@ const Leaderboard = ({ navigation }) => {
         snapshot.docs.forEach((doc) => {
           topUsers.push({ ...doc.data(), id: doc.id });
         });
-        console.log(topUsers, 'topUsers')
         topUsers.sort((a, b) => {
           return parseInt(b.reputation) - parseInt(a.reputation);
         });
@@ -87,7 +87,11 @@ const Leaderboard = ({ navigation }) => {
       });
   };
 
-  if (isLoading) return <Text>Loading</Text>;
+  if (isLoading) {
+    <View style={styles.preloader}>
+      <ActivityIndicator size='large'></ActivityIndicator>
+    </View>;
+  }
 
   if (usersOrFood === 'food') {
     return (
@@ -96,20 +100,28 @@ const Leaderboard = ({ navigation }) => {
         <Button title='Top 10 Recipes' onPress={handleTop}></Button>
         <Button title='Bottom 10 Recipes' onPress={handleBottom}></Button>
         <Button title='Higest Rated Users' onPress={handleUsers}></Button>
-        <View style={styles.container}>
-          {topTen.map((recipe, index) => {
-            return (
-              <View key={index} style={styles.item}>
-                <Text>{index + 1}</Text>
-                <Link to={{screen: 'Post', params: {id: recipe.id}}}><Text>{recipe.name}</Text></Link>
-                
-                {/* FIXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX */}
-                <Link to={{screen: 'User', params: {}}}><Text>By:{} -- Rep: {}</Text></Link>
+        <View>
+          <ScrollView style={styles.container}>
+            {topTen.map((recipe, index) => {
+              return (
+                <View key={index} style={styles.item}>
+                  <Text>{index + 1}</Text>
+                  <Link to={{ screen: 'Post', params: { id: recipe.id } }}>
+                    <Text>{recipe.name}</Text>
+                  </Link>
 
-                <Text>Votes: {recipe.votes}</Text>
-              </View>
-            );
-          })}
+                  {/* FIXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX */}
+                  <Link to={{ screen: 'User', params: {} }}>
+                    <Text>
+                      By:{} -- Rep: {}
+                    </Text>
+                  </Link>
+
+                  <Text>Votes: {recipe.votes}</Text>
+                </View>
+              );
+            })}
+          </ScrollView>
         </View>
       </SafeAreaView>
     );
@@ -122,16 +134,24 @@ const Leaderboard = ({ navigation }) => {
         <Button title='Top 10 Recipes' onPress={handleTop}></Button>
         <Button title='Bottom 10 Recipes' onPress={handleBottom}></Button>
         <Button title='Higest Rated Users' onPress={handleUsers}></Button>
-        <View style={styles.container}>
+        <View>
+          <ScrollView style={styles.container}>
             {topTenUsers.map((user, index) => {
-                return (
-                    <TouchableOpacity key={index} style={styles.item} onPress={() => navigation.navigate('User', {userId:user.id})}>
-                        <Text>{index + 1}</Text>
-                        <Text>{user.username}</Text>
-                        <Text>Reputation: {user.reputation}</Text>
-                    </TouchableOpacity>    
-                )
+              return (
+                <TouchableOpacity
+                  key={index}
+                  style={styles.item}
+                  onPress={() =>
+                    navigation.navigate('User', { userId: user.id })
+                  }
+                >
+                  <Text>{index + 1}</Text>
+                  <Text>{user.username}</Text>
+                  <Text>Reputation: {user.reputation}</Text>
+                </TouchableOpacity>
+              );
             })}
+          </ScrollView>
         </View>
       </SafeAreaView>
     );
@@ -140,7 +160,7 @@ const Leaderboard = ({ navigation }) => {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
+    flexGrow: 1,
     padding: 50,
   },
   item: {

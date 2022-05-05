@@ -6,8 +6,8 @@ import {
   StyleSheet,
   Button,
   Text,
+  ActivityIndicator
 } from "react-native";
-import { ActivityIndicator } from "react-native-web";
 import { db } from "../firebase.config";
 import { useAuth } from "../contexts/User";
 import { NavigationActions } from 'react-navigation';
