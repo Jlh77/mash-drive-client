@@ -3,6 +3,7 @@ import { Button, LogoTitle, View, Text } from "react-native";
 import { NavigationContainer, useNavigation } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import { fetchUserByUid } from './utils/utils';
 
 import { Ionicons } from "@expo/vector-icons";
 

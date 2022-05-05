@@ -4,40 +4,46 @@ import {
   Button,
   SafeAreaView,
   StyleSheet,
-  ScrollView,
-  ActivityIndicator
+  ActivityIndicator, 
 } from 'react-native';
 import { useEffect, useState } from 'react';
 import { db } from '../firebase.config';
-import { collection, getDoc, getDocs } from 'firebase/firestore';
-import { TouchableOpacity } from 'react-native-gesture-handler';
-import { Link } from '@react-navigation/native';
+import { collection, getDocs } from 'firebase/firestore';
+import { TouchableOpacity, ScrollView } from 'react-native-gesture-handler';
+import { fetchUserByUid } from '../utils/utils';
 
 const Leaderboard = ({ navigation }) => {
-  const recipeRef = collection(db, 'recipes');
+  const postsRef = collection(db, 'posts');
   const usersRef = collection(db, 'users');
   const [topTen, setTopTen] = useState([]);
   const [topTenUsers, setTopTenUsers] = useState([]);
-  const [usersOrFood, setUsersOrFood] = useState('food');
+  // add top ten most commented
+  const [usersOrPosts, setUsersOrPosts] = useState('posts');
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     handleTop();
   }, []);
-
+  
   const handleTop = () => {
-    getDocs(recipeRef)
+    console.log(topTen, 'top')
+    getDocs(postsRef)
       .then((snapshot) => {
         let topRecipes = [];
         snapshot.docs.forEach((doc) => {
-          topRecipes.push({ ...doc.data(), id: doc.id });
+          const postData = { ...doc.data(), id: doc.id }
+          fetchUserByUid(postData.uid).then((res) => {
+            postData.username = res.username;
+            postData.userReputation = res.reputation
+          })
+          topRecipes.push(postData);
         });
         topRecipes.sort((a, b) => {
           return parseInt(b.votes) - parseInt(a.votes);
         });
         topRecipes = topRecipes.slice(0, 9);
         setTopTen(topRecipes);
-        setUsersOrFood('food');
+        setUsersOrPosts('posts');
         setIsLoading(false);
       })
       .catch((err) => {
@@ -46,19 +52,25 @@ const Leaderboard = ({ navigation }) => {
   };
 
   const handleBottom = () => {
+    console.log(topTen, 'bottom')
     setIsLoading(true);
-    getDocs(recipeRef)
+    getDocs(postsRef)
       .then((snapshot) => {
         let topRecipes = [];
         snapshot.docs.forEach((doc) => {
-          topRecipes.push({ ...doc.data(), id: doc.id });
+          const postData = { ...doc.data(), id: doc.id }
+          fetchUserByUid(postData.uid).then((res) => {
+            postData.username = res.username;
+            postData.userReputation = res.reputation
+          })
+          topRecipes.push(postData);
         });
         topRecipes.sort((a, b) => {
           return parseInt(a.votes) - parseInt(b.votes);
         });
         topRecipes = topRecipes.slice(0, 9);
         setTopTen(topRecipes);
-        setUsersOrFood('food');
+        setUsersOrPosts('posts');
         setIsLoading(false);
       })
       .catch((err) => {
@@ -79,7 +91,7 @@ const Leaderboard = ({ navigation }) => {
         });
         topUsers = topUsers.slice(0, 9);
         setTopTenUsers(topUsers);
-        setUsersOrFood('users');
+        setUsersOrPosts('users');
         setIsLoading(false);
       })
       .catch((err) => {
@@ -93,7 +105,7 @@ const Leaderboard = ({ navigation }) => {
     </View>;
   }
 
-  if (usersOrFood === 'food') {
+  if (usersOrPosts === 'posts') {
     return (
       <SafeAreaView>
         <Text>Leaderboard Page</Text>
@@ -104,21 +116,14 @@ const Leaderboard = ({ navigation }) => {
           <ScrollView style={styles.container}>
             {topTen.map((recipe, index) => {
               return (
-                <View key={index} style={styles.item}>
+                <TouchableOpacity key={index} style={styles.item} onPress={() => navigation.navigate( 'Post', { id: recipe.id })}>
                   <Text>{index + 1}</Text>
-                  <Link to={{ screen: 'Post', params: { id: recipe.id } }}>
-                    <Text>{recipe.name}</Text>
-                  </Link>
-
-                  {/* FIXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX */}
-                  <Link to={{ screen: 'User', params: {} }}>
-                    <Text>
-                      By:{} -- Rep: {}
-                    </Text>
-                  </Link>
-
+                    <Text>{recipe.title}</Text>
                   <Text>Votes: {recipe.votes}</Text>
-                </View>
+                    <Text>
+                      By:{recipe.username} -- Rep: {recipe.userReputation}
+                    </Text>
+                </TouchableOpacity>
               );
             })}
           </ScrollView>
@@ -127,7 +132,7 @@ const Leaderboard = ({ navigation }) => {
     );
   }
 
-  if (usersOrFood === 'users') {
+  if (usersOrPosts === 'users') {
     return (
       <SafeAreaView>
         <Text>Top Rated Users</Text>
