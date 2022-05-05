@@ -6,14 +6,13 @@ import {
   StyleSheet,
   Button,
   Text,
-  ActivityIndicator
+  ActivityIndicator,
 } from "react-native";
 import { db } from "../firebase.config";
 import { useAuth } from "../contexts/User";
-import { NavigationActions } from 'react-navigation';
+import { NavigationActions } from "react-navigation";
 
 const Register = ({ navigation }) => {
-  const [dbRef, setDbRef] = useState(db.collection("users"));
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -39,10 +38,9 @@ const Register = ({ navigation }) => {
 
       try {
         setIsLoading(true);
-        await register(email, password, username)
-        .then(() => {
-         navigation.navigate('Home')
-        })
+        await register(email, password, username).then(() => {
+          navigation.navigate("Home");
+        });
       } catch (err) {
         alert(`Error: ${err}`);
       }
