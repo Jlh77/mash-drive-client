@@ -1,20 +1,23 @@
 import { useEffect, useState } from "react";
+import { Button, Text, View } from 'react-native';
 import { db } from "../firebase.config";
 import { StyleSheet, View } from 'react-native';
 import { SearchSortBar, Feed } from '../components/index';
 
-const Home = () => {
+const Home = ({ navigation }) => {
   const [posts, setPosts] = useState([]);
   const [dbRef, setDbRef] = useState(db.collection("users"));
 
   useEffect(() => {
-    console.log(dbRef);
+   // console.log(dbRef);
   }, []);
 
-  return <View style={styles.container}>
-          <SearchSortBar/>
-          <Feed/>
-        </View>
+  return (
+    <View style={styles.container}>
+      <SearchSortBar/>
+      <Feed/>
+    </View>
+  )
 };
 
 

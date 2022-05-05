@@ -16,19 +16,24 @@ import { useAuth } from "../contexts/User";
 
 const UploadStack = createStackNavigator();
 
-function UploadStackScreen({ isSignedIn }) {
+function UploadStackScreen() {
   const { currentUser } = useAuth();
   return currentUser ? (
     <>
+    <UploadStack.Navigator headerMode="none">
+      <UploadStack.Screen name="Upload" component={Upload} />
       <UploadStack.Screen name="Post" component={Post} />
       <UploadStack.Screen name="Home" component={Home} />
       <UploadStack.Screen name="Account" component={Account} />
       <UploadStack.Screen name="User" component={User} />
+      </UploadStack.Navigator>
     </>
   ) : (
     <>
+    <UploadStack.Navigator headerMode="none">
       <UploadStack.Screen name="Login" component={Login} />
       <UploadStack.Screen name="Register" component={Register} />
+      </UploadStack.Navigator>
     </>
   );
 

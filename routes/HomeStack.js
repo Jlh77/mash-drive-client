@@ -17,19 +17,23 @@ import { useAuth } from "../contexts/User";
 
 const HomeStack = createStackNavigator();
 
-function HomeStackScreen({ isSignedIn }) {
+function HomeStackScreen() {
   const { currentUser } = useAuth();
   return currentUser ? (
     <>
+    <HomeStack.Navigator headerMode="none">
       <HomeStack.Screen name="Home" component={Home} />
       <HomeStack.Screen name="Account" component={Account} />
       <HomeStack.Screen name="Post" component={Post} />
       <HomeStack.Screen name="User" component={User} />
+      </HomeStack.Navigator>
     </>
   ) : (
     <>
+    <HomeStack.Navigator headerMode="none">
       <HomeStack.Screen name="Login" component={Login} />
       <HomeStack.Screen name="Register" component={Register} />
+      </HomeStack.Navigator>
     </>
   );
 

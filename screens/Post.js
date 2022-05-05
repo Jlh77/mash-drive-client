@@ -1,9 +1,10 @@
 import { View, Text } from 'react-native'
 
-const Post = () => {
+const Post = ({route, navigation}) => {
+    const { id } = route.params;
     return (
     <View>
-        <Text>Post Page</Text>
+        <Text>Post for recipe {id}'s' Page</Text>
     </View>
     )
 }
