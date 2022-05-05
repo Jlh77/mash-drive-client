@@ -34,7 +34,7 @@ const Upload = ({ navigation }) => {
 
       try {
         setIsLoading(true);
-        db.collection("posts").doc().set({
+        db.collection("recipes").doc().set({
           image,
           title,
           description,
