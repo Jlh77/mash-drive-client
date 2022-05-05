@@ -15,6 +15,7 @@ const Home = ({ navigation }) => {
   return (
     <View style={styles.container}>
       <SearchSortBar/>
+      <Text>Home Page</Text>
       <Feed/>
     </View>
   )
