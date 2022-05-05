@@ -18,18 +18,31 @@ const Upload = ({ navigation }) => {
   const [isLoading, setIsLoading] = useState(false);
   // Should probably have an error state, currently uses alerts
 
+  const { currentUser } = useAuth();
+
   const handleUpload = async () => {
     if (title === "") {
       alert("Please enter a valid title for your post");
     } else if (!image) {
       alert("Please upload an image of your post");
+    } else if (!currentUser) {
+      // Checks if not logged in
+      alert("You must log in to make a post to Mash Drive");
     } else {
       setIsLoading(true);
 
       try {
         setIsLoading(true);
+        db.collection("posts").doc().set({
+          image,
+          title,
+          description,
+          uid: currentUser.uid,
+        });
+        // IMPORTANT Add logic here to tell user post was successful, clear the states to ""/null and maybe redirect to their new post/other page
       } catch (err) {
         alert(`Error: ${err}`);
+        // Eventually error states used etc and for invalid input too
       }
 
       setIsLoading(false);
@@ -49,15 +62,8 @@ const Upload = ({ navigation }) => {
       <View style={styles.inputGroup}>
         <TextInput
           placeholder={"Image"}
-          value={title}
+          value={image}
           onChangeText={setImage}
-        ></TextInput>
-      </View>
-      <View style={styles.inputGroup}>
-        <TextInput
-          placeholder={"Description"}
-          value={description}
-          onChangeText={setDescription}
         ></TextInput>
       </View>
       <View style={styles.inputGroup}>
@@ -65,6 +71,13 @@ const Upload = ({ navigation }) => {
           placeholder={"Title"}
           value={title}
           onChangeText={setTitle}
+        ></TextInput>
+      </View>
+      <View style={styles.inputGroup}>
+        <TextInput
+          placeholder={"Description"}
+          value={description}
+          onChangeText={setDescription}
         ></TextInput>
       </View>
 
