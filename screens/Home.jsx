@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 import { Button, Text, View } from 'react-native';
 import { db } from "../firebase.config";
+import { StyleSheet, View } from 'react-native';
+import { SearchSortBar, Feed } from '../components/index';
 
 const Home = ({ navigation }) => {
   const [posts, setPosts] = useState([]);
@@ -9,12 +11,21 @@ const Home = ({ navigation }) => {
   useEffect(() => {
    // console.log(dbRef);
   }, []);
+
   return (
-    <View>
-      <Text>Home Page</Text>
-      <Button title="dummy button/click on article link" onPress={() => navigation.navigate('Post')} color="blue" />
-      <Button title="dummy button/click on username" onPress={() => navigation.navigate('User')} color="red" />
+    <View style={styles.container}>
+      <SearchSortBar/>
+      <Feed/>
     </View>
   )
 };
+
+
+const styles = StyleSheet.create({
+  container: {
+    flex:1,
+  },
+})
+
+
 export default Home;
