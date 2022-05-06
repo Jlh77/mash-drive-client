@@ -106,7 +106,6 @@ const Upload = ({ navigation }) => {
             alert(`something went wrong check logs -> ${err}`);
           },
           () => {
-            console.log(db.ref(`images/${imgName}.jpg`).get());
             // at this point, upload successful, can return image url to do stuff, i set url in the new post
             storage
               .ref("images")
