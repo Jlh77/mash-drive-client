@@ -36,13 +36,13 @@ const Navbar = () => {
 }
 
 const styles = StyleSheet.create({
-    wireframeBorder: {
-        borderColor: "black",
-        borderStyle: "solid",
-        borderWidth: 1,
-    },
+    // wireframeBorder: {
+    //     borderColor: "black",
+    //     borderStyle: "solid",
+    //     borderWidth: 1,
+    // },
     navbar: {
-        padding: 3,
+        padding: 8,
         display: "flex",
         flexDirection: "row",
     },

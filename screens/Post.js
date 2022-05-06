@@ -1,7 +1,9 @@
 import { View, Text, ActivityIndicator, StyleSheet } from 'react-native'
 import { useState, useEffect } from 'react';
 import { getCommentsByPostId, fetchPostByPostId, fetchUserByUid } from '../utils/utils';
-
+const Post = ({ route }) => {
+    
+    const { postId } = route.params;
 const Post = ({route, navigation}) => {
     const { id } = route.params;
     const [postData, setPostData] = useState({});
@@ -35,7 +37,8 @@ const Post = ({route, navigation}) => {
 
     return (
     <View>
-        <Text>Post for recipe {id}'s' Page</Text>
+        <Text>Post for recipe {postId}'s' Page</Text>
+        {/* <Text>Post for a recipe Page</Text> */}
     </View>
     )
 }
