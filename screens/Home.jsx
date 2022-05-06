@@ -1,14 +1,13 @@
 import { useEffect, useState } from "react";
-import { Button, Text, View, StyleSheet } from 'react-native';
+import { Button, Text, View, StyleSheet } from "react-native";
 import { db } from "../firebase.config";
-import { SearchSortBar, Feed, Navbar } from '../components/index';
+import { SearchSortBar, Feed } from "../components/index";
 
 const Home = ({ navigation }) => {
   const [posts, setPosts] = useState([]);
-  const [dbRef, setDbRef] = useState(db.collection("users"));
 
   useEffect(() => {
-   // console.log(dbRef);
+    // console.log(dbRef);
   }, []);
 
   return (
@@ -16,15 +15,13 @@ const Home = ({ navigation }) => {
       <SearchSortBar/>
       <Feed/>
     </View>
-  )
+  );
 };
-
 
 const styles = StyleSheet.create({
   container: {
-    flex:1,
+    flex: 1,
   },
-})
-
+});
 
 export default Home;

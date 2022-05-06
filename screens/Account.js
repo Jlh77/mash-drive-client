@@ -15,7 +15,6 @@ const Account = ({ navigation }) => {
   const [username, setUsername] = useState("testUser");
   const [isLoading, setIsLoading] = useState(false);
   const { currentUser, logout } = useAuth();
-  const [dbRef, setDbRef] = useState(db.collection("users"));
 
   const handleDelete = async () => {};
 

@@ -12,7 +12,6 @@ import { db } from "../firebase.config";
 import { useAuth } from "../contexts/User";
 
 const ForgotPassword = ({ navigation }) => {
-  const [dbRef, setDbRef] = useState(db.collection("users"));
   const [email, setEmail] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   // Should probably have an error state, currently uses alerts

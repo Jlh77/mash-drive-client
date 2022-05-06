@@ -32,12 +32,25 @@ export const UserProvider = (props) => {
 
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged((user) => {
-      setCurrentUser(user);
+      if (user) {
+        db.collection("users")
+          .doc(user.uid)
+          .get()
+          .then((res) => {
+            setCurrentUser({ ...user, ...res.data() });
+          })
+          // testing catch, deal with
+          .catch((err) => {
+            alert("Error loading the user into context");
+          });
+      } else {
+        setCurrentUser(user);
+      }
       setIsLoading(false);
     });
 
     return unsubscribe;
-  });
+  }, []);
 
   const values = {
     currentUser,
