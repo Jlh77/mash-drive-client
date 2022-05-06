@@ -21,11 +21,11 @@ const SearchSortBar = () => {
 }
 
 const styles = StyleSheet.create({
-    wireframeBorder: {
-        borderColor: "black",
-        borderStyle: "solid",
-        borderWidth: 1,
-    },
+    // wireframeBorder: {
+    //     borderColor: "black",
+    //     borderStyle: "solid",
+    //     borderWidth: 1,
+    // },
     barContainer: {
         padding: 3,
         display: "flex",
