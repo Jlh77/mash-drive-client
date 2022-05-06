@@ -80,7 +80,7 @@ const Upload = ({ navigation }) => {
       try {
         setIsUploading(true);
         // upload image to firebase storage
-        const imgName = `img${"currentUser."}${new Date().getTime()}`;
+        const imgName = `img${currentUser.username}${new Date().getTime()}`;
 
         const storageRef = storage.ref(`images/${imgName}.jpg`);
 
@@ -90,6 +90,7 @@ const Upload = ({ navigation }) => {
 
         const uploadTask = storageRef.put(imageBlob, metaData);
 
+        // I need to add some things here to make loading bar update regularly
         uploadTask.on(
           "state_changed",
           (snapshot) => {
@@ -102,16 +103,17 @@ const Upload = ({ navigation }) => {
             // IMPORTANT add proper error message stuff here
             setIsUploading(false);
             setProgress(0);
-            alert(`someting went wrong check logs -> ${err}`);
+            alert(`something went wrong check logs -> ${err}`);
           },
-          // ***** at this point, upload successful, can return image url to do stuff, i set url in the new post
           () => {
+            console.log(db.ref(`images/${imgName}.jpg`).get());
+            // at this point, upload successful, can return image url to do stuff, i set url in the new post
             storage
               .ref("images")
               .child(`${imgName}.jpg`)
               .getDownloadURL()
               .then((url) => {
-                // add post data to collection and link image to post
+                // add post data to collection and link image to post ***** add extra necessary fields here
                 db.collection("posts").doc().set({
                   image_url: url,
                   title,
