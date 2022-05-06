@@ -4,9 +4,7 @@ import { NavigationContainer, useNavigation } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { fetchUserByUid } from './utils/utils';
-
 import { Ionicons } from "@expo/vector-icons";
-
 import {
   Account,
   Gallery,
@@ -22,30 +20,17 @@ import {
   HomeStackScreen,
   LeaderboardStackScreen,
   UploadStackScreen,
+  ScreenStack
 } from "./routes/index";
+import { Navbar } from './components/index';
 import { UserProvider } from "./contexts/User";
-
-const Tab = createBottomTabNavigator();
-
-function MyTabs() {
-  return (
-    <Tab.Navigator>
-      <Tab.Screen name="Home" component={HomeStackScreen} />
-      <Tab.Screen name="Leaderboard" component={LeaderboardStackScreen} />
-      <Tab.Screen name="Upload" component={UploadStackScreen} />
-
-      {/* hardcoded for testing */}
-      <Tab.Screen name="Account" component={Account} />
-      <Tab.Screen name="Register" component={Register} />
-    </Tab.Navigator>
-  );
-}
 
 export default function App() {
   return (
     <UserProvider>
       <NavigationContainer>
-        <MyTabs />
+        <ScreenStack/>
+        <Navbar/>
       </NavigationContainer>
     </UserProvider>
   );

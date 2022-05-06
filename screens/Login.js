@@ -6,13 +6,12 @@ import {
   StyleSheet,
   Button,
   Text,
-  ActivityIndicator
+  ActivityIndicator,
 } from "react-native";
 import { db } from "../firebase.config";
 import { useAuth } from "../contexts/User";
 
 const Login = ({ navigation }) => {
-  const [dbRef, setDbRef] = useState(db.collection("users"));
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [isLoading, setIsLoading] = useState(false);
@@ -27,10 +26,9 @@ const Login = ({ navigation }) => {
 
       try {
         setIsLoading(true);
-        await login(email, password)
-        .then(() => {
-          navigation.navigate('Home')
-         })
+        await login(email, password).then(() => {
+          navigation.navigate("Home");
+        });
       } catch (err) {
         alert(`Error: ${err}`);
       }
