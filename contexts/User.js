@@ -37,7 +37,7 @@ export const UserProvider = (props) => {
           .doc(user.uid)
           .get()
           .then((res) => {
-            setCurrentUser({ ...user, ...res.data() });
+            setCurrentUser({ ...user._delegate, ...res.data() });
           })
           // testing catch, deal with
           .catch((err) => {
