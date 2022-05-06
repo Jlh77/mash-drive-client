@@ -19,6 +19,7 @@ export const UserProvider = (props) => {
       downvoted_posts: [],
       upvoted_comments: [],
       downvoted_comments: [],
+      comments: [],
     });
   };
 
