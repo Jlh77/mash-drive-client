@@ -1,4 +1,4 @@
-import { doc, docs, collection, query, where, orderBy, limit } from 'firebase/firestore'
+import { doc, docs, collection, query, where, orderBy, limit, connectFirestoreEmulator } from 'firebase/firestore'
 import { configureProps } from 'react-native-reanimated/lib/reanimated2/core';
 import { db } from '../firebase.config'
 
@@ -75,8 +75,9 @@ export const getBottomTenVotedPosts = async () => {
 
 export const getCommentsByPostId = async (postId) => {
     try {
-        const commentsRef = db.collection('comments').docs(postId);
-        const comments = await commentsRef.get();
+        
+        const commentsRef = db.collection('comments')
+        const comments = await commentsRef.where('post_id', '==', postId) .get();
         let arr = [];
         comments.docs.forEach(doc => {
             arr.push(doc.data())
