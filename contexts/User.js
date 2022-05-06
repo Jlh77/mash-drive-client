@@ -15,6 +15,10 @@ export const UserProvider = (props) => {
     const cred = await auth.createUserWithEmailAndPassword(email, password);
     return await db.collection("users").doc(cred.user.uid).set({
       username,
+      upvoted_posts: [],
+      downvoted_posts: [],
+      upvoted_comments: [],
+      downvoted_comments: [],
     });
   };
 
@@ -44,7 +48,7 @@ export const UserProvider = (props) => {
             alert("Error loading the user into context");
           });
       } else {
-        setCurrentUser(user);
+        setCurrentUser(null);
       }
       setIsLoading(false);
     });
