@@ -9,7 +9,7 @@ import {
 } from 'react-native';
 import { useEffect, useState } from 'react';
 import { db } from '../firebase.config';
-import { collection, getDocs } from 'firebase/firestore';
+import { collection } from 'firebase/firestore';
 import { TouchableOpacity, ScrollView } from 'react-native-gesture-handler';
 import { fetchUserByUid, getTopTenVotedPosts, getBottomTenVotedPosts, getTopTenUsers, getTenMostCommentedPosts } from '../utils/utils';
 
@@ -101,7 +101,7 @@ const Leaderboard = ({ navigation }) => {
   if (usersOrPosts === 'posts') {
     return (
       <SafeAreaView>
-        <Text>Leaderboard Page</Text>
+        <Text>Top Posts</Text>
         <Button title='Top 10 Recipes' onPress={handleTop}></Button>
         <Button title='Bottom 10 Recipes' onPress={handleBottom}></Button>
         <Button title='Most Commented' onPress={handleComments}></Button>
