@@ -1,4 +1,4 @@
-import { doc, docs, collection, query, where, orderBy, limit, connectFirestoreEmulator } from 'firebase/firestore'
+import { doc, docs, collection, query, where, orderBy, limit, connectFirestoreEmulator, set, add } from 'firebase/firestore'
 import { configureProps } from 'react-native-reanimated/lib/reanimated2/core';
 import { db } from '../firebase.config'
 
@@ -37,6 +37,7 @@ export const fetchPostsByUid = async (uid) => {
         const postsByUser = await postsRef.where('uid', '==', uid).get();
         let arr = [];
         postsByUser.docs.forEach(doc => {
+            console.log(doc, 'doc')
             arr.push(doc.data());
         })
         return arr;
@@ -93,7 +94,7 @@ export const getTenMostCommentedPosts = async () => {
         const postsRef = db.collection('posts');
         const topTenMostCommented = await postsRef.orderBy('comments', 'desc').limit(10).get();
         let arr = [];
-        topTenMostCommented.docs.forEach(post => {
+        topTenMostCommented.docs.forEach(doc => {
             arr.push({...doc.data(), id: doc.id})
         })
         return arr;
@@ -114,4 +115,20 @@ export const getTopTenUsers = async () => {
     } catch (err) {
         console.log(err)
     }
+}
+
+export const submitComment = async (comment, commentersUid) => {
+    try {
+        const res = await db.collection('comments').add(comment);
+
+        // add comment to users 
+        res.id
+        return res;
+    } catch (err) {
+        console.log(err)
+    }
+}
+
+export const incrementCommentCount = async (post_id) => {
+
 }

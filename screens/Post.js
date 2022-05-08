@@ -1,4 +1,11 @@
-import { View, Text, ActivityIndicator, StyleSheet, SafeAreaView, Image } from 'react-native';
+import {
+  View,
+  Text,
+  ActivityIndicator,
+  StyleSheet,
+  SafeAreaView,
+  Image,
+} from 'react-native';
 import { useState, useEffect } from 'react';
 import {
   getCommentsByPostId,
@@ -17,7 +24,7 @@ const Post = ({ route, navigation }) => {
 
   useEffect(() => {
     loadInfo(id);
-  }, []);
+  }, [setCommentData]);
 
   const loadInfo = async (id) => {
     try {
@@ -25,11 +32,11 @@ const Post = ({ route, navigation }) => {
       const author = await fetchUserByUid(post.uid);
       const comments = await getCommentsByPostId(id);
       setPostData(post);
-      console.log(post , 'post')
+      console.log(post, 'post');
       setPostAuthorData(author);
-      console.log(author, 'author')
+      console.log(author, 'author');
       setCommentData(comments);
-      console.log(comments, 'comments')
+      console.log(comments, 'comments');
       setIsLoading(false);
     } catch (err) {
       console.log(err);
@@ -43,27 +50,37 @@ const Post = ({ route, navigation }) => {
   }
 
   return (
-      <SafeAreaView>
-          <ScrollView>
-    <View>
-      <Text style={styles.headerTitle}>{postData.title}</Text>
-      <Text>{postData.description}</Text>
-      <Image style={styles.image} source={{uri: postData.image_url}}></Image>
-      <Text>Votes: {postData.votes}</Text>
-    </View>
-    <View>
-        <Image style={styles.image} source={{uri: postAuthorData.avatar_url}}></Image>
-        <Text>Posted By: {postAuthorData.username}</Text>
-        <Text>Reputation: {postAuthorData.reputation}</Text>
-    </View>
-    <View>
-        <Text style={styles.headerTitle}>Comments</Text>
-        {commentData.map(comment => {
-            <Text>{commentData.username}</Text>
-        })}
-    </View>
-    </ScrollView>
-    <CommentForm postId={postData.id}/>
+    <SafeAreaView>
+      <ScrollView>
+        <View>
+          <Text style={styles.headerTitle}>{postData.title}</Text>
+          <Text>{postData.description}</Text>
+          <Image
+            style={styles.image}
+            source={{ uri: postData.image_url }}
+          ></Image>
+          <Text>Votes: {postData.votes}</Text>
+        </View>
+        <View>
+          <Image
+            style={styles.image}
+            source={{ uri: postAuthorData.avatar_url }}
+          ></Image>
+          <Text>Posted By: {postAuthorData.username}</Text>
+          <Text>Reputation: {postAuthorData.reputation}</Text>
+        </View>
+        <View>
+          <Text style={styles.headerTitle}>Comments</Text>
+          {commentData.map((comment) => {
+            <View>
+              <Text>Comment by {comment.username}</Text>
+              <Text>Reputation: </Text>
+              <Text>Comment body text : {comment.text_body}</Text>
+            </View>;
+          })}
+        </View>
+      </ScrollView>
+      <CommentForm postId={postData.id} setCommentData={setCommentData}/>
     </SafeAreaView>
   );
 };
@@ -72,17 +89,17 @@ export default Post;
 
 const styles = StyleSheet.create({
   headerTitle: {
-    textTransform: "capitalize",
-    textAlign: "center"
-  },  
-  image : {
+    textTransform: 'capitalize',
+    textAlign: 'center',
+  },
+  image: {
     height: 200,
     width: 200,
   },
   container: {
     flex: 1,
     padding: 35,
-    borderWidth: 1, 
+    borderWidth: 1,
   },
   inputGroup: {
     flex: 1,
