@@ -6,18 +6,23 @@ import { submitComment, incrementCommentCount } from '../utils/utils';
 
 const CommentForm = ({ navigation, postId, setCommentData }) => {
   const [commentBody, setCommentBody] = useState('');
+  const [disabled, setDisabled] = useState(false);
   const { currentUser } = useAuth();
 
   const handleSubmit = async () => {
-    //make comment object
-    const commentToSubmit = {};
-        commentToSubmit.username = currentUser.username;
-        commentToSubmit.uid = currentUser.uid;
-        commentToSubmit.post_id = postId;
-        commentToSubmit.text_body = commentBody;
-        commentToSubmit.votes = 0;    
+      if (commentBody === "") {
+          alert("Please Enter a comment")
+      } else {
+        setDisabled(true);
+          //make comment object
+          const commentToSubmit = {};
+          commentToSubmit.username = currentUser.username;
+          commentToSubmit.uid = currentUser.uid;
+          commentToSubmit.post_id = postId;
+          commentToSubmit.text_body = commentBody;
+          commentToSubmit.votes = 0;    
 
-    //optimisticly render comments with new comment on top
+          //optimisticly render comments with new comment on top
     setCommentData((curr) => {
         return ([commentToSubmit, ...curr])
     })
@@ -25,17 +30,23 @@ const CommentForm = ({ navigation, postId, setCommentData }) => {
     try {
         //post to comment collection
         const res = await submitComment(commentToSubmit);
+        
+        //increment posts comment count  
+        const inc = await incrementCommentCount(postId);
 
-        //increment posts comment count + add comment to users comments array
-        const inc = await incrementCommentCount(postId, currentUser.uid);
+        // add comment to users comments array
+
+
     } catch (err) {
-
+        
     }
     //make form text input empty
     setCommentBody('')
-  }
+    setDisabled(false);
+}
+}
 
-  if (!currentUser) {
+if (!currentUser) {
     return (
       <TouchableOpacity
         onPress={() => {
@@ -58,7 +69,7 @@ const CommentForm = ({ navigation, postId, setCommentData }) => {
         ></TextInput>
       </View>
       <View style={styles.inputGroup}>
-          <Button title={'Post Comment'} onPress={handleSubmit}></Button>
+          <Button disabled={disabled} title={'Post Comment'} onPress={handleSubmit}></Button>
       </View>
     </ScrollView>
   );

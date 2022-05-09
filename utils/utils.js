@@ -1,6 +1,8 @@
-import { doc, docs, collection, query, where, orderBy, limit, connectFirestoreEmulator, set, add } from 'firebase/firestore'
-import { configureProps } from 'react-native-reanimated/lib/reanimated2/core';
+import { doc, docs, collection, query, where, orderBy, limit, connectFirestoreEmulator, set, add, update, FieldValue } from 'firebase/firestore'
 import { db } from '../firebase.config'
+
+
+
 
 export const fetchPostByPostId = async (postId) => {
     try {
@@ -130,5 +132,11 @@ export const submitComment = async (comment, commentersUid) => {
 }
 
 export const incrementCommentCount = async (post_id) => {
-
+    try {
+        const postsRef = await db.collection('posts').doc(post_id)
+        const res = await postsRef.update({'comments': FieldValue.increment(1)})
+        return res;
+    } catch (err) {
+        console.log(err)
+    }
 }
