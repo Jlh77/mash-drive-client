@@ -191,8 +191,8 @@ export const upvotePost = async (currentUser, post_id) => {
 
 export const downvotePost = async (currentUser, post_id) => {
   if (!currentUser) {
-    //some error logic
-    alert("You must be logged in to vote on a post.");
+    //some error logic MUST Return to exit func
+    return alert("You must be logged in to vote on a post.");
   }
 
   const user = db.collection("users").doc(currentUser.uid);
