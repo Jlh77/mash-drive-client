@@ -17,22 +17,22 @@ export const fetchPostByPostId = async (postId) => {
         }
     } catch (err) {
         console.log(err)
-    }
-}
+  }
+};
 
-export const fetchUserByUid =  async (uid) => {
-    try {
-        const userRef = db.collection('users').doc(uid);
-        const user = await userRef.get()
-        if (!user) {
-            Promise.reject({status: 404, msg: 'Not Found'})
-        } else {
-            return user.data();
-        }
-    } catch (err) {
-        console.log(err)
-      }
-}
+export const fetchUserByUid = async (uid) => {
+  try {
+    const userRef = db.collection("users").doc(uid);
+    const user = await userRef.get();
+    if (!user) {
+      Promise.reject({ status: 404, msg: "Not Found" });
+    } else {
+      return user.data();
+    }
+  } catch (err) {
+    console.log(err);
+  }
+};
 
 export const fetchPostsByUid = async (uid) => {
     try {
@@ -49,33 +49,34 @@ export const fetchPostsByUid = async (uid) => {
     }
 }
 
+
 export const getTopTenVotedPosts = async () => {
-    try {
-        const postsRef = db.collection('posts')
-        const topTenVoted = await postsRef.orderBy('votes', 'desc').limit(10).get();
-        let arr = [];
-        topTenVoted.docs.forEach(doc => {
-            arr.push({...doc.data(), id: doc.id})
-        })
-        return arr;
-    } catch (err) {
-        console.log(err)
-    }
-}
+  try {
+    const postsRef = db.collection("posts");
+    const topTenVoted = await postsRef.orderBy("votes", "desc").limit(10).get();
+    let arr = [];
+    topTenVoted.docs.forEach((doc) => {
+      arr.push({ ...doc.data(), id: doc.id });
+    });
+    return arr;
+  } catch (err) {
+    console.log(err);
+  }
+};
 
 export const getBottomTenVotedPosts = async () => {
-    try {
-        const postsRef = db.collection('posts')
-        const topTenVoted = await postsRef.orderBy('votes').limit(10).get();
-        let arr = [];
-        topTenVoted.docs.forEach(doc => {
-            arr.push({...doc.data(), id: doc.id})
-        })
-        return arr;
-    } catch (err) {
-        console.log(err)
-    }
-}
+  try {
+    const postsRef = db.collection("posts");
+    const topTenVoted = await postsRef.orderBy("votes").limit(10).get();
+    let arr = [];
+    topTenVoted.docs.forEach((doc) => {
+      arr.push({ ...doc.data(), id: doc.id });
+    });
+    return arr;
+  } catch (err) {
+    console.log(err);
+  }
+};
 
 export const getCommentsByPostId = async (postId) => {
     try {
@@ -106,22 +107,145 @@ export const getTenMostCommentedPosts = async () => {
         return arr;
     } catch (err) {
         console.log(err)
-    }
-}
+  }
+};
 
 export const getTopTenUsers = async () => {
-    try{
-        const usersRef = db.collection('users')
-        const topTenReputation = await usersRef.orderBy('reputation', 'desc').limit(10).get();
-        let arr = [];
-        topTenReputation.docs.forEach(user => {
-            arr.push(user.data())
+  try {
+    const usersRef = db.collection("users");
+    const topTenReputation = await usersRef
+      .orderBy("reputation", "desc")
+      .limit(10)
+      .get();
+    let arr = [];
+    topTenReputation.docs.forEach((user) => {
+      arr.push(user.data());
+    });
+    return arr;
+  } catch (err) {
+    console.log(err);
+  }
+};
+
+export const upvotePost = async (currentUser, post_id) => {
+  if (!currentUser) {
+    //some error logic that MUST return
+    return alert("You must be logged in to vote on a post.");
+  }
+
+  const user = db.collection("users").doc(currentUser.uid);
+
+  return user.get().then((doc) => {
+    if (doc.data().upvoted_posts.includes(post_id)) {
+      // already votes, undo vote
+      alert("temp undid vote");
+      const newUpvotedPosts = doc
+        .data()
+        .upvoted_posts.filter((post) => post !== post_id);
+      return user
+        .update({
+          upvoted_posts: [...newUpvotedPosts],
         })
-        return arr;
-    } catch (err) {
-        console.log(err)
+        .then(() => {
+          return db
+            .collection("posts")
+            .doc(post_id)
+            .update({
+              upvotes: FieldValue.increment(-1),
+            });
+        });
+    } else if (doc.data().downvoted_posts.includes(post_id)) {
+      alert("temp undid downvote, to voteu p");
+      const newDownvotedPosts = doc
+        .data()
+        .downvoted_posts.filter((post) => post !== post_id);
+      user
+        .update({
+          downvoted_posts: [...newDownvotedPosts],
+        })
+        .then(() => {
+          db.collection("posts")
+            .doc(post_id)
+            .update({
+              downvotes: FieldValue.increment(-1),
+            });
+        });
     }
-}
+    // do upvote
+    return user
+      .update({
+        upvoted_posts: [...doc.data().upvoted_posts, post_id],
+      })
+      .then(() => {
+        return db
+          .collection("posts")
+          .doc(post_id)
+          .update({
+            upvotes: FieldValue.increment(1),
+          });
+      });
+  });
+};
+
+export const downvotePost = async (currentUser, post_id) => {
+  if (!currentUser) {
+    //some error logic MUST Return to exit func
+    return alert("You must be logged in to vote on a post.");
+  }
+
+  const user = db.collection("users").doc(currentUser.uid);
+
+  return user.get().then((doc) => {
+    if (doc.data().downvoted_posts.includes(post_id)) {
+      // already votes, undo vote
+      alert("temp undid vote");
+      const newDownvotedPosts = doc
+        .data()
+        .downvoted_posts.filter((post) => post !== post_id);
+      return user
+        .update({
+          upvoted_posts: [...newDownvotedPosts],
+        })
+        .then(() => {
+          return db
+            .collection("posts")
+            .doc(post_id)
+            .update({
+              downvotes: FieldValue.increment(-1),
+            });
+        });
+    } else if (doc.data().upvoted_posts.includes(post_id)) {
+      alert("temp undid downvote, to voteu p");
+      const newUpvotedPosts = doc
+        .data()
+        .upvoted_posts.filter((post) => post !== post_id);
+      user
+        .update({
+          upvoted_posts: [...newUpvotedPosts],
+        })
+        .then(() => {
+          db.collection("posts")
+            .doc(post_id)
+            .update({
+              upvotes: FieldValue.increment(-1),
+            });
+        });
+    }
+    // do downvote
+    return user
+      .update({
+        downvoted_posts: [...doc.data().downvoted_posts, post_id],
+      })
+      .then(() => {
+        return db
+          .collection("posts")
+          .doc(post_id)
+          .update({
+            downvote: FieldValue.increment(1),
+          });
+      });
+  });
+};
 
 export const submitComment = async (comment, commentersUid) => {
     try {
@@ -146,3 +270,4 @@ export const incrementCommentCount = async (post_id) => {
         console.log(err)
     }
 }
+

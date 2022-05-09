@@ -1,6 +1,6 @@
 import { StyleSheet, View, Text, TouchableOpacity } from "react-native";
 import { useNavigation } from '@react-navigation/native';
-import { FontAwesome5 } from '@expo/vector-icons';
+import { FontAwesome5, MaterialIcons } from '@expo/vector-icons';
 
 const SearchSortBar = () => {
 
@@ -8,24 +8,25 @@ const SearchSortBar = () => {
 
     return <View style={[styles.barContainer, styles.wireframeBorder]}>
         <TouchableOpacity style={[styles.search, styles.wireframeBorder]}>
-            <FontAwesome5 style={[styles.searchIcon, styles.wireframeBorder]} name="search" size={24} color="grey" />
+            {/* <FontAwesome5 style={[styles.searchIcon, styles.wireframeBorder]} name="search" size={24} color="grey" /> */}
+            <MaterialIcons style={[styles.searchIcon, styles.wireframeBorder]} name="search" size={30} color="grey" />
             <Text style={[styles.searchText, styles.wireframeBorder]}>Search</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={[styles.sort, styles.wireframeBorder]}>
+        {/* <TouchableOpacity style={[styles.sort, styles.wireframeBorder]}>
             <FontAwesome5 style={[styles.sortIcon, styles.wireframeBorder]} name="sort" size={24} color="grey" />
             <Text style={[styles.sortText, styles.wireframeBorder]}>Sort</Text>
-        </TouchableOpacity>
+        </TouchableOpacity> */}
         <View style={[styles.avi, styles.wireframeBorder]}></View>
     </View>
     
 }
 
 const styles = StyleSheet.create({
-    wireframeBorder: {
-        borderColor: "black",
-        borderStyle: "solid",
-        borderWidth: 1,
-    },
+    // wireframeBorder: {
+    //     borderColor: "black",
+    //     borderStyle: "solid",
+    //     borderWidth: 1,
+    // },
     barContainer: {
         padding: 3,
         display: "flex",
@@ -54,6 +55,8 @@ const styles = StyleSheet.create({
     },
     searchText: {
         flexGrow: 1,
+        paddingTop: 7,
+        height: 25,
     },
     sortIcon: {
         flexGrow: 0,

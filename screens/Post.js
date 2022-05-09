@@ -119,21 +119,22 @@ const styles = StyleSheet.create({
     flex: 1,
     padding: 35,
     borderWidth: 1,
+
   },
   inputGroup: {
     flex: 1,
     padding: 0,
     marginBottom: 15,
     borderBottomWidth: 1,
-    borderBottomColor: '#cccccc',
+    borderBottomColor: "#cccccc",
   },
   preloader: {
     left: 0,
     right: 0,
     top: 0,
     bottom: 0,
-    position: 'absolute',
-    alignItems: 'center',
-    justifyContent: 'center',
+    position: "absolute",
+    alignItems: "center",
+    justifyContent: "center",
   },
 });

@@ -1,19 +1,31 @@
 import { useEffect, useState } from "react";
-import { Button, Text, View, StyleSheet } from "react-native";
+import { View, StyleSheet } from "react-native";
 import { db } from "../firebase.config";
 import { SearchSortBar, Feed } from "../components/index";
+import { collection } from 'firebase/firestore';
+import getPosts from '../controllers/index';
 
-const Home = ({ navigation }) => {
+const Home = ({ route }) => {
   const [posts, setPosts] = useState([]);
+  const postsCollection = collection(db, 'posts');
+
+  const setCurrentRoute = route.params?.setCurrentRoute;
 
   useEffect(() => {
-    // console.log(dbRef);
+
+    getPosts(postsCollection)
+      .then((data) => {
+        setPosts(() => {
+            return data;
+        })
+      })
+ 
   }, []);
 
   return (
     <View style={styles.container}>
       <SearchSortBar/>
-      <Feed/>
+      <Feed posts={posts} setCurrentRoute={setCurrentRoute} />
     </View>
   );
 };
