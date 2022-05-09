@@ -8,10 +8,8 @@ import getPosts from '../controllers/index';
 const Home = ({ route }) => {
   const [posts, setPosts] = useState([]);
   const postsCollection = collection(db, 'posts');
-  console.log(route.params, 'route.params')
-  const setCurrentRoute = route.params?.setCurrentRoute;
+  // const setCurrentRoute = route.params?.setCurrentRoute;
   
-  console.log(setCurrentRoute, 'setcurrent route in home')
   useEffect(() => {
 
     getPosts(postsCollection)
@@ -26,7 +24,8 @@ const Home = ({ route }) => {
   return (
     <View style={styles.container}>
       <SearchSortBar/>
-      <Feed posts={posts} setCurrentRoute={setCurrentRoute} />
+      <Feed posts={posts} />
+      {/* <Feed posts={posts} setCurrentRoute={setCurrentRoute} /> */}
     </View>
   );
 };

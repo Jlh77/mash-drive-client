@@ -9,29 +9,30 @@ import { useState } from "react";
     const { currentUser } = useAuth();
 
     const [currentRoute, setCurrentRoute] = useState(currentUser ? "Home" : "Login");
-console.log(setCurrentRoute, 'setcurrent route in navbar')
+    
     const activeIconCheck = (screen) => { 
         return currentRoute === screen ? styles.iconActive : styles.icon
     }
 
-    // const navPress = (pathname) => {
-    //     setCurrentRoute(() => pathname);
-    //     navigation.navigate(pathname);
-    // }
-
-    const navPress = (pathname, params = {}) => {
-        if (params === {}) {
-            setCurrentRoute(() => pathname);
-            navigation.navigate(pathname);
-        } else {
-            setCurrentRoute(() => pathname);
-            navigation.navigate(pathname, params);
-        }
+    const navPress = (pathname) => {
+        setCurrentRoute(() => pathname);
+        navigation.navigate(pathname);
     }
+
+    // const navPress = (pathname, params = "") => {
+    //     if (params === "") {
+    //         setCurrentRoute(() => pathname);
+    //         navigation.navigate(pathname);
+    //     } else {
+    //         setCurrentRoute(() => pathname);
+    //         navigation.navigate(pathname, params);
+    //     }
+    // }
 
     return currentUser ? (
         <View style={[styles.navbar , styles.wireframeBorder]}>
-            <TouchableOpacity style={[styles.iconContainer, styles.wireframeBorder]} onPress={() => navPress('Home', {setCurrentRoute: setCurrentRoute})}>
+            <TouchableOpacity style={[styles.iconContainer, styles.wireframeBorder]} onPress={() => navPress('Home')}>
+            {/* <TouchableOpacity style={[styles.iconContainer, styles.wireframeBorder]} onPress={() => navPress('Home', {setCurrentRoute: setCurrentRoute})}> */}
                 {/* <FontAwesome5 style={[activeIconCheck("Home"), styles.wireframeBorder]} name="home" size={24} /> */}
                 <MaterialIcons style={[activeIconCheck("Home"), styles.wireframeBorder]} name="home" size={30} />
             </TouchableOpacity>
