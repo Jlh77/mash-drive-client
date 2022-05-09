@@ -67,14 +67,14 @@ padding: 10
 },
 
 column: {
-  flex: '25%',
-  maxWidth: '25%',
+  /* flex: '25%',
+  maxWidth: '25%', */
   padding: 10
 },
 
 column_img: {
 marginTop: 8,
-textAlignVertical: 'middle',
+textAlignVertical: 'center',
 width: 100,
 backgroundColor: 'black'
 },
@@ -91,7 +91,7 @@ textAlign: "center",
 textTransform: 'uppercase',
 fontFamily: '"Times New Roman", Times, serif',
 fontWeight: 'bold',
-fontSize: '30px',
+fontSize: 30,
   },
   container: {
     flex: 1,

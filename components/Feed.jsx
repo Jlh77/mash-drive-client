@@ -2,7 +2,7 @@ import { StyleSheet, View, Text, FlatList } from 'react-native';
 import { ShortPostCard } from './index';
 
 const Feed = ({ posts, setCurrentRoute }) => {
-
+console.log(setCurrentRoute, 'setcurrentroute in feed')
     return <View style={styles.feedContainer}>
                 <Text style={styles.text}>Your feed...</Text>
                 <FlatList style={styles.feedList} data={posts} renderItem={(post) => {

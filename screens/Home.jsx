@@ -8,9 +8,10 @@ import getPosts from '../controllers/index';
 const Home = ({ route }) => {
   const [posts, setPosts] = useState([]);
   const postsCollection = collection(db, 'posts');
-
+  console.log(route.params, 'route.params')
   const setCurrentRoute = route.params?.setCurrentRoute;
-
+  
+  console.log(setCurrentRoute, 'setcurrent route in home')
   useEffect(() => {
 
     getPosts(postsCollection)
