@@ -8,7 +8,7 @@ import {
   limit,
 } from "firebase/firestore";
 import { configureProps } from "react-native-reanimated/lib/reanimated2/core";
-import { db, firebase } from "../firebase.config";
+import { db, firebased } from "../firebase.config";
 
 export const fetchPostByPostId = async (postId) => {
   try {
@@ -153,7 +153,7 @@ export const upvotePost = async (currentUser, post_id) => {
             .collection("posts")
             .doc(post_id)
             .update({
-              upvotes: firebase.firestore.FieldValue.increment(-1),
+              upvotes: firebased.firestore.FieldValue.increment(-1),
             });
         });
     } else if (doc.data().downvoted_posts.includes(post_id)) {
@@ -169,7 +169,7 @@ export const upvotePost = async (currentUser, post_id) => {
           db.collection("posts")
             .doc(post_id)
             .update({
-              downvotes: firebase.firestore.FieldValue.increment(-1),
+              downvotes: firebased.firestore.FieldValue.increment(-1),
             });
         });
     }
@@ -183,7 +183,7 @@ export const upvotePost = async (currentUser, post_id) => {
           .collection("posts")
           .doc(post_id)
           .update({
-            upvotes: firebase.firestore.FieldValue.increment(1),
+            upvotes: firebased.firestore.FieldValue.increment(1),
           });
       });
   });
@@ -213,7 +213,7 @@ export const downvotePost = async (currentUser, post_id) => {
             .collection("posts")
             .doc(post_id)
             .update({
-              downvotes: firebase.firestore.FieldValue.increment(-1),
+              downvotes: firebased.firestore.FieldValue.increment(-1),
             });
         });
     } else if (doc.data().upvoted_posts.includes(post_id)) {
@@ -229,7 +229,7 @@ export const downvotePost = async (currentUser, post_id) => {
           db.collection("posts")
             .doc(post_id)
             .update({
-              upvotes: firebase.firestore.FieldValue.increment(-1),
+              upvotes: firebased.firestore.FieldValue.increment(-1),
             });
         });
     }
@@ -243,7 +243,7 @@ export const downvotePost = async (currentUser, post_id) => {
           .collection("posts")
           .doc(post_id)
           .update({
-            downvote: firebase.firestore.FieldValue.increment(1),
+            downvote: firebased.firestore.FieldValue.increment(1),
           });
       });
   });
