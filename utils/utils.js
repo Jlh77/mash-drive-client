@@ -214,7 +214,7 @@ export const downvotePost = async (currentUser, post_id) => {
             .collection("posts")
             .doc(post_id)
             .update({
-              downvotes: firebased.firestore.FieldValue.increment(-1),
+              downvotes: FieldValue.increment(-1),
             });
         });
     } else if (doc.data().upvoted_posts.includes(post_id)) {
@@ -230,7 +230,7 @@ export const downvotePost = async (currentUser, post_id) => {
           db.collection("posts")
             .doc(post_id)
             .update({
-              upvotes: firebased.firestore.FieldValue.increment(-1),
+              upvotes: FieldValue.increment(-1),
             });
         });
     }
@@ -244,7 +244,7 @@ export const downvotePost = async (currentUser, post_id) => {
           .collection("posts")
           .doc(post_id)
           .update({
-            downvote: firebased.firestore.FieldValue.increment(1),
+            downvote: FieldValue.increment(1),
           });
       });
   });
