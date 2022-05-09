@@ -29,9 +29,11 @@ const Post = ({ route, navigation }) => {
   const loadInfo = async (id) => {
     try {
       const post = await fetchPostByPostId(id);
+      console.log(post, 'post')
       const author = await fetchUserByUid(post.uid);
       const comments = await getCommentsByPostId(id);
       setPostData(post);
+      console.log(author, 'author')
       setPostAuthorData(author);
       setCommentData(comments);
       setIsLoading(false);

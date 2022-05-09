@@ -9,7 +9,7 @@ import { useState } from "react";
     const { currentUser } = useAuth();
 
     const [currentRoute, setCurrentRoute] = useState(currentUser ? "Home" : "Login");
-console.log(setCurrentRoute, 'setcurrent route in navbar')
+
     const activeIconCheck = (screen) => { 
         return currentRoute === screen ? styles.iconActive : styles.icon
     }
