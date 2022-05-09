@@ -69,9 +69,7 @@ const Post = ({ route, navigation }) => {
           <CommentList commentData={commentData} />
           <CommentForm postId={postData.id} setCommentData={setCommentData} />
         </View>
-        
       </ScrollView>
-      {/* <CommentForm postId={postData.id} setCommentData={setCommentData} /> */}
     </SafeAreaView>
   );
 };
