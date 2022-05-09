@@ -1,4 +1,11 @@
-import { View, Text, ScrollView, StyleSheet, TextInput, Button } from 'react-native';
+import {
+  View,
+  Text,
+  ScrollView,
+  StyleSheet,
+  TextInput,
+  Button,
+} from 'react-native';
 import { useState } from 'react';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { useAuth } from '../contexts/User';
@@ -10,44 +17,40 @@ const CommentForm = ({ navigation, postId, setCommentData }) => {
   const { currentUser } = useAuth();
 
   const handleSubmit = async () => {
-      if (commentBody === "") {
-          alert("Please Enter a comment")
-      } else {
-        setDisabled(true);
-          //make comment object
-          const commentToSubmit = {};
-          commentToSubmit.username = currentUser.username;
-          commentToSubmit.uid = currentUser.uid;
-          commentToSubmit.post_id = postId;
-          commentToSubmit.text_body = commentBody;
-          commentToSubmit.votes = 0;    
+    if (commentBody === '') {
+      alert('Please Enter a comment');
+    } else {
+      setDisabled(true);
+      //make comment object
+      const commentToSubmit = {};
+      commentToSubmit.username = currentUser.username;
+      commentToSubmit.uid = currentUser.uid;
+      commentToSubmit.post_id = postId;
+      commentToSubmit.text_body = commentBody;
+      commentToSubmit.votes = 0;
 
-          //optimisticly render comments with new comment on top
-    setCommentData((curr) => {
-        return ([...curr, commentToSubmit])
-    })
+      //optimisticly render comments with new comment on top
+      setCommentData((curr) => {
+        const tempCopy = { ...commentToSubmit };
+        //make random temp id number so mapped element has keys
+        tempCopy.id = Math.floor(Math.random() * 10000).toString();
+        return [...curr, tempCopy];
+      });
 
-    try {
-        //post to comment collection
-        console.log(currentUser.uid, 'uid')
-        const res = await submitComment(commentToSubmit);
-        
-        //increment posts comment count  
+      try {
+        //post to comment collection + add to users array_of_comment_ids
+        const res = await submitComment(commentToSubmit, currentUser.uid);
+
+        //increment posts comment count
         const inc = await incrementCommentCount(postId);
-
-        // add comment to users comments array
-
-
-    } catch (err) {
-        
+      } catch (err) {}
+      //make form text input empty
+      setCommentBody('');
+      setDisabled(false);
     }
-    //make form text input empty
-    setCommentBody('')
-    setDisabled(false);
-}
-}
+  };
 
-if (!currentUser) {
+  if (!currentUser) {
     return (
       <TouchableOpacity
         onPress={() => {
@@ -60,23 +63,36 @@ if (!currentUser) {
   }
 
   return (
-    <ScrollView>
+    <ScrollView style={styles.commentsForm}>
       <Text>Logged in as {currentUser.username}</Text>
-      <View style={styles.inputGroup}>
+      <View>
         <TextInput
+          style={styles.inputGroup}
           placeholder={'Leave A Comment'}
           value={commentBody}
           onChangeText={setCommentBody}
         ></TextInput>
       </View>
       <View style={styles.inputGroup}>
-          <Button disabled={disabled} title={'Post Comment'} onPress={handleSubmit}></Button>
+        <Button
+          disabled={disabled}
+          title={'Post Comment'}
+          onPress={handleSubmit}
+        ></Button>
       </View>
     </ScrollView>
   );
 };
 
 const styles = StyleSheet.create({
+  commentsForm: {
+    padding: 20,
+    fontSize: 15,
+    marginTop: 5,
+    textTransform: 'capitalize',
+    borderWidth: 1,
+    backgroundColor: 'beige',
+  },
   container: {
     flex: 1,
     padding: 35,

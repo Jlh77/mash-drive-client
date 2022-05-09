@@ -52,25 +52,23 @@ const Post = ({ route, navigation }) => {
   return (
     <SafeAreaView>
       <ScrollView>
-        <View>
+        <View style={styles.mainPostArea}>
           <Text style={styles.headerTitle}>{postData.title}</Text>
-          <Text>{postData.description}</Text>
           <Image
             style={styles.image}
             source={{ uri: postData.image_url }}
           ></Image>
+          <Text>{postData.description}</Text>
           <Text>Votes: {postData.votes}</Text>
-        </View>
-        <View>
           <Image
-            style={styles.image}
+            style={styles.authorAvatar}
             source={{ uri: postAuthorData.avatar_url }}
           ></Image>
           <Text>Posted By: {postAuthorData.username}</Text>
           <Text>Reputation: {postAuthorData.reputation}</Text>
         </View>
-        <View>
-          <Text style={styles.headerTitle}>Comments</Text>
+        <View style={styles.commentsSection}>
+          <Text style={styles.commentsHeader}>Comments</Text>
           {commentData.map((comment) => {
             return (
               <View key={comment.id}>
@@ -90,13 +88,35 @@ const Post = ({ route, navigation }) => {
 export default Post;
 
 const styles = StyleSheet.create({
+  mainPostArea: {
+    borderWidth: 4,
+    justifyContent: 'center',
+  },
+  commentsSection: {
+    padding: 20,
+    fontSize: 15,
+    marginTop: 5,
+    textTransform: 'capitalize',
+    borderWidth: 1,
+    backgroundColor: 'beige',
+  },
+  
   headerTitle: {
     textTransform: 'capitalize',
     textAlign: 'center',
+    fontSize: 40,
+  },
+  commentsHeader : {
+    textAlign: 'center',
+    fontSize: 25,
   },
   image: {
     height: 200,
     width: 200,
+  },
+  authorAvatar: {
+    height: 50,
+    width: 50,
   },
   container: {
     flex: 1,

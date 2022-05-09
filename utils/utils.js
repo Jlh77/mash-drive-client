@@ -1,5 +1,6 @@
 import { doc, docs, collection, query, where, orderBy, limit, connectFirestoreEmulator, set, add, update, FieldValue } from 'firebase/firestore'
 import { db, firebased } from '../firebase.config'
+import firebase from 'firebase/compat';
 
 
 
@@ -11,7 +12,7 @@ export const fetchPostByPostId = async (postId) => {
         if (!post) {
             Promise.reject({status: 404, msg: 'Not Found'})
         } else {
-            const result = await {...post.data(), id: post.id}
+            const result = {...post.data(), id: post.id}
             return result;
         }
     } catch (err) {
@@ -83,7 +84,9 @@ export const getCommentsByPostId = async (postId) => {
         const comments = await commentsRef.where('post_id', '==', postId) .get();
         let arr = [];
         comments.docs.forEach(doc => {
-            arr.push({...doc.data(), id: doc.id})
+            const comment = {...doc.data()}
+            comment.id = doc.id
+            arr.push(comment);
         })
         return arr;
     } catch (err) {
@@ -126,6 +129,8 @@ export const submitComment = async (comment, commentersUid) => {
 
         // add comment to users 
         //res.id
+        const updateUsersArrayOfCommentsRef = db.collection('users').doc(commentersUid);
+        const unionRes = await updateUsersArrayOfCommentsRef.update({array_of_comment_ids: firebase.firestore.FieldValue.arrayUnion(res.id)})
         return res;
     } catch (err) {
         console.log(err)
@@ -135,7 +140,7 @@ export const submitComment = async (comment, commentersUid) => {
 export const incrementCommentCount = async (post_id) => {
     try {
         const postsRef = db.collection('posts').doc(post_id)
-        const res = await postsRef.update({comments: firebased.firestore.FieldValue.increment(1)})
+        const res = await postsRef.update({comments: firebase.firestore.FieldValue.increment(1)})
         return res;
     } catch (err) {
         console.log(err)
