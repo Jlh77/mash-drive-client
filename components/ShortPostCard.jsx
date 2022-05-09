@@ -1,14 +1,15 @@
 import { StyleSheet, View, Text, TouchableOpacity, Image } from "react-native";
 import { useNavigation } from '@react-navigation/native';
 
-const ShortPostCard = ({ post, setCurrentRoute }) => {
+const ShortPostCard = ({ post }) => {
+
     
     const content = post.item;
 
     const navigation = useNavigation();
 
     const postPress = (id) => {
-        setCurrentRoute(() => 'Post')
+        // setCurrentRoute(() => 'Post')
         navigation.navigate('Post', { id: content.id })
     }
 
