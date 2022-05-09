@@ -17,11 +17,8 @@ import { fetchUserByUid, getTopTenVotedPosts, getBottomTenVotedPosts, getTopTenU
 LogBox.ignoreLogs(['Setting a timer for a long period of time'])
 
 const Leaderboard = ({ navigation }) => {
-  const postsRef = collection(db, 'posts');
-  const usersRef = collection(db, 'users');
   const [topTen, setTopTen] = useState([]);
   const [topTenUsers, setTopTenUsers] = useState([]);
-  const [mostCommented, setMostCommented] = useState([]);
   const [usersOrPosts, setUsersOrPosts] = useState('posts');
   const [isLoading, setIsLoading] = useState(true);
 
@@ -84,7 +81,7 @@ const Leaderboard = ({ navigation }) => {
         post.username = userdata.username;
         post.user_reputation = userdata.reputation;
       }
-      setMostCommented(fetchedTopTen);
+      setTopTen(fetchedTopTen);
       setUsersOrPosts('posts');
       setIsLoading(false);
     } catch (err) {

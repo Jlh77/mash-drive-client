@@ -1,28 +1,22 @@
-import {
-  doc,
-  docs,
-  collection,
-  FieldValue,
-  query,
-  where,
-  orderBy,
-  limit,
-} from "firebase/firestore";
-import { configureProps } from "react-native-reanimated/lib/reanimated2/core";
-import { db } from "../firebase.config";
+import { doc, docs, collection, query, where, orderBy, limit, set, add, update } from 'firebase/firestore'
+import { db, firebased } from '../firebase.config'
+import firebase from 'firebase/compat';
+
+
+
 
 export const fetchPostByPostId = async (postId) => {
-  try {
-    const postRef = db.collection("posts").doc(postId);
-    const post = await postRef.get();
-    if (!post) {
-      Promise.reject({ status: 404, msg: "Not Found" });
-    } else {
-      const result = await { ...post.data(), id: post.id };
-      return result;
-    }
-  } catch (err) {
-    console.log(err);
+    try {
+        const postRef = db.collection('posts').doc(postId);
+        const post = await postRef.get();
+        if (!post) {
+            Promise.reject({status: 404, msg: 'Not Found'})
+        } else {
+            const result = {...post.data(), id: post.id}
+            return result;
+        }
+    } catch (err) {
+        console.log(err)
   }
 };
 
@@ -41,18 +35,20 @@ export const fetchUserByUid = async (uid) => {
 };
 
 export const fetchPostsByUid = async (uid) => {
-  try {
-    const postsRef = db.collection("posts");
-    const postsByUser = await postsRef.where("uid", "==", uid).get();
-    let arr = [];
-    postsByUser.docs.forEach((doc) => {
-      arr.push(doc.data());
-    });
-    return arr;
-  } catch (err) {
-    console.log(err);
-  }
-};
+    try {
+        const postsRef = db.collection('posts')
+        const postsByUser = await postsRef.where('uid', '==', uid).get();
+        let arr = [];
+        postsByUser.docs.forEach(doc => {
+            console.log(doc, 'doc')
+            arr.push(doc.data());
+        })
+        return arr;
+    } catch (err) {
+        console.log(err)
+    }
+}
+
 
 export const getTopTenVotedPosts = async () => {
   try {
@@ -83,33 +79,34 @@ export const getBottomTenVotedPosts = async () => {
 };
 
 export const getCommentsByPostId = async (postId) => {
-  try {
-    const commentsRef = db.collection("comments").docs(postId);
-    const comments = await commentsRef.get();
-    let arr = [];
-    comments.docs.forEach((doc) => {
-      arr.push(doc.data());
-    });
-    return arr;
-  } catch (err) {
-    console.log(err);
-  }
-};
+    try {
+        
+        const commentsRef = db.collection('comments')
+        const comments = await commentsRef.where('post_id', '==', postId) .get();
+        let arr = [];
+        comments.docs.forEach(doc => {
+            const comment = {...doc.data()}
+            comment.id = doc.id
+            arr.push(comment);
+        })
+        return arr;
+    } catch (err) {
+        console.log(err);
+    }
+}
 
 export const getTenMostCommentedPosts = async () => {
-  try {
-    const postsRef = db.collection("posts");
-    const topTenMostCommented = await postsRef
-      .orderBy("comments", "desc")
-      .limit(10)
-      .get();
-    let arr = [];
-    topTenMostCommented.docs.forEach((post) => {
-      arr.push({ ...doc.data(), id: doc.id });
-    });
-    return arr;
-  } catch (err) {
-    console.log(err);
+    try {
+        const postsRef = db.collection('posts');
+        const topTenMostCommented = await postsRef.orderBy('comments', 'desc').limit(10).get();
+        let arr = [];
+        topTenMostCommented.docs.forEach(doc => {
+            arr.push({...doc.data(), id: doc.id})
+        })
+        console.log(arr, 'arr of top10comments')
+        return arr;
+    } catch (err) {
+        console.log(err)
   }
 };
 
@@ -249,3 +246,28 @@ export const downvotePost = async (currentUser, post_id) => {
       });
   });
 };
+
+export const submitComment = async (comment, commentersUid) => {
+    try {
+        const res = await db.collection('comments').add(comment);
+
+        // add comment to users 
+        //res.id
+        const updateUsersArrayOfCommentsRef = db.collection('users').doc(commentersUid);
+        const unionRes = await updateUsersArrayOfCommentsRef.update({array_of_comment_ids: firebase.firestore.FieldValue.arrayUnion(res.id)})
+        return res;
+    } catch (err) {
+        console.log(err)
+    }
+}
+
+export const incrementCommentCount = async (post_id) => {
+    try {
+        const postsRef = db.collection('posts').doc(post_id)
+        const res = await postsRef.update({comments: firebase.firestore.FieldValue.increment(1)})
+        return res;
+    } catch (err) {
+        console.log(err)
+    }
+}
+
