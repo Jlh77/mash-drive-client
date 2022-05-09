@@ -8,7 +8,7 @@ import {
   limit,
 } from "firebase/firestore";
 import { configureProps } from "react-native-reanimated/lib/reanimated2/core";
-import { db } from "../firebase.config";
+import { db, firebased } from "../firebase.config";
 
 export const fetchPostByPostId = async (postId) => {
   try {
@@ -127,4 +127,124 @@ export const getTopTenUsers = async () => {
   } catch (err) {
     console.log(err);
   }
+};
+
+export const upvotePost = async (currentUser, post_id) => {
+  if (!currentUser) {
+    //some error logic
+    alert("You must be logged in to vote on a post.");
+  }
+
+  const user = db.collection("users").doc(currentUser.uid);
+
+  return user.get().then((doc) => {
+    if (doc.data().upvoted_posts.includes(post_id)) {
+      // already votes, undo vote
+      alert("temp undid vote");
+      const newUpvotedPosts = doc
+        .data()
+        .upvoted_posts.filter((post) => post !== post_id);
+      return user
+        .update({
+          upvoted_posts: [...newUpvotedPosts],
+        })
+        .then(() => {
+          return db
+            .collection("posts")
+            .doc(post_id)
+            .update({
+              upvotes: firebased.firestore.FieldValue.increment(-1),
+            });
+        });
+    } else if (doc.data().downvoted_posts.includes(post_id)) {
+      alert("temp undid downvote, to voteu p");
+      const newDownvotedPosts = doc
+        .data()
+        .downvoted_posts.filter((post) => post !== post_id);
+      user
+        .update({
+          downvoted_posts: [...newDownvotedPosts],
+        })
+        .then(() => {
+          db.collection("posts")
+            .doc(post_id)
+            .update({
+              downvotes: firebased.firestore.FieldValue.increment(-1),
+            });
+        });
+    }
+    // do upvote
+    return user
+      .update({
+        upvoted_posts: [...doc.data().upvoted_posts, post_id],
+      })
+      .then(() => {
+        return db
+          .collection("posts")
+          .doc(post_id)
+          .update({
+            upvotes: firebased.firestore.FieldValue.increment(1),
+          });
+      });
+  });
+};
+
+export const downvotePost = async (currentUser, post_id) => {
+  if (!currentUser) {
+    //some error logic
+    alert("You must be logged in to vote on a post.");
+  }
+
+  const user = db.collection("users").doc(currentUser.uid);
+
+  return user.get().then((doc) => {
+    if (doc.data().downvoted_posts.includes(post_id)) {
+      // already votes, undo vote
+      alert("temp undid vote");
+      const newDownvotedPosts = doc
+        .data()
+        .downvoted_posts.filter((post) => post !== post_id);
+      return user
+        .update({
+          upvoted_posts: [...newDownvotedPosts],
+        })
+        .then(() => {
+          return db
+            .collection("posts")
+            .doc(post_id)
+            .update({
+              downvotes: firebased.firestore.FieldValue.increment(-1),
+            });
+        });
+    } else if (doc.data().upvoted_posts.includes(post_id)) {
+      alert("temp undid downvote, to voteu p");
+      const newUpvotedPosts = doc
+        .data()
+        .upvoted_posts.filter((post) => post !== post_id);
+      user
+        .update({
+          upvoted_posts: [...newUpvotedPosts],
+        })
+        .then(() => {
+          db.collection("posts")
+            .doc(post_id)
+            .update({
+              upvotes: firebased.firestore.FieldValue.increment(-1),
+            });
+        });
+    }
+    // do downvote
+    return user
+      .update({
+        downvoted_posts: [...doc.data().downvoted_posts, post_id],
+      })
+      .then(() => {
+        return db
+          .collection("posts")
+          .doc(post_id)
+          .update({
+            downvote: firebased.firestore.FieldValue.increment(1),
+          });
+      });
+  });
 };
