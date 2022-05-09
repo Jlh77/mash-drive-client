@@ -5,10 +5,11 @@ import { SearchSortBar, Feed } from "../components/index";
 import { collection } from 'firebase/firestore';
 import getPosts from '../controllers/index';
 
-const Home = () => {
+const Home = ({ route }) => {
   const [posts, setPosts] = useState([]);
-
   const postsCollection = collection(db, 'posts');
+
+  const setCurrentRoute = route.params?.setCurrentRoute;
 
   useEffect(() => {
 
@@ -24,7 +25,7 @@ const Home = () => {
   return (
     <View style={styles.container}>
       <SearchSortBar/>
-      <Feed posts={posts}/>
+      <Feed posts={posts} setCurrentRoute={setCurrentRoute} />
     </View>
   );
 };
