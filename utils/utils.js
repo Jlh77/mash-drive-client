@@ -1,4 +1,4 @@
-import { doc, docs, collection, query, where, orderBy, limit, connectFirestoreEmulator, set, add, update, FieldValue } from 'firebase/firestore'
+import { doc, docs, collection, query, where, orderBy, limit, set, add, update } from 'firebase/firestore'
 import { db, firebased } from '../firebase.config'
 import firebase from 'firebase/compat';
 

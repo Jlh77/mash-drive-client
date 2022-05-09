@@ -32,11 +32,8 @@ const Post = ({ route, navigation }) => {
       const author = await fetchUserByUid(post.uid);
       const comments = await getCommentsByPostId(id);
       setPostData(post);
-      console.log(post, 'post');
       setPostAuthorData(author);
-      console.log(author, 'author');
       setCommentData(comments);
-      console.log(comments, 'comments');
       setIsLoading(false);
     } catch (err) {
       console.log(err);
