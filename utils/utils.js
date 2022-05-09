@@ -2,13 +2,14 @@ import {
   doc,
   docs,
   collection,
+  FieldValue,
   query,
   where,
   orderBy,
   limit,
 } from "firebase/firestore";
 import { configureProps } from "react-native-reanimated/lib/reanimated2/core";
-import { db, firebased } from "../firebase.config";
+import { db } from "../firebase.config";
 
 export const fetchPostByPostId = async (postId) => {
   try {
@@ -153,7 +154,7 @@ export const upvotePost = async (currentUser, post_id) => {
             .collection("posts")
             .doc(post_id)
             .update({
-              upvotes: firebased.firestore.FieldValue.increment(-1),
+              upvotes: FieldValue.increment(-1),
             });
         });
     } else if (doc.data().downvoted_posts.includes(post_id)) {
@@ -169,7 +170,7 @@ export const upvotePost = async (currentUser, post_id) => {
           db.collection("posts")
             .doc(post_id)
             .update({
-              downvotes: firebased.firestore.FieldValue.increment(-1),
+              downvotes: FieldValue.increment(-1),
             });
         });
     }
@@ -183,7 +184,7 @@ export const upvotePost = async (currentUser, post_id) => {
           .collection("posts")
           .doc(post_id)
           .update({
-            upvotes: firebased.firestore.FieldValue.increment(1),
+            upvotes: FieldValue.increment(1),
           });
       });
   });
