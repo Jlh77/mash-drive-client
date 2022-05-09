@@ -1,5 +1,5 @@
 import { doc, docs, collection, query, where, orderBy, limit, connectFirestoreEmulator, set, add, update, FieldValue } from 'firebase/firestore'
-import { db } from '../firebase.config'
+import { db, firebased } from '../firebase.config'
 
 
 
@@ -134,7 +134,7 @@ export const submitComment = async (comment, commentersUid) => {
 export const incrementCommentCount = async (post_id) => {
     try {
         const postsRef = await db.collection('posts').doc(post_id)
-        const res = await postsRef.update({'comments': FieldValue.increment(1)})
+        const res = await postsRef.update({'comments': firebased.firestore.FieldValue.increment(1)})
         return res;
     } catch (err) {
         console.log(err)
