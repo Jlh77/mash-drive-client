@@ -113,17 +113,15 @@ const Upload = ({ navigation }) => {
               .getDownloadURL()
               .then((url) => {
                 // add post data to collection and link image to post ***** add extra necessary fields here
-                db.collection("posts")
-                  .doc()
-                  .set({
-                    image_url: url,
-                    title,
-                    description,
-                    uid: currentUser.uid,
-                    upvotes: 0,
-                    downvotes: 0,
-                    parent_post_id: parentPost || null,
-                  });
+                db.collection("posts").doc().set({
+                  image_url: url,
+                  title,
+                  description,
+                  uid: currentUser.uid,
+                  upvotes: 0,
+                  downvotes: 0,
+                  parent_post_id: null,
+                });
                 setIsUploading(false);
                 setProgress(0);
 
