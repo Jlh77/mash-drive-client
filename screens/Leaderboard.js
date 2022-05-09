@@ -100,14 +100,14 @@ const Leaderboard = ({ navigation }) => {
 
   if (usersOrPosts === 'posts') {
     return (
-      <SafeAreaView>
+      <SafeAreaView style={styles.screenContainer}>
         <Text>Top Posts</Text>
         <Button title='Top 10 Recipes' onPress={handleTop}></Button>
         <Button title='Bottom 10 Recipes' onPress={handleBottom}></Button>
         <Button title='Most Commented' onPress={handleComments}></Button>
         <Button title='Higest Rated Users' onPress={handleUsers}></Button>
-        <View>
-          <ScrollView style={styles.container}>
+        <View style={styles.scrollContainer}>
+          <ScrollView style={styles.scroller}>
             {topTen.map((recipe, index) => {
               return (
                 <TouchableOpacity key={index} style={styles.item} onPress={() => navigation.navigate( 'Post', { id: recipe.id })}>
@@ -128,14 +128,14 @@ const Leaderboard = ({ navigation }) => {
 
   if (usersOrPosts === 'users') {
     return (
-      <SafeAreaView>
+      <SafeAreaView style={styles.screenContainer}>
         <Text>Top Rated Users</Text>
         <Button title='Top 10 Recipes' onPress={handleTop}></Button>
         <Button title='Bottom 10 Recipes' onPress={handleBottom}></Button>
         <Button title='Most Commented' onPress={handleComments}></Button>
         <Button title='Higest Rated Users' onPress={handleUsers}></Button>
-        <View>
-          <ScrollView style={styles.container}>
+        <View style={styles.scrollContainer}>
+          <ScrollView style={styles.scroller}>
             {topTenUsers.map((user, index) => {
               return (
                 <TouchableOpacity
@@ -159,7 +159,13 @@ const Leaderboard = ({ navigation }) => {
 };
 
 const styles = StyleSheet.create({
-  container: {
+  screenContainer: {
+    flex: 1,
+  },
+  scrollContainer: {
+    flex: 1,
+  },
+  scroller: {
     flexGrow: 1,
     padding: 50,
   },
@@ -171,6 +177,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     backgroundColor: 'beige',
   },
+  
 });
 
 export default Leaderboard;
