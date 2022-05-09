@@ -119,7 +119,7 @@ export const getTopTenUsers = async () => {
       .get();
     let arr = [];
     topTenReputation.docs.forEach((user) => {
-      arr.push(user.data());
+      arr.push({...user.data(), id: user.id});
     });
     return arr;
   } catch (err) {
