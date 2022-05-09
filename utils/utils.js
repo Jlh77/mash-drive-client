@@ -83,7 +83,7 @@ export const getCommentsByPostId = async (postId) => {
         const comments = await commentsRef.where('post_id', '==', postId) .get();
         let arr = [];
         comments.docs.forEach(doc => {
-            arr.push(doc.data())
+            arr.push({...doc.data(), id: doc.id})
         })
         return arr;
     } catch (err) {
@@ -99,6 +99,7 @@ export const getTenMostCommentedPosts = async () => {
         topTenMostCommented.docs.forEach(doc => {
             arr.push({...doc.data(), id: doc.id})
         })
+        console.log(arr, 'arr of top10comments')
         return arr;
     } catch (err) {
         console.log(err)
@@ -124,7 +125,7 @@ export const submitComment = async (comment, commentersUid) => {
         const res = await db.collection('comments').add(comment);
 
         // add comment to users 
-        res.id
+        //res.id
         return res;
     } catch (err) {
         console.log(err)
@@ -133,8 +134,8 @@ export const submitComment = async (comment, commentersUid) => {
 
 export const incrementCommentCount = async (post_id) => {
     try {
-        const postsRef = await db.collection('posts').doc(post_id)
-        const res = await postsRef.update({'comments': firebased.firestore.FieldValue.increment(1)})
+        const postsRef = db.collection('posts').doc(post_id)
+        const res = await postsRef.update({comments: firebased.firestore.FieldValue.increment(1)})
         return res;
     } catch (err) {
         console.log(err)

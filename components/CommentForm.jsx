@@ -24,11 +24,12 @@ const CommentForm = ({ navigation, postId, setCommentData }) => {
 
           //optimisticly render comments with new comment on top
     setCommentData((curr) => {
-        return ([commentToSubmit, ...curr])
+        return ([...curr, commentToSubmit])
     })
 
     try {
         //post to comment collection
+        console.log(currentUser.uid, 'uid')
         const res = await submitComment(commentToSubmit);
         
         //increment posts comment count  

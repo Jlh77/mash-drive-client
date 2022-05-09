@@ -72,15 +72,17 @@ const Post = ({ route, navigation }) => {
         <View>
           <Text style={styles.headerTitle}>Comments</Text>
           {commentData.map((comment) => {
-            <View>
-              <Text>Comment by {comment.username}</Text>
-              <Text>Reputation: </Text>
-              <Text>Comment body text : {comment.text_body}</Text>
-            </View>;
+            return (
+              <View key={comment.id}>
+                <Text>Comment by {comment.username}</Text>
+                <Text>Reputation: </Text>
+                <Text>Comment body text : {comment.text_body}</Text>
+              </View>
+            );
           })}
         </View>
       </ScrollView>
-      <CommentForm postId={postData.id} setCommentData={setCommentData}/>
+      <CommentForm postId={postData.id} setCommentData={setCommentData} />
     </SafeAreaView>
   );
 };
