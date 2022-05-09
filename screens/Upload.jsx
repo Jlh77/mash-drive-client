@@ -122,6 +122,7 @@ const Upload = ({ navigation }) => {
                   downvotes: 0,
                   parent_post_id: null,
                 });
+
                 setIsUploading(false);
                 setProgress(0);
 
