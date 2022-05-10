@@ -11,7 +11,6 @@ import {
   Platform,
   Image,
 } from "react-native";
-import Constants from "expo-constants";
 import * as ImagePicker from "expo-image-picker";
 
 import { db, storage } from "../firebase.config";
