@@ -57,7 +57,10 @@ const Post = ({ route, navigation }) => {
     <SafeAreaView style={styles.safeAreaView}>
       <ScrollView>
         <View style={styles.poster}>
-      <DefaultAvatar />
+        <Image
+            style={styles.authorAvatar}
+            source={{ uri: postAuthorData.avatar_url }}
+          ></Image>
         <Text style={styles.poster_username}>{postAuthorData.username}</Text>
         </View>
         <View style={styles.mainPostArea}>
@@ -72,10 +75,6 @@ const Post = ({ route, navigation }) => {
           
           <Text>{postData.description}</Text>
           <Text>Votes: {postData.votes}</Text>
-          <Image
-            style={styles.authorAvatar}
-            source={{ uri: postAuthorData.avatar_url }}
-          ></Image>
           </View>
           </View>
         </View>
@@ -87,7 +86,7 @@ const Post = ({ route, navigation }) => {
           </View>
         </View>
       </ScrollView>
-      <View style={styles.commentForm}>
+       <View style={styles.commentForm}>
           <CommentForm postId={postData.id} setCommentData={setCommentData} />
           </View>
     </SafeAreaView>
@@ -99,6 +98,7 @@ export default Post;
 const styles = StyleSheet.create({
   poster: {
     backgroundColor: '#A47231',
+    justifyContent: 'center', alignItems: 'center'
   },
   poster_username: {
     textAlign: "center",
@@ -107,6 +107,7 @@ fontFamily: '"Times New Roman", Times, serif',
 fontWeight: 'bold',
 fontSize: 30,
   },
+
   postSolo: {
 backgroundColor: '#F5D349',
   },
@@ -139,8 +140,12 @@ borderBottomWidth: 1,
 
   },
   authorAvatar: {
-    height: 50,
-    width: 50,
+    width: 100, height: 100, 
+    borderRadius: 1000,  
+    alignItems: 'center',  
+   borderColor: "black",
+   borderStyle: "solid",
+   borderWidth: 1,
   },
   container: {
     flex: 1,
