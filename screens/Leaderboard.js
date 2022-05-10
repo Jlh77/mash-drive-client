@@ -5,12 +5,13 @@ import {
   SafeAreaView,
   StyleSheet,
   ActivityIndicator, 
-  LogBox
+  LogBox, 
+  TouchableOpacity
 } from 'react-native';
 import { useEffect, useState } from 'react';
 import { db } from '../firebase.config';
 import { collection } from 'firebase/firestore';
-import { TouchableOpacity, ScrollView } from 'react-native-gesture-handler';
+import { ScrollView } from 'react-native-gesture-handler';
 import { fetchUserByUid, getTopTenVotedPosts, getBottomTenVotedPosts, getTopTenUsers, getTenMostCommentedPosts } from '../utils/utils';
 
 // everything online said use this to ignore yellow timeout messages, but maybe look into this deeper if there are problems

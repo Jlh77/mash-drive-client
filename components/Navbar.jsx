@@ -9,7 +9,7 @@ import { useState } from "react";
     const { currentUser } = useAuth();
 
     const [currentRoute, setCurrentRoute] = useState(currentUser ? "Home" : "Login");
-    
+
     const activeIconCheck = (screen) => { 
         return currentRoute === screen ? styles.iconActive : styles.icon
     }

@@ -3,7 +3,7 @@ import { View, StyleSheet, ActivityIndicator } from "react-native";
 import { db } from "../firebase.config";
 import { SearchSortBar, Feed, SearchFeed } from "../components/index";
 import { collection } from 'firebase/firestore';
-import getPosts from '../controllers/index';
+import { getPosts } from '../controllers/index';
 
 const Home = ({ route }) => {
   const [posts, setPosts] = useState([]);

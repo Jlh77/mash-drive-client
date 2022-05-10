@@ -32,8 +32,10 @@ const CommentForm = ({ navigation, postId, setCommentData }) => {
       //optimisticly render comments with new comment on top
       setCommentData((curr) => {
         const tempCopy = { ...commentToSubmit };
+
         //make random temp id number so mapped element has keys
-        tempCopy.id = Math.floor(Math.random() * 10000).toString();
+       // tempCopy.id = Math.floor(Math.random() * 10000).toString();
+       
         return [...curr, tempCopy];
       });
 
@@ -90,8 +92,7 @@ const styles = StyleSheet.create({
     fontSize: 15,
     marginTop: 5,
     textTransform: 'capitalize',
-    borderWidth: 1,
-    backgroundColor: 'beige',
+
   },
   container: {
     flex: 1,
