@@ -14,10 +14,8 @@ const User = ({ route, navigation }) => {
     
     const loadInfo = async () => {
         const posts = await fetchPostsByUid(userId)
-        console.log(posts, 'posts in user')
         const user = await fetchUserByUid(userId)
         setUsersPosts(posts)
-        console.log(usersPosts, 'usersPosts in user')
         setUsersData(user)
         setIsLoading(false)
     }
