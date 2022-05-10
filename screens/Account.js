@@ -67,6 +67,7 @@ const Account = ({ navigation }) => {
 
 <View style={{alignItems: 'center'}}>
 <View style={[styles.gallery, styles.wireframeBorder]}>
+<Text style={{color: "1b242A", fontWeight: 'bold', fontSize: 20}}> {username}'s Gallery </Text>
 <FlatList numColumns={2} data={posts} renderItem={(post) => {
 return <Image style={[styles.image, styles.wireframeBorder]} source={{uri: `${post.item.image_url}`,}}></Image>
 
@@ -77,10 +78,10 @@ return <Image style={[styles.image, styles.wireframeBorder]} source={{uri: `${po
 
 <View >
       <View style={styles.footer_logout }>
-        <Button style={{ textAlign:"center" }} title="Logout" onPress={handleLogout} color="#E37399" />
+        <Button style={{ textAlign:"center" }} title="Logout" onPress={handleLogout} color="#885a2c" />
       </View> 
       <View style={styles.footer_delete}>
-        <Button style={{ textAlign:"center" }} title="Delete Account" onPress={handleDelete} color="#E37399" />
+        <Button style={{ textAlign:"center" }} title="Delete Account" onPress={handleDelete} color="#885a2c" />
       </View>
       </View>
     </ScrollView>
@@ -112,7 +113,7 @@ flexDirection: "row",
 flexWrap: "wrap",
 justifyContent: "space-evenly",
 padding: 10,
-backgroundColor: 'beige',
+backgroundColor: '#6e9176',
 width: 300,
 alignContent: 'center'
 },
@@ -152,6 +153,10 @@ fontSize: 30,
   container: {
     flex: 1,
     padding: 35,
+    backgroundColor: '#F5D349',
+    borderColor: "black",
+    borderStyle: "solid",
+    borderWidth: 1,
   },
   inputGroup: {
     flex: 1,
