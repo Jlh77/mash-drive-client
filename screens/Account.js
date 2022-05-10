@@ -32,7 +32,9 @@ const Account = ({ navigation }) => {
     getPosts(postsCollection)
     .then((data) => {
         setPosts(() => {
-            return data;
+         let splicedData = data.splice(0, 6)
+          console.log(splicedData, '<==== DATA')
+            return splicedData;
         })
     })
 }, []);
@@ -63,19 +65,23 @@ const Account = ({ navigation }) => {
   <Text style={styles.username}>{username}</Text>
 </View>
 
+<View style={{alignItems: 'center'}}>
 <View style={[styles.gallery, styles.wireframeBorder]}>
-<FlatList numColumns={3} data={posts} renderItem={(post) => {
+<Text style={{color: "1b242A", fontWeight: 'bold', fontSize: 20}}> {username}'s Gallery </Text>
+<FlatList numColumns={2} data={posts} renderItem={(post) => {
 return <Image style={[styles.image, styles.wireframeBorder]} source={{uri: `${post.item.image_url}`,}}></Image>
 
  }}></FlatList>
         </View>
 
+        </View>
+
 <View >
       <View style={styles.footer_logout }>
-        <Button style={{ textAlign:"center" }} title="Logout" onPress={handleLogout} color="#E37399" />
+        <Button style={{ textAlign:"center" }} title="Logout" onPress={handleLogout} color="#885a2c" />
       </View> 
       <View style={styles.footer_delete}>
-        <Button style={{ textAlign:"center" }} title="Delete Account" onPress={handleDelete} color="#E37399" />
+        <Button style={{ textAlign:"center" }} title="Delete Account" onPress={handleDelete} color="#885a2c" />
       </View>
       </View>
     </ScrollView>
@@ -98,13 +104,18 @@ wireframeBorder: {
   borderColor: "black",
   borderStyle: "solid",
   borderWidth: 1,
+  alignContent: 'center'
 },
+
 gallery: {
+  margin: 50,
 flexDirection: "row",
 flexWrap: "wrap",
 justifyContent: "space-evenly",
 padding: 10,
-backgroundColor: 'beige'
+backgroundColor: '#6e9176',
+width: 300,
+alignContent: 'center'
 },
 row: {
 display: 'flex',
@@ -142,6 +153,10 @@ fontSize: 30,
   container: {
     flex: 1,
     padding: 35,
+    backgroundColor: '#F5D349',
+    borderColor: "black",
+    borderStyle: "solid",
+    borderWidth: 1,
   },
   inputGroup: {
     flex: 1,

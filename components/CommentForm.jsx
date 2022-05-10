@@ -92,8 +92,7 @@ const styles = StyleSheet.create({
     fontSize: 15,
     marginTop: 5,
     textTransform: 'capitalize',
-    borderWidth: 1,
-    backgroundColor: 'beige',
+
   },
   container: {
     flex: 1,
