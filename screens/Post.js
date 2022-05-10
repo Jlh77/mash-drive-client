@@ -14,6 +14,7 @@ import {
 } from '../utils/utils';
 import { ScrollView } from 'react-native-gesture-handler';
 import CommentForm from '../components/CommentForm';
+import { CommentList } from '../components';
 
 const Post = ({ route, navigation }) => {
   const { id } = route.params;
@@ -49,7 +50,7 @@ const Post = ({ route, navigation }) => {
   }
 
   return (
-    <SafeAreaView>
+    <SafeAreaView style={styles.safeAreaView}>
       <ScrollView>
         <View style={styles.mainPostArea}>
           <Text style={styles.headerTitle}>{postData.title}</Text>
@@ -66,20 +67,11 @@ const Post = ({ route, navigation }) => {
           <Text>Posted By: {postAuthorData.username}</Text>
           <Text>Reputation: {postAuthorData.reputation}</Text>
         </View>
-        <View style={styles.commentsSection}>
-          <Text style={styles.commentsHeader}>Comments</Text>
-          {commentData.map((comment) => {
-            return (
-              <View key={comment.id}>
-                <Text>Comment by {comment.username}</Text>
-                <Text>Reputation: </Text>
-                <Text>Comment body text : {comment.text_body}</Text>
-              </View>
-            );
-          })}
+        <View>
+          <CommentList commentData={commentData} />
+          <CommentForm postId={postData.id} setCommentData={setCommentData} />
         </View>
       </ScrollView>
-      <CommentForm postId={postData.id} setCommentData={setCommentData} />
     </SafeAreaView>
   );
 };
@@ -87,27 +79,18 @@ const Post = ({ route, navigation }) => {
 export default Post;
 
 const styles = StyleSheet.create({
+  safeAreaView: {
+    backgroundColor: 'yellow',
+    flex: 1,
+  },
   mainPostArea: {
     borderWidth: 4,
     justifyContent: 'center',
   },
-  commentsSection: {
-    padding: 20,
-    fontSize: 15,
-    marginTop: 5,
-    textTransform: 'capitalize',
-    borderWidth: 1,
-    backgroundColor: 'beige',
-  },
-  
   headerTitle: {
     textTransform: 'capitalize',
     textAlign: 'center',
     fontSize: 40,
-  },
-  commentsHeader : {
-    textAlign: 'center',
-    fontSize: 25,
   },
   image: {
     height: 200,

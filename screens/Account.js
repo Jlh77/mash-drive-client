@@ -1,4 +1,3 @@
-import { useState } from "react";
 import {
   ScrollView,
   View,
@@ -7,19 +6,36 @@ import {
   StyleSheet,
   Button,
   Text,
+  FlatList,
+  Image,
 } from "react-native";
 import { db } from "../firebase.config";
 import { useAuth } from "../contexts/User";
 import { DefaultAvatar, DefaultImg } from '../img/avatar'
+import { collection } from 'firebase/firestore';
+import { useEffect, useState } from "react";
+import getPosts from '../controllers/index';
 
 
 
 
 
 const Account = ({ navigation }) => {
+
+  const [posts, setPosts] = useState([]);
+  const postsCollection = collection(db, 'posts');
   const [username, setUsername] = useState("testUser");
   const [isLoading, setIsLoading] = useState(false);
   const { currentUser, logout } = useAuth();
+
+  useEffect(() => {
+    getPosts(postsCollection)
+    .then((data) => {
+        setPosts(() => {
+            return data;
+        })
+    })
+}, []);
 
   const handleDelete = async () => {};
 
@@ -47,6 +63,12 @@ const Account = ({ navigation }) => {
   <Text style={styles.username}>{username}</Text>
 </View>
 
+<View style={[styles.gallery, styles.wireframeBorder]}>
+<FlatList numColumns={3} data={posts} renderItem={(post) => {
+return <Image style={[styles.image, styles.wireframeBorder]} source={{uri: `${post.item.image_url}`,}}></Image>
+
+ }}></FlatList>
+        </View>
 
 <View >
       <View style={styles.footer_logout }>
@@ -60,6 +82,30 @@ const Account = ({ navigation }) => {
   );
 };
 const styles = StyleSheet.create({
+
+image: {
+
+height: 115,
+width: 135,
+padding: 50,
+margin: 2,
+
+
+
+},
+
+wireframeBorder: {
+  borderColor: "black",
+  borderStyle: "solid",
+  borderWidth: 1,
+},
+gallery: {
+flexDirection: "row",
+flexWrap: "wrap",
+justifyContent: "space-evenly",
+padding: 10,
+backgroundColor: 'beige'
+},
 row: {
 display: 'flex',
 flexWrap: 'wrap',
