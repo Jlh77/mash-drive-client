@@ -71,7 +71,7 @@ const Post = ({ route, navigation }) => {
           ></Image>
           
           <Text>{postData.description}</Text>
-          <Text>Votes: {postData.votes}</Text>
+          <Text>Votes: {postData.upvotes - postData.downvotes}</Text>
           </View>
           </View>
           <View style={styles.comments} >
