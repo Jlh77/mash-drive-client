@@ -1,43 +1,44 @@
-import { StyleSheet, View, Text, TouchableOpacity } from "react-native";
-import { useNavigation } from '@react-navigation/native';
-import { FontAwesome5, MaterialIcons } from '@expo/vector-icons';
+import { StyleSheet, View, TextInput } from "react-native";
+import { MaterialIcons } from '@expo/vector-icons';
 
-const SearchSortBar = () => {
+const SearchSortBar = ({ posts, setSearchFeedData, searchTerm, setSearchTerm }) => {
 
-    const navigation = useNavigation();
-
-    return <View style={[styles.barContainer, styles.wireframeBorder]}>
-        <TouchableOpacity style={[styles.search, styles.wireframeBorder]}>
-            {/* <FontAwesome5 style={[styles.searchIcon, styles.wireframeBorder]} name="search" size={24} color="grey" /> */}
-            <MaterialIcons style={[styles.searchIcon, styles.wireframeBorder]} name="search" size={30} color="grey" />
-            <Text style={[styles.searchText, styles.wireframeBorder]}>Search</Text>
-        </TouchableOpacity>
-        {/* <TouchableOpacity style={[styles.sort, styles.wireframeBorder]}>
-            <FontAwesome5 style={[styles.sortIcon, styles.wireframeBorder]} name="sort" size={24} color="grey" />
-            <Text style={[styles.sortText, styles.wireframeBorder]}>Sort</Text>
-        </TouchableOpacity> */}
-        <View style={[styles.avi, styles.wireframeBorder]}></View>
+    const performSearch = () => {
+        const postsData = [...posts];
+        const regex = new RegExp(searchTerm, "gi");
+        setSearchFeedData(
+            postsData.filter(post => {
+                const titleArray = post.title.split(" ");
+                return regex.test(titleArray)
+            })
+        ) 
+    }
+ 
+    return <View style={styles.barContainer}>
+        <View style={styles.search}>
+            <MaterialIcons style={styles.searchIcon} name="search" size={30} />
+            <TextInput style={styles.searchText} 
+            keyboardType="web-search" 
+            onChangeText={(text) => {
+                    if (!/\W+/.test(text)) {
+                        setSearchTerm(text)
+                    }
+                }} 
+            onSubmitEditing={() => performSearch()}>
+            </TextInput>
+        </View>
+        <View style={styles.avi}></View>
     </View>
     
 }
 
 const styles = StyleSheet.create({
-    // wireframeBorder: {
-    //     borderColor: "black",
-    //     borderStyle: "solid",
-    //     borderWidth: 1,
-    // },
     barContainer: {
         padding: 3,
         display: "flex",
         flexDirection: "row",
     },
     search: {
-        display: "flex",
-        flexDirection: "row",
-        flexGrow: 1,
-    },
-    sort: {
         display: "flex",
         flexDirection: "row",
         flexGrow: 1,
@@ -52,18 +53,13 @@ const styles = StyleSheet.create({
     searchIcon: {
         flexGrow: 0,
         padding: 3,
+        color: "#1B242A",
     },
     searchText: {
         flexGrow: 1,
-        paddingTop: 7,
-        height: 25,
-    },
-    sortIcon: {
-        flexGrow: 0,
         padding: 3,
-    },
-    sortText: {
-        flexGrow: 1,
+        fontSize: 20,
+        color: "#1B242A",
     },
 })
 
