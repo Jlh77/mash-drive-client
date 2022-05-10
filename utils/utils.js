@@ -52,7 +52,7 @@ export const fetchPostsByUid = async (uid) => {
 export const getTopTenVotedPosts = async () => {
   try {
     const postsRef = db.collection("posts");
-    const topTenVoted = await postsRef.orderBy("votes", "desc").limit(10).get();
+    const topTenVoted = await postsRef.orderBy("upvotes", "desc").limit(10).get();
     let arr = [];
     topTenVoted.docs.forEach((doc) => {
       arr.push({ ...doc.data(), id: doc.id });
@@ -66,7 +66,7 @@ export const getTopTenVotedPosts = async () => {
 export const getBottomTenVotedPosts = async () => {
   try {
     const postsRef = db.collection("posts");
-    const topTenVoted = await postsRef.orderBy("votes").limit(10).get();
+    const topTenVoted = await postsRef.orderBy("downvotes", "desc").limit(10).get();
     let arr = [];
     topTenVoted.docs.forEach((doc) => {
       arr.push({ ...doc.data(), id: doc.id });

@@ -100,8 +100,8 @@ const Leaderboard = ({ navigation }) => {
     return (
       <SafeAreaView style={styles.screenContainer}>
         <Text>Top Posts</Text>
-        <Button title='Top 10 Recipes' onPress={handleTop}></Button>
-        <Button title='Bottom 10 Recipes' onPress={handleBottom}></Button>
+        <Button title='Most Upvotes' onPress={handleTop}></Button>
+        <Button title='Most Downvotes' onPress={handleBottom}></Button>
         <Button title='Most Commented' onPress={handleComments}></Button>
         <Button title='Higest Rated Users' onPress={handleUsers}></Button>
         <View style={styles.scrollContainer}>
@@ -111,10 +111,10 @@ const Leaderboard = ({ navigation }) => {
                 <TouchableOpacity key={index} style={styles.item} onPress={() => navigation.navigate( 'Post', { id: recipe.id })}>
                   <Text>{index + 1}</Text>
                     <Text>{recipe.title}</Text>
-                  <Text>Votes: {recipe.votes}</Text>
+                  <Text>Votes: {recipe.upvotes - recipe.downvotes}</Text>
                   <Text>Comments: {recipe.comments}</Text>
                     <Text>By:{recipe.username}</Text>
-                    <Text>Rep: {recipe.userReputation}</Text>
+                    {/* <Text>Rep: {recipe.userReputation}</Text> */}
                 </TouchableOpacity>
               );
             })}
@@ -128,8 +128,8 @@ const Leaderboard = ({ navigation }) => {
     return (
       <SafeAreaView style={styles.screenContainer}>
         <Text>Top Rated Users</Text>
-        <Button title='Top 10 Recipes' onPress={handleTop}></Button>
-        <Button title='Bottom 10 Recipes' onPress={handleBottom}></Button>
+        <Button title='Most Upvotes' onPress={handleTop}></Button>
+        <Button title='Most Downvotes' onPress={handleBottom}></Button>
         <Button title='Most Commented' onPress={handleComments}></Button>
         <Button title='Higest Rated Users' onPress={handleUsers}></Button>
         <View style={styles.scrollContainer}>
