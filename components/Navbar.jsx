@@ -51,7 +51,7 @@ const styles = StyleSheet.create({
         padding: 8,
         display: "flex",
         flexDirection: "row",
-        backgroundColor: "#F5D349",
+        backgroundColor: "#1B242A",
     },
     iconContainer: {
         display: "flex",
@@ -62,7 +62,7 @@ const styles = StyleSheet.create({
     icon: {
         flexGrow: 0,
         padding: 3,
-        color: "#1B242A",
+        color: "#F5D349",
     },
     iconActive: {
         flexGrow: 0,
