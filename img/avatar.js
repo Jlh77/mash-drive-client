@@ -5,7 +5,12 @@ import { View, Image } from 'react-native'
 const DefaultAvatar = () => (
     <View style = {{justifyContent: 'center', alignItems: 'center'}}>
    <Image source = {require('../img/default_avatar.jpeg')}
-   style = {{ width: 100, height: 100, borderRadius: 1000}}
+   style = {{ width: 100, height: 100, 
+    borderRadius: 1000,  
+    alignItems: 'center',  
+   borderColor: "black",
+   borderStyle: "solid",
+   borderWidth: 1,}}
    />
    </View>
 )
