@@ -12,7 +12,7 @@ const CommentList = ({ commentData, setCommentData }) => {
                 {/* <Text>Reputation: </Text> */}
                 <Text style={styles.body}>'{comment.text_body}'</Text>
                 <Text style={styles.username}>- {comment.username}</Text>
-                <DeleteCommentButton commenterUid={comment.uid} commentId={comment.id} setCommentData={setCommentData} postId={comment.post_id}/>
+                <DeleteCommentButton style={{color: 'black'}}  commenterUid={comment.uid} commentId={comment.id} setCommentData={setCommentData} postId={comment.post_id}>Hi</DeleteCommentButton>
                 </View>
             );
             })}
@@ -39,6 +39,11 @@ margin: 10
     },
     body: {
       fontSize: 15
+    },
+
+    deleteButton: {
+ maxWidth: 10,
+ maxHeight: 10,
     }
   });
 

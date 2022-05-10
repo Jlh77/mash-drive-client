@@ -17,6 +17,7 @@ import CommentForm from '../components/CommentForm';
 import { CommentList } from '../components';
 import { DefaultAvatar, DefaultImg } from '../img/avatar'
 
+var defaultImage = 'https://cdn1.iconfinder.com/data/icons/user-pictures/100/unknown-512.png' 
 
 const Post = ({ route, navigation }) => {
   const { id } = route.params;
@@ -55,6 +56,7 @@ const Post = ({ route, navigation }) => {
       <ScrollView>
         <View style={styles.poster}>
         <Image
+        defaultSource={defaultImage}
             style={styles.authorAvatar}
             source={{ uri: postAuthorData.avatar_url }}
           ></Image>
@@ -120,7 +122,7 @@ backgroundColor: '#F5D349',
     borderColor: "black",
     borderStyle: "solid",
 borderTopWidth: 1,
-borderBottomWidth: 1,
+
   },
   headerTitle: {
     textTransform: 'capitalize',
@@ -128,8 +130,8 @@ borderBottomWidth: 1,
     fontSize: 40,
   },
   image: {
-    height: 200,
-    width: 200,
+    height: 400,
+    width: 400,
     justifyContent: 'center',
 
   },
@@ -144,15 +146,14 @@ borderBottomWidth: 1,
   container: {
     flex: 1,
     padding: 35,
-    borderWidth: 1,
+
 
   },
   inputGroup: {
     flex: 1,
     padding: 0,
     marginBottom: 15,
-    borderBottomWidth: 1,
-    borderBottomColor: "#cccccc",
+
   },
   preloader: {
     left: 0,
@@ -165,8 +166,8 @@ borderBottomWidth: 1,
   },
   comments: {
     backgroundColor: '#6e9176',
-  borderColor: "black",
-  borderStyle: "solid",
+    borderTopWidth: 1,
+
 
 
 
