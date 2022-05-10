@@ -32,7 +32,9 @@ const Account = ({ navigation }) => {
     getPosts(postsCollection)
     .then((data) => {
         setPosts(() => {
-            return data;
+         let splicedData = data.splice(0, 6)
+          console.log(splicedData, '<==== DATA')
+            return splicedData;
         })
     })
 }, []);
@@ -63,11 +65,14 @@ const Account = ({ navigation }) => {
   <Text style={styles.username}>{username}</Text>
 </View>
 
+<View style={{alignItems: 'center'}}>
 <View style={[styles.gallery, styles.wireframeBorder]}>
-<FlatList numColumns={3} data={posts} renderItem={(post) => {
+<FlatList numColumns={2} data={posts} renderItem={(post) => {
 return <Image style={[styles.image, styles.wireframeBorder]} source={{uri: `${post.item.image_url}`,}}></Image>
 
  }}></FlatList>
+        </View>
+
         </View>
 
 <View >
@@ -98,13 +103,18 @@ wireframeBorder: {
   borderColor: "black",
   borderStyle: "solid",
   borderWidth: 1,
+  alignContent: 'center'
 },
+
 gallery: {
+  margin: 50,
 flexDirection: "row",
 flexWrap: "wrap",
 justifyContent: "space-evenly",
 padding: 10,
-backgroundColor: 'beige'
+backgroundColor: 'beige',
+width: 300,
+alignContent: 'center'
 },
 row: {
 display: 'flex',
