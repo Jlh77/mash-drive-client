@@ -13,7 +13,6 @@ export const fetchPostByPostId = async (postId) => {
             Promise.reject({status: 404, msg: 'Not Found'})
         } else {
             const result = {...post.data(), id: post.id}
-            console.log(result, 'result')
             return result;
         }
     } catch (err) {
@@ -269,4 +268,8 @@ export const incrementCommentCount = async (post_id) => {
         console.log(err)
     }
 }
+
+
+
+
 

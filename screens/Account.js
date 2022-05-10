@@ -14,7 +14,7 @@ import { useAuth } from "../contexts/User";
 import { DefaultAvatar, DefaultImg } from '../img/avatar'
 import { collection } from 'firebase/firestore';
 import { useEffect, useState } from "react";
-import getPosts from '../controllers/index';
+import { getPosts } from '../controllers/index';
 
 
 

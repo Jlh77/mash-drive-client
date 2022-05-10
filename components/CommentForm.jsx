@@ -32,8 +32,10 @@ const CommentForm = ({ navigation, postId, setCommentData }) => {
       //optimisticly render comments with new comment on top
       setCommentData((curr) => {
         const tempCopy = { ...commentToSubmit };
+
         //make random temp id number so mapped element has keys
-        tempCopy.id = Math.floor(Math.random() * 10000).toString();
+       // tempCopy.id = Math.floor(Math.random() * 10000).toString();
+       
         return [...curr, tempCopy];
       });
 

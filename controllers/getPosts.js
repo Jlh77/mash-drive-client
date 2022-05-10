@@ -1,4 +1,4 @@
-import fetchPosts from "../models/index";
+import { fetchPosts } from "../models/index";
 
 const getPosts = async (PostsData) => {
     const Posts = await fetchPosts(PostsData)

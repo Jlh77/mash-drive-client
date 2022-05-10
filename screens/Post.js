@@ -33,12 +33,9 @@ const Post = ({ route, navigation }) => {
     console.log(commentData, '<====== DATA')
     try {
       const post = await fetchPostByPostId(id);
-      console.log(post, 'post')
       const author = await fetchUserByUid(post.uid);
       const comments = await getCommentsByPostId(id);
       setPostData(post);
-      console.log(author, 'author')
-      console.log(comments, '<===== COMMENTS')
       setPostAuthorData(author);
       setCommentData(comments);
       setIsLoading(false);
@@ -79,11 +76,10 @@ const Post = ({ route, navigation }) => {
           </View>
         </View>
 
-
-        <View>
           <View style={styles.comments} >
-          <CommentList commentData={commentData} />
+          <CommentList commentData={commentData} setCommentData={setCommentData}/>
           </View>
+
         </View>
       </ScrollView>
        <View style={styles.commentForm}>
