@@ -34,9 +34,10 @@ const SearchSortBar = ({ posts, setSearchFeedData, searchTerm, setSearchTerm }) 
 
 const styles = StyleSheet.create({
     barContainer: {
-        padding: 3,
+        padding: 8,
         display: "flex",
         flexDirection: "row",
+        backgroundColor: "#1B242A",
     },
     search: {
         display: "flex",
@@ -53,13 +54,15 @@ const styles = StyleSheet.create({
     searchIcon: {
         flexGrow: 0,
         padding: 3,
-        color: "#1B242A",
+        // color: "#1B242A",
+        color: "#F5D349",
     },
     searchText: {
         flexGrow: 1,
         padding: 3,
         fontSize: 20,
-        color: "#1B242A",
+        // color: "#1B242A",
+        color: "#F5D349",
     },
 })
 
