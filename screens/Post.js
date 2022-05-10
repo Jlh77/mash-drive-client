@@ -74,8 +74,6 @@ const Post = ({ route, navigation }) => {
           <Text>Votes: {postData.votes}</Text>
           </View>
           </View>
-        </View>
-
           <View style={styles.comments} >
           <CommentList commentData={commentData} setCommentData={setCommentData}/>
           </View>
