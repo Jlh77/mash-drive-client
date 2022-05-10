@@ -13,6 +13,7 @@ export const fetchPostByPostId = async (postId) => {
             Promise.reject({status: 404, msg: 'Not Found'})
         } else {
             const result = {...post.data(), id: post.id}
+            console.log(result, 'result')
             return result;
         }
     } catch (err) {
@@ -40,7 +41,6 @@ export const fetchPostsByUid = async (uid) => {
         const postsByUser = await postsRef.where('uid', '==', uid).get();
         let arr = [];
         postsByUser.docs.forEach(doc => {
-            console.log(doc, 'doc')
             arr.push(doc.data());
         })
         return arr;
@@ -103,7 +103,6 @@ export const getTenMostCommentedPosts = async () => {
         topTenMostCommented.docs.forEach(doc => {
             arr.push({...doc.data(), id: doc.id})
         })
-        console.log(arr, 'arr of top10comments')
         return arr;
     } catch (err) {
         console.log(err)
