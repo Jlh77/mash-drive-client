@@ -15,6 +15,8 @@ import {
 import { ScrollView } from 'react-native-gesture-handler';
 import CommentForm from '../components/CommentForm';
 import { CommentList } from '../components';
+import { DefaultAvatar, DefaultImg } from '../img/avatar'
+
 
 const Post = ({ route, navigation }) => {
   const { id } = route.params;
@@ -28,6 +30,7 @@ const Post = ({ route, navigation }) => {
   }, [setCommentData]);
 
   const loadInfo = async (id) => {
+    console.log(commentData, '<====== DATA')
     try {
       const post = await fetchPostByPostId(id);
       console.log(post, 'post')
@@ -35,6 +38,7 @@ const Post = ({ route, navigation }) => {
       const comments = await getCommentsByPostId(id);
       setPostData(post);
       console.log(author, 'author')
+      console.log(comments, '<===== COMMENTS')
       setPostAuthorData(author);
       setCommentData(comments);
       setIsLoading(false);
@@ -52,26 +56,40 @@ const Post = ({ route, navigation }) => {
   return (
     <SafeAreaView style={styles.safeAreaView}>
       <ScrollView>
+        <View style={styles.poster}>
+      <DefaultAvatar />
+        <Text style={styles.poster_username}>{postAuthorData.username}</Text>
+        </View>
         <View style={styles.mainPostArea}>
+
+        <View style={styles.postSolo}>
           <Text style={styles.headerTitle}>{postData.title}</Text>
+          <View style={{alignItems: 'center'}}>
           <Image
             style={styles.image}
             source={{ uri: postData.image_url }}
           ></Image>
+          
           <Text>{postData.description}</Text>
           <Text>Votes: {postData.votes}</Text>
           <Image
             style={styles.authorAvatar}
             source={{ uri: postAuthorData.avatar_url }}
           ></Image>
-          <Text>Posted By: {postAuthorData.username}</Text>
-          <Text>Reputation: {postAuthorData.reputation}</Text>
+          </View>
+          </View>
         </View>
+
+
         <View>
+          <View style={styles.comments} >
           <CommentList commentData={commentData} />
-          <CommentForm postId={postData.id} setCommentData={setCommentData} />
+          </View>
         </View>
       </ScrollView>
+      <View style={styles.commentForm}>
+          <CommentForm postId={postData.id} setCommentData={setCommentData} />
+          </View>
     </SafeAreaView>
   );
 };
@@ -79,13 +97,35 @@ const Post = ({ route, navigation }) => {
 export default Post;
 
 const styles = StyleSheet.create({
+  poster: {
+    backgroundColor: '#A47231',
+  },
+  poster_username: {
+    textAlign: "center",
+textTransform: 'uppercase',
+fontFamily: '"Times New Roman", Times, serif',
+fontWeight: 'bold',
+fontSize: 30,
+  },
+  postSolo: {
+backgroundColor: '#F5D349',
+  },
   safeAreaView: {
-    backgroundColor: 'yellow',
+    backgroundColor: '#6e9176',
     flex: 1,
+    borderColor: "black",
+    borderStyle: "solid",
+
+
+
   },
   mainPostArea: {
-    borderWidth: 4,
+    // borderWidth: 4,
     justifyContent: 'center',
+    borderColor: "black",
+    borderStyle: "solid",
+borderTopWidth: 1,
+borderBottomWidth: 1,
   },
   headerTitle: {
     textTransform: 'capitalize',
@@ -95,6 +135,8 @@ const styles = StyleSheet.create({
   image: {
     height: 200,
     width: 200,
+    justifyContent: 'center',
+
   },
   authorAvatar: {
     height: 50,
@@ -122,4 +164,21 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
   },
+  comments: {
+    backgroundColor: '#6e9176',
+  borderColor: "black",
+  borderStyle: "solid",
+
+
+
+
+  },
+
+  commentForm: {
+    backgroundColor: 'white',
+  borderColor: "black",
+  borderStyle: "solid",
+
+  
+  }
 });

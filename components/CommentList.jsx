@@ -6,10 +6,11 @@ const CommentList = ({ commentData }) => {
             <Text style={styles.commentsHeader}>Comments</Text>
             {commentData.map((comment) => {
             return (
-                <View key={comment.id}>
-                <Text>Comment by {comment.username}</Text>
-                <Text>Reputation: </Text>
-                <Text>Comment body text : {comment.text_body}</Text>
+                <View style={styles.commentsBlock} key={comment.id}>
+                {/* <Text>Comment by {comment.username}</Text> */}
+                {/* <Text>Reputation: </Text> */}
+                <Text style={styles.body}>'{comment.text_body}'</Text>
+                <Text style={styles.username}>- {comment.username}</Text>
                 </View>
             );
             })}
@@ -18,18 +19,25 @@ const CommentList = ({ commentData }) => {
 }
 
 const styles = StyleSheet.create({
+  commentsBlock: {
+    textAlign: 'center',
+margin: 10
+  },
     commentsSection: {
       padding: 20,
       fontSize: 15,
-      marginTop: 5,
+      marginTop: 0,
       textTransform: 'capitalize',
-      borderWidth: 1,
-      backgroundColor: 'beige',
+
+
     },
     commentsHeader : {
       textAlign: 'center',
       fontSize: 25,
     },
+    body: {
+      fontSize: 15
+    }
   });
 
 export default CommentList;
