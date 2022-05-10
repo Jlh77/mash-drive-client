@@ -1,6 +1,7 @@
 import { View, Text, StyleSheet } from 'react-native';
+import DeleteCommentButton from './DeleteCommentButton';
 
-const CommentList = ({ commentData }) => {
+const CommentList = ({ commentData, setCommentData }) => {
     return (
         <View style={styles.commentsSection}>
             <Text style={styles.commentsHeader}>Comments</Text>
@@ -10,6 +11,7 @@ const CommentList = ({ commentData }) => {
                 <Text>Comment by {comment.username}</Text>
                 <Text>Reputation: </Text>
                 <Text>Comment body text : {comment.text_body}</Text>
+                <DeleteCommentButton commenterUid={comment.uid} commentId={comment.id} setCommentData={setCommentData} postId={comment.post_id}/>
                 </View>
             );
             })}
