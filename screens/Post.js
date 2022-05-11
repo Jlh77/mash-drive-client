@@ -54,12 +54,11 @@ const Post = ({ route, navigation }) => {
       <ScrollView>
         <View style={styles.poster}>
           <Image
+        defaultSource={postImgPlaceholder}
             style={styles.authorAvatar}
             source={{
               uri:
-                postAuthorData.avatar_url?.length > 1
-                  ? postAuthorData.avatar_url
-                  : postImgPlaceholder,
+                postAuthorData.avatar_url
             }}
           ></Image>
           <Text style={styles.poster_username}>{postAuthorData.username}</Text>
@@ -80,6 +79,17 @@ const Post = ({ route, navigation }) => {
               <Text>{postData.description}</Text>
               <Text>Votes: {postData.votes}</Text>
             </View>
+
+        <View style={styles.postSolo}>
+          <Text style={styles.headerTitle}>{postData.title}</Text>
+          <View style={{alignItems: 'center'}}>
+          <Image
+            style={styles.image}
+            source={{ uri: postData.image_url }}
+          ></Image>
+          
+          <Text>{postData.description}</Text>
+          <Text>Votes: {postData.upvotes - postData.downvotes}</Text>
           </View>
           <View style={styles.comments}>
             <CommentList
@@ -135,9 +145,13 @@ const styles = StyleSheet.create({
     fontSize: 40,
   },
   image: {
+
     height: 200,
     width: 200,
     justifyContent: "center",
+    height: 400,
+    width: 400,
+    justifyContent: 'center',
   },
   authorAvatar: {
     width: 100,
@@ -157,8 +171,7 @@ const styles = StyleSheet.create({
     flex: 1,
     padding: 0,
     marginBottom: 15,
-    borderBottomWidth: 1,
-    borderBottomColor: "#cccccc",
+
   },
   preloader: {
     left: 0,
@@ -173,6 +186,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#6e9176",
     borderColor: "black",
     borderStyle: "solid",
+    borderTopWidth: 1,
   },
 
   commentForm: {

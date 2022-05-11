@@ -1,6 +1,6 @@
 import { useAuth } from '../contexts/User'
 import { useState } from 'react'
-import { Button, Alert } from 'react-native'
+import { Button, Alert, StyleSheet } from 'react-native'
 import { deleteComment } from '../controllers/index'
 
 const DeleteCommentButton = ({ commenterUid, commentId, setCommentData, postId }) => {
@@ -31,8 +31,16 @@ const handleDelete = (comment_id, post_id, user_uid) => {
 
 if(currentUser.uid !== commenterUid || !commentId) return null;
 
-return <Button title="Delete Comment" onPress={() => handleDelete(commentId, postId, commenterUid)}></Button>
+return <Button color='#6e9176'  title="X" onPress={() => handleDelete(commentId, postId, commenterUid)}></Button>
 
 }
+
+const styles = StyleSheet.create({
+deleteButton: {
+  width: 10,
+  height: 11,
+  backgroundColor: '#6e9176'
+}
+  });
 
 export default DeleteCommentButton;
