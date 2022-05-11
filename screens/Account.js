@@ -11,7 +11,6 @@ import {
 } from "react-native";
 import { db } from "../firebase.config";
 import { useAuth } from "../contexts/User";
-  import { DefaultAvatar, DefaultImg } from '../img/avatar';
 import { collection } from "firebase/firestore";
 import { useEffect, useState } from "react";
 import { getPosts } from "../controllers/index";
@@ -46,13 +45,12 @@ const Account = ({ navigation }) => {
   if (isLoading)
     return (
       <View style={styles.preloader}>
-        <ActivityIndicator size='large'></ActivityIndicator>
+        <ActivityIndicator size="large"></ActivityIndicator>
       </View>
     );
 
   return (
     <ScrollView style={styles.container}>
-      <DefaultAvatar />
       <View style={{ justifyContent: "center", alignItems: "center" }}>
         <Image
           source={currentUser.avatar_url}
@@ -183,16 +181,16 @@ const styles = StyleSheet.create({
     padding: 0,
     marginBottom: 15,
     borderBottomWidth: 1,
-    borderBottomColor: '#cccccc',
+    borderBottomColor: "#cccccc",
   },
   preloader: {
     left: 0,
     right: 0,
     top: 0,
     bottom: 0,
-    position: 'absolute',
-    alignItems: 'center',
-    justifyContent: 'center',
+    position: "absolute",
+    alignItems: "center",
+    justifyContent: "center",
   },
   button: {
     marginBottom: 7,
