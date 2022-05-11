@@ -14,7 +14,8 @@ import {
 } from "../utils/utils";
 import { ScrollView } from "react-native-gesture-handler";
 import CommentForm from "../components/CommentForm";
-import { CommentList } from "../components";
+import { CommentList, UpDownVoteButton } from "../components";
+import UpDownVoteButtons from '../components/UpDownVoteButtons';
 const postImgPlaceholder = require("../img/defaultImage.jpeg");
 
 const Post = ({ route, navigation }) => {
@@ -76,7 +77,7 @@ const Post = ({ route, navigation }) => {
               ></Image>
 
               <Text>{postData.description}</Text>
-              <Text>Votes: {postData.upvotes - postData.downvotes}</Text>
+              <UpDownVoteButtons postData={postData}/>
             </View>
 
             <View style={styles.comments}>
