@@ -173,7 +173,7 @@ const Upload = ({ navigation }) => {
         onPress={pickImage}
         color="rgb(245, 211, 73)"
       />
-      {/* Choose either this or below depending on ultimate styling preferences */}
+      {/* Choose either this or below  depending on ultimate styling preferences */}
       {/* {image && (
         <>
           <Image source={{ uri: image.uri }} style={styles.selectedImage} />
