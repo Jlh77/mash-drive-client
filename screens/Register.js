@@ -58,6 +58,7 @@ const Register = ({ navigation }) => {
 
   return (
     <ScrollView style={styles.container}>
+         <View style ={{marginTop: 200}}>
       <View style={{alignItems: 'center', marginBottom: 15}}>
       <Text style={{ fontWeight: "bold", fontSize: 40 }}>Register</Text>
       </View>
@@ -84,6 +85,7 @@ const Register = ({ navigation }) => {
       </View>
       <View>
         <Button title="Sign Up" color='#6e9176' onPress={storeUser}></Button>
+      </View>
       </View>
     </ScrollView>
   );
