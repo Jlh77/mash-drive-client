@@ -15,6 +15,7 @@ const Feed = ({ posts }) => {
 const styles = StyleSheet.create({
     feedContainer: {
         flex: 1,
+        padding: 10,
     },
     text: {
         margin: 10,

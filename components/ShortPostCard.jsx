@@ -83,7 +83,14 @@ const styles = StyleSheet.create({
     height: 200,
   },
   dataContainer: {
-    marginLeft: 5,
+    backgroundColor: "#1B242A",
+    paddingTop: 3,
+    borderStyle: "solid",
+    borderColor: "#1B242A",
+    borderWidth: 2,
+    borderBottomWidth: 0,
+    borderTopLeftRadius: 3,
+    borderTopRightRadius: 3,
   },
   userDataContainer: {
     flexDirection: "row",
@@ -96,16 +103,15 @@ const styles = StyleSheet.create({
   },
   username: {
     margin: 3,
-    color: "#1B242A",
-    fontFamily: "helvetica",
-    fontWeight: "bold",
+    color: "#F5D349",
+    fontWeight: "500",
+    letterSpacing: 1,
   },
   title: {
     margin: 3,
-    color: "#1B242A",
-    fontFamily: "helvetica",
+    color: "#F4F5F4",
     marginLeft: 5,
-    fontWeight: "bold",
+    letterSpacing: 1,
   },
   preloader: {
     left: 0,
