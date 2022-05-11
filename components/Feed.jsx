@@ -1,5 +1,5 @@
 import { StyleSheet, View, Text, FlatList } from 'react-native';
-import { ShortPostCard } from './index';
+import { ShortPostCard } from './ShortPostCard';
 
 const Feed = ({ posts }) => {
   
