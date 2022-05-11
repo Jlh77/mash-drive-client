@@ -54,11 +54,10 @@ const Post = ({ route, navigation }) => {
       <ScrollView>
         <View style={styles.poster}>
           <Image
-        defaultSource={postImgPlaceholder}
+            defaultSource={postImgPlaceholder}
             style={styles.authorAvatar}
             source={{
-              uri:
-                postAuthorData.avatar_url
+              uri: postAuthorData.avatar_url,
             }}
           ></Image>
           <Text style={styles.poster_username}>{postAuthorData.username}</Text>
@@ -77,25 +76,15 @@ const Post = ({ route, navigation }) => {
               ></Image>
 
               <Text>{postData.description}</Text>
-              <Text>Votes: {postData.votes}</Text>
+              <Text>Votes: {postData.upvotes - postData.downvotes}</Text>
             </View>
 
-        <View style={styles.postSolo}>
-          <Text style={styles.headerTitle}>{postData.title}</Text>
-          <View style={{alignItems: 'center'}}>
-          <Image
-            style={styles.image}
-            source={{ uri: postData.image_url }}
-          ></Image>
-          
-          <Text>{postData.description}</Text>
-          <Text>Votes: {postData.upvotes - postData.downvotes}</Text>
-          </View>
-          <View style={styles.comments}>
-            <CommentList
-              commentData={commentData}
-              setCommentData={setCommentData}
-            />
+            <View style={styles.comments}>
+              <CommentList
+                commentData={commentData}
+                setCommentData={setCommentData}
+              />
+            </View>
           </View>
         </View>
       </ScrollView>
@@ -145,13 +134,12 @@ const styles = StyleSheet.create({
     fontSize: 40,
   },
   image: {
-
     height: 200,
     width: 200,
     justifyContent: "center",
     height: 400,
     width: 400,
-    justifyContent: 'center',
+    justifyContent: "center",
   },
   authorAvatar: {
     width: 100,
@@ -171,7 +159,6 @@ const styles = StyleSheet.create({
     flex: 1,
     padding: 0,
     marginBottom: 15,
-
   },
   preloader: {
     left: 0,

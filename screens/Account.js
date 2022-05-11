@@ -51,7 +51,6 @@ const Account = ({ navigation }) => {
     );
 
   return (
-
     <ScrollView style={styles.container}>
       <View style={{ justifyContent: "center", alignItems: "center" }}>
         <Image
@@ -110,7 +109,7 @@ const Account = ({ navigation }) => {
           />
         </View>
       </View>
-    </View>
+    </ScrollView>
   );
 };
 const styles = StyleSheet.create({
