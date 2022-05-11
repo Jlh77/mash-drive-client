@@ -22,6 +22,7 @@ const Leaderboard = ({ navigation }) => {
   const [topTenUsers, setTopTenUsers] = useState([]);
   const [usersOrPosts, setUsersOrPosts] = useState('posts');
   const [isLoading, setIsLoading] = useState(true);
+  const [title, setTitle] = useState('Most Upvoted')
 
   useEffect(() => {
     handleTop();
@@ -30,6 +31,7 @@ const Leaderboard = ({ navigation }) => {
   const handleTop = async () => {
     try {
       setIsLoading(true);
+      setTitle('Most Upvoted')
       const fetchedTopTen = await getTopTenVotedPosts();
       for (const post of fetchedTopTen) {
         const userdata = await fetchUserByUid(post.uid);
@@ -47,6 +49,7 @@ const Leaderboard = ({ navigation }) => {
   const handleBottom = async () => {
     try {
       setIsLoading(true);
+      setTitle('Most Downvoted')
       const fetchedTopTen = await getBottomTenVotedPosts();
       for (const post of fetchedTopTen) {
         const userdata = await fetchUserByUid(post.uid);
@@ -76,6 +79,7 @@ const Leaderboard = ({ navigation }) => {
   const handleComments = async () => {
     try {
       setIsLoading(true);
+      setTitle('Most Commented')
       const fetchedTopTen = await getTenMostCommentedPosts();
       for (const post of fetchedTopTen) {
         const userdata = await fetchUserByUid(post.uid);
@@ -99,17 +103,19 @@ const Leaderboard = ({ navigation }) => {
   if (usersOrPosts === 'posts') {
     return (
       <SafeAreaView style={styles.screenContainer}>
-        <Text>Top Posts</Text>
-        <Button title='Most Upvotes' onPress={handleTop}></Button>
-        <Button title='Most Downvotes' onPress={handleBottom}></Button>
-        <Button title='Most Commented' onPress={handleComments}></Button>
-        <Button title='Higest Rated Users' onPress={handleUsers}></Button>
+        <Text style={styles.title}>{title}</Text>
+        <View style={styles.buttonArea}>
+        <Button style={styles.selector} title='Most Upvotes' onPress={handleTop}></Button>
+        <Button style={styles.selector} title='Most Downvotes' onPress={handleBottom}></Button>
+        <Button style={styles.selector} title='Most Commented' onPress={handleComments}></Button>
+        <Button style={styles.selector} title='Higest Rated Users' onPress={handleUsers}></Button>
+        </View>
         <View style={styles.scrollContainer}>
           <ScrollView style={styles.scroller}>
             {topTen.map((recipe, index) => {
               return (
                 <TouchableOpacity key={index} style={styles.item} onPress={() => navigation.navigate( 'Post', { id: recipe.id })}>
-                  <Text>{index + 1}</Text>
+                  <Text style={styles.number}>{index + 1}</Text>
                     <Text>{recipe.title}</Text>
                   <Text>Votes: {recipe.upvotes - recipe.downvotes}</Text>
                   <Text>Comments: {recipe.comments}</Text>
@@ -127,11 +133,13 @@ const Leaderboard = ({ navigation }) => {
   if (usersOrPosts === 'users') {
     return (
       <SafeAreaView style={styles.screenContainer}>
-        <Text>Top Rated Users</Text>
-        <Button title='Most Upvotes' onPress={handleTop}></Button>
-        <Button title='Most Downvotes' onPress={handleBottom}></Button>
-        <Button title='Most Commented' onPress={handleComments}></Button>
-        <Button title='Higest Rated Users' onPress={handleUsers}></Button>
+        <Text style={styles.title}>Top Rated Users</Text>
+        <View style={styles.buttonArea}>
+        <Button style={styles.selector} title='Most Upvotes' onPress={handleTop}></Button>
+        <Button style={styles.selector} title='Most Downvotes' onPress={handleBottom}></Button>
+        <Button style={styles.selector} title='Most Commented' onPress={handleComments}></Button>
+        <Button style={styles.selector} title='Higest Rated Users' onPress={handleUsers}></Button>
+        </View>
         <View style={styles.scrollContainer}>
           <ScrollView style={styles.scroller}>
             {topTenUsers.map((user, index) => {
@@ -157,8 +165,23 @@ const Leaderboard = ({ navigation }) => {
 };
 
 const styles = StyleSheet.create({
+  title: {
+    textAlign: "center",
+    margin: 15,
+    fontSize: 40,
+    fontWeight: "bold",
+    backgroundColor: "#1B2424A"
+  },
+  buttonArea: {
+    display: "flex",
+    flexDirection: 'row',
+    justifyContent: "space-evenly",
+    marginBottom: 20,
+    marginTop: 20,
+  },  
   screenContainer: {
     flex: 1,
+    backgroundColor: '#F5D349',
   },
   scrollContainer: {
     flex: 1,
@@ -170,12 +193,16 @@ const styles = StyleSheet.create({
   item: {
     padding: 20,
     fontSize: 15,
-    marginTop: 5,
     textTransform: 'capitalize',
-    borderWidth: 1,
-    backgroundColor: 'beige',
+    borderWidth: 2,
+    borderRadius: 6,
   },
-  
+  number: {
+    justifyContent: 'center',
+    fontWeight: 'bold',
+    fontSize: 15,
+    textAlign: 'center',
+  },  
 });
 
 export default Leaderboard;
