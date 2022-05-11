@@ -1,9 +1,10 @@
-import { StyleSheet, View, TextInput, Image } from "react-native";
+import { StyleSheet, View, TextInput, Image, TouchableOpacity } from "react-native";
 import { MaterialIcons } from "@expo/vector-icons";
 import { useState } from "react";
 import { useAuth } from "../contexts/User";
+import { useNavigation } from "@react-navigation/native";
 
-const SearchSortBar = ({
+const SearchBar = ({
   posts,
   setSearchFeedData,
   searchTerm,
@@ -11,6 +12,7 @@ const SearchSortBar = ({
 }) => {
   const [searchActive, setSearchActive] = useState(false);
   const { currentUser } = useAuth();
+  const navigation = useNavigation();
 
   const performSearch = () => {
     const postsData = [...posts];
@@ -61,7 +63,10 @@ const SearchSortBar = ({
           }}
         ></TextInput>
       </View>
-      <Image style={styles.avi} source={currentUser.avatar_url}></Image>
+      {/* <TouchableOpacity style={styles.aviContainer} onPress={() => console.log(currentUser.uid)}> */}
+      <TouchableOpacity style={styles.aviContainer} onPress={() => navigation.navigate('User', { userId: currentUser.uid })}>
+        <Image style={styles.avi} source={currentUser.avatar_url}></Image>
+      </TouchableOpacity>
     </View>
   );
 };
@@ -84,12 +89,15 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     flexGrow: 1,
   },
-  avi: {
+  aviContainer: {
     flexBasis: 30,
     borderRadius: 30,
-    backgroundColor: "green",
     margin: 3,
     flexGrow: 0,
+  },
+  avi: {
+    flex: 1,
+    borderRadius: 30,
   },
   searchIconActive: {
     flexGrow: 0,
@@ -123,4 +131,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default SearchSortBar;
+export default SearchBar;
