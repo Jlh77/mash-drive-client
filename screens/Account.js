@@ -11,7 +11,6 @@ import {
 } from "react-native";
 import { db } from "../firebase.config";
 import { useAuth } from "../contexts/User";
-  import { DefaultAvatar, DefaultImg } from '../img/avatar';
 import { collection } from "firebase/firestore";
 import { useEffect, useState } from "react";
 import { getPosts } from "../controllers/index";
@@ -52,7 +51,6 @@ const Account = ({ navigation }) => {
 
   return (
     <ScrollView style={styles.container}>
-      <DefaultAvatar />
       <View style={{ justifyContent: "center", alignItems: "center" }}>
         <Image
           source={currentUser.avatar_url}
