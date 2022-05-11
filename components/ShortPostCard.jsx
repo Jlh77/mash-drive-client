@@ -20,6 +20,8 @@ const ShortPostCard = ({ post }) => {
     navigation.navigate("Post", { id: content.id });
   };
 
+  // navigation.navigate('User', { userId: content.uid })
+
   useEffect(() => {
     setIsLoading(true);
     fetchUserByUid(content.uid).then((data) => {
@@ -40,17 +42,17 @@ const ShortPostCard = ({ post }) => {
     return (
       <View style={styles.cardContainer}>
         <View style={styles.dataContainer}>
-          <View style={styles.userDataContainer}>
-            <Image
-              style={styles.avi}
-              source={
-                userData.avatar_url
-                  ? userData.avatar_url
-                  : require("../img/default_avatar.jpeg")
-              }
-            ></Image>
+          <TouchableOpacity style={styles.userDataContainer} onPress={() => navigation.navigate('User', { userId: content.uid })}>
+              <Image
+                style={styles.avi}
+                source={
+                  userData.avatar_url
+                    ? userData.avatar_url
+                    : require("../img/default_avatar.jpeg")
+                }
+              ></Image>
             <Text style={styles.username}>{userData.username}</Text>
-          </View>
+          </TouchableOpacity>
           <View style={styles.titleContainer}>
             <Text style={styles.title}>{content.title}</Text>
           </View>
@@ -98,7 +100,6 @@ const styles = StyleSheet.create({
   avi: {
     width: 17,
     borderRadius: 10,
-    backgroundColor: "red",
     margin: 3,
   },
   username: {
