@@ -58,7 +58,7 @@ const Account = ({ navigation }) => {
     );
 
   return (
-    <ScrollView style={styles.container}>
+    <View style={styles.container}>
 
 <DefaultAvatar />
 <View>
@@ -84,7 +84,7 @@ return <Image style={[styles.image, styles.wireframeBorder]} source={{uri: `${po
         <Button style={{ textAlign:"center" }} title="Delete Account" onPress={handleDelete} color="#885a2c" />
       </View>
       </View>
-    </ScrollView>
+    </View>
   );
 };
 const styles = StyleSheet.create({
