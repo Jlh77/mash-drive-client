@@ -42,6 +42,10 @@ export const UserProvider = (props) => {
           .doc(user.uid)
           .get()
           .then((res) => {
+            // set user avatar
+            user._delegate.avatar_url = user._delegate.avatar_url
+              ? user._delegate.avatar_url
+              : require("../img/defaultImage.jpeg");
             setCurrentUser({ ...user._delegate, ...res.data() });
           })
           // testing catch, deal with
