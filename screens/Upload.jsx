@@ -20,11 +20,15 @@ const Upload = ({ navigation }) => {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [image, setImage] = useState(null);
+
   const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState(null);
+
   // progress bar states
   const [isUploading, setIsUploading] = useState(false);
   const [progress, setProgress] = useState(0);
-  // Should probably have an error state, currently uses alerts
+  const [uploadedPostId, setUploadedPostId] = useState(null);
+
   const { currentUser } = useAuth();
 
   useEffect(async () => {
@@ -41,6 +45,8 @@ const Upload = ({ navigation }) => {
   }, []);
 
   const pickImage = async () => {
+    setError(null);
+    setUploadedPostId(null);
     let result = await ImagePicker.launchImageLibraryAsync({
       mediaTypes: ImagePicker.MediaTypeOptions.All,
       allowsEditing: true,
@@ -70,6 +76,7 @@ const Upload = ({ navigation }) => {
   const handleUpload = async () => {
     if (title === "") {
       alert("Please enter a valid title for your post");
+      setError("Oops");
     } else if (!image) {
       alert("Please upload an image of your post");
     } else if (!currentUser) {
@@ -89,7 +96,6 @@ const Upload = ({ navigation }) => {
 
         const uploadTask = storageRef.put(imageBlob, metaData);
 
-        // I need to add some things here to make loading bar update regularly
         uploadTask.on(
           "state_changed",
           (snapshot) => {
@@ -99,7 +105,7 @@ const Upload = ({ navigation }) => {
             setProgress(progress);
           },
           (error) => {
-            // IMPORTANT add proper error message stuff here
+            setError("Failed to upload image. Please try again.");
             setIsUploading(false);
             setProgress(0);
             alert(`something went wrong check logs -> ${err}`);
@@ -112,26 +118,27 @@ const Upload = ({ navigation }) => {
               .getDownloadURL()
               .then((url) => {
                 // add post data to collection and link image to post ***** add extra necessary fields here
-                db.collection("posts").doc().set({
-                  image_url: url,
-                  title,
-                  description,
-                  uid: currentUser.uid,
-                  upvotes: 0,
-                  downvotes: 0,
-                  parent_post_id: null,
-                });
-
-                setIsUploading(false);
-                setProgress(0);
-
-                // IMPORTANT Add logic here to tell user post was successful, clear the states to ""/null and maybe redirect to their new post/other page
+                db.collection("posts")
+                  .add({
+                    image_url: url,
+                    title,
+                    description,
+                    uid: currentUser.uid,
+                    upvotes: 0,
+                    downvotes: 0,
+                    parent_post_id: null,
+                  })
+                  .then((docRef) => {
+                    setUploadedPostId(docRef.id);
+                    setIsUploading(false);
+                    setProgress(0);
+                  });
               });
           }
         );
       } catch (err) {
         alert(`Error: ${err}`);
-        // IMPORTANT Eventually error states used etc and for invalid input here too
+        setError("Failed to upload image. Please try again.");
       }
     }
   };
@@ -145,23 +152,40 @@ const Upload = ({ navigation }) => {
 
   return (
     <ScrollView style={styles.container}>
-      <Text style={{ fontWeight: "bold", fontSize: 40 }}>Upload</Text>
+      <Text
+        style={{
+          fontWeight: "bold",
+          fontSize: 40,
+          color: "rgb(245, 211, 73)",
+          margin: 30,
+        }}
+      >
+        Upload
+      </Text>
 
-      <Button title="Choose Image" onPress={pickImage} />
-      {/* Choose either this or below depending on ultimate styling preferences
+      {error && (
+        <View style={styles.errorBox}>
+          <Text style={styles.errorMessage}>{error}</Text>
+        </View>
+      )}
+
+      <Button
+        title="Choose Image"
+        onPress={pickImage}
+        color="rgb(245, 211, 73)"
+      />
+      {/* Choose either this or below depending on ultimate styling preferences */}
       {image && (
-        <Image
-          source={{ uri: image.uri }}
-          style={{ width: 200, height: 200 }}
-        />
-      )} */}
-      <Image
+        <Image source={{ uri: image.uri }} style={styles.selectedImage} />
+      )}
+      {/* <Image
         // Choose a different placeholder below
         source={{ uri: image?.uri || "http://via.placeholder.com/200x200" }}
         style={{ width: 200, height: 200 }}
-      />
+      /> */}
       <View style={styles.inputGroup}>
         <TextInput
+          style={styles.inputBox}
           placeholder={"Title"}
           value={title}
           onChangeText={setTitle}
@@ -169,20 +193,21 @@ const Upload = ({ navigation }) => {
       </View>
       <View style={styles.inputGroup}>
         <TextInput
+          style={styles.inputBox}
           placeholder={"Description"}
           value={description}
           onChangeText={setDescription}
         ></TextInput>
       </View>
-
       <View>
-        <Button title="Create Post" onPress={handleUpload}></Button>
+        <Button margin={20} title="Create Post" onPress={handleUpload}></Button>
       </View>
-
       <View>
         {isUploading && (
           <>
-            <Text>Uploading your weird food...</Text>
+            <Text style={{ color: "rgb(245, 211, 73)" }}>
+              Uploading your weird food...
+            </Text>
             <View style={styles.progressBar}>
               <Animated.View
                 style={
@@ -195,6 +220,24 @@ const Upload = ({ navigation }) => {
           </>
         )}
       </View>
+      <View>
+        {uploadedPostId && (
+          <>
+            <Text style={{ color: "rgb(245, 211, 73)", margin: 20 }}>
+              Congratulations, your abomination has been uploaded successfully!
+              Click below to view your new creation, or add another...
+            </Text>
+            <Button
+              title="View new post"
+              color="rgb(245, 211, 73)"
+              onPress={() => {
+                setUploadedPostId(null);
+                navigation.navigate("Post", { id: uploadedPostId });
+              }}
+            />
+          </>
+        )}
+      </View>
     </ScrollView>
   );
 };
@@ -203,13 +246,29 @@ const styles = StyleSheet.create({
     flex: 1,
     padding: 35,
     textAlign: "center",
+    backgroundColor: "rgb(27, 36, 42)",
+  },
+  errorBox: {
+    marginBottom: 20,
+    backgroundColor: "red",
+    paddingBottom: 10,
+    paddingTop: 10,
+  },
+  errorMessage: {
+    color: "white",
   },
   inputGroup: {
     flex: 1,
     padding: 0,
     marginBottom: 15,
-    borderBottomWidth: 1,
-    borderBottomColor: "#cccccc",
+    borderWidth: 1,
+    borderColor: "#cccccc",
+    borderRadius: 3,
+    marginTop: 15,
+  },
+  inputBox: {
+    color: "white",
+    padding: 10,
   },
   preloader: {
     left: 0,
@@ -219,6 +278,12 @@ const styles = StyleSheet.create({
     position: "absolute",
     alignItems: "center",
     justifyContent: "center",
+  },
+  selectedImage: {
+    height: "100%",
+    width: "100%",
+    maxWidth: 400,
+    maxHeight: 400,
   },
   progressBar: {
     height: 20,
