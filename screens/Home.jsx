@@ -9,7 +9,7 @@ const Home = ({ route }) => {
   const [posts, setPosts] = useState([]);
   const postsCollection = collection(db, "posts");
   const [searchFeedData, setSearchFeedData] = useState([]);
-  const [searchTerm, setSearchTerm] = useState("");
+  const [searchTerm, setSearchTerm] = useState('');
   const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
@@ -54,7 +54,7 @@ const Home = ({ route }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#F5D349",
+    backgroundColor: '#F5D349',
   },
 });
 

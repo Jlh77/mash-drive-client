@@ -11,6 +11,7 @@ import {
 } from "react-native";
 import { db } from "../firebase.config";
 import { useAuth } from "../contexts/User";
+  import { DefaultAvatar, DefaultImg } from '../img/avatar';
 import { collection } from "firebase/firestore";
 import { useEffect, useState } from "react";
 import { getPosts } from "../controllers/index";
@@ -26,7 +27,6 @@ const Account = ({ navigation }) => {
     getPosts(postsCollection).then((data) => {
       setPosts(() => {
         let splicedData = data.splice(0, 6);
-        console.log(splicedData, "<==== DATA");
         return splicedData;
       });
     });
@@ -46,12 +46,13 @@ const Account = ({ navigation }) => {
   if (isLoading)
     return (
       <View style={styles.preloader}>
-        <ActivityIndicator size="large"></ActivityIndicator>
+        <ActivityIndicator size='large'></ActivityIndicator>
       </View>
     );
 
   return (
     <ScrollView style={styles.container}>
+      <DefaultAvatar />
       <View style={{ justifyContent: "center", alignItems: "center" }}>
         <Image
           source={currentUser.avatar_url}
@@ -69,7 +70,6 @@ const Account = ({ navigation }) => {
       <View>
         <Text style={styles.username}>{username}</Text>
       </View>
-
       <View style={{ alignItems: "center" }}>
         <View style={[styles.gallery, styles.wireframeBorder]}>
           <Text style={{ color: "1b242A", fontWeight: "bold", fontSize: 20 }}>
@@ -183,16 +183,16 @@ const styles = StyleSheet.create({
     padding: 0,
     marginBottom: 15,
     borderBottomWidth: 1,
-    borderBottomColor: "#cccccc",
+    borderBottomColor: '#cccccc',
   },
   preloader: {
     left: 0,
     right: 0,
     top: 0,
     bottom: 0,
-    position: "absolute",
-    alignItems: "center",
-    justifyContent: "center",
+    position: 'absolute',
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   button: {
     marginBottom: 7,
