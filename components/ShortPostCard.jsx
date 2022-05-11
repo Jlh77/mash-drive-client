@@ -20,8 +20,6 @@ const ShortPostCard = ({ post }) => {
     navigation.navigate("Post", { id: content.id });
   };
 
-  // navigation.navigate('User', { userId: content.uid })
-
   useEffect(() => {
     setIsLoading(true);
     fetchUserByUid(content.uid).then((data) => {
