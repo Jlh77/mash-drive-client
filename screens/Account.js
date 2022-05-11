@@ -11,33 +11,26 @@ import {
 } from "react-native";
 import { db } from "../firebase.config";
 import { useAuth } from "../contexts/User";
-import { DefaultAvatar, DefaultImg } from '../img/avatar'
-import { collection } from 'firebase/firestore';
+import { collection } from "firebase/firestore";
 import { useEffect, useState } from "react";
-import { getPosts } from '../controllers/index';
-
-
-
-
+import { getPosts } from "../controllers/index";
 
 const Account = ({ navigation }) => {
-
   const [posts, setPosts] = useState([]);
-  const postsCollection = collection(db, 'posts');
+  const postsCollection = collection(db, "posts");
   const [username, setUsername] = useState("testUser");
   const [isLoading, setIsLoading] = useState(false);
   const { currentUser, logout } = useAuth();
 
   useEffect(() => {
-    getPosts(postsCollection)
-    .then((data) => {
-        setPosts(() => {
-         let splicedData = data.splice(0, 6)
-          console.log(splicedData, '<==== DATA')
-            return splicedData;
-        })
-    })
-}, []);
+    getPosts(postsCollection).then((data) => {
+      setPosts(() => {
+        let splicedData = data.splice(0, 6);
+        console.log(splicedData, "<==== DATA");
+        return splicedData;
+      });
+    });
+  }, []);
 
   const handleDelete = async () => {};
 
@@ -58,102 +51,130 @@ const Account = ({ navigation }) => {
     );
 
   return (
-    <View style={styles.container}>
 
-<DefaultAvatar />
-<View>
-  <Text style={styles.username}>{username}</Text>
-</View>
-
-<View style={{alignItems: 'center'}}>
-<View style={[styles.gallery, styles.wireframeBorder]}>
-<Text style={{color: "1b242A", fontWeight: 'bold', fontSize: 20}}> {username}'s Gallery </Text>
-<FlatList numColumns={2} data={posts} renderItem={(post) => {
-return <Image style={[styles.image, styles.wireframeBorder]} source={{uri: `${post.item.image_url}`,}}></Image>
-
- }}></FlatList>
-        </View>
-
-        </View>
-
-<View >
-      <View style={styles.footer_logout }>
-        <Button style={{ textAlign:"center" }} title="Logout" onPress={handleLogout} color="#885a2c" />
-      </View> 
-      <View style={styles.footer_delete}>
-        <Button style={{ textAlign:"center" }} title="Delete Account" onPress={handleDelete} color="#885a2c" />
+    <ScrollView style={styles.container}>
+      <View style={{ justifyContent: "center", alignItems: "center" }}>
+        <Image
+          source={currentUser.avatar_url}
+          style={{
+            width: 100,
+            height: 100,
+            borderRadius: 1000,
+            alignItems: "center",
+            borderColor: "black",
+            borderStyle: "solid",
+            borderWidth: 1,
+          }}
+        />
       </View>
+      <View>
+        <Text style={styles.username}>{username}</Text>
+      </View>
+
+      <View style={{ alignItems: "center" }}>
+        <View style={[styles.gallery, styles.wireframeBorder]}>
+          <Text style={{ color: "1b242A", fontWeight: "bold", fontSize: 20 }}>
+            {" "}
+            {username}'s Gallery{" "}
+          </Text>
+          <FlatList
+            numColumns={2}
+            data={posts}
+            renderItem={(post) => {
+              return (
+                <Image
+                  style={[styles.image, styles.wireframeBorder]}
+                  source={{ uri: `${post.item.image_url}` }}
+                ></Image>
+              );
+            }}
+          ></FlatList>
+        </View>
+      </View>
+
+      <View>
+        <View style={styles.footer_logout}>
+          <Button
+            style={{ textAlign: "center" }}
+            title="Logout"
+            onPress={handleLogout}
+            color="#885a2c"
+          />
+        </View>
+        <View style={styles.footer_delete}>
+          <Button
+            style={{ textAlign: "center" }}
+            title="Delete Account"
+            onPress={handleDelete}
+            color="#885a2c"
+          />
+        </View>
       </View>
     </View>
   );
 };
 const styles = StyleSheet.create({
+  image: {
+    height: 115,
+    width: 135,
+    padding: 50,
+    margin: 2,
+  },
 
-image: {
+  wireframeBorder: {
+    borderColor: "black",
+    borderStyle: "solid",
+    borderWidth: 1,
+    alignContent: "center",
+  },
 
-height: 115,
-width: 135,
-padding: 50,
-margin: 2,
+  gallery: {
+    margin: 50,
+    flexDirection: "row",
+    flexWrap: "wrap",
+    justifyContent: "space-evenly",
+    padding: 10,
+    backgroundColor: "#6e9176",
+    width: 300,
+    alignContent: "center",
+  },
+  row: {
+    display: "flex",
+    flexWrap: "wrap",
+    padding: 10,
+  },
 
-
-
-},
-
-wireframeBorder: {
-  borderColor: "black",
-  borderStyle: "solid",
-  borderWidth: 1,
-  alignContent: 'center'
-},
-
-gallery: {
-  margin: 50,
-flexDirection: "row",
-flexWrap: "wrap",
-justifyContent: "space-evenly",
-padding: 10,
-backgroundColor: '#6e9176',
-width: 300,
-alignContent: 'center'
-},
-row: {
-display: 'flex',
-flexWrap: 'wrap',
-padding: 10
-},
-
-column: {
-  /* flex: '25%',
+  column: {
+    /* flex: '25%',
   maxWidth: '25%', */
-  padding: 10
-},
+    padding: 10,
+  },
 
-column_img: {
-marginTop: 8,
-textAlignVertical: 'center',
-width: 100,
-backgroundColor: 'black'
-},
+  column_img: {
+    marginTop: 8,
+    textAlignVertical: "center",
+    width: 100,
+    backgroundColor: "black",
+  },
 
   footer_delete: {
-alignItems:'center'
+    alignItems: "center",
   },
   footer_logout: {
-    alignItems:'center',
-marginBottom:'10px'
+    alignItems: "center",
+    marginBottom: "10px",
   },
   username: {
-textAlign: "center",
-textTransform: 'uppercase',
-fontFamily: '"Times New Roman", Times, serif',
-fontWeight: 'bold',
-fontSize: 30,
+    textAlign: "center",
+    textTransform: "uppercase",
+    fontFamily: '"Times New Roman", Times, serif',
+    fontWeight: "bold",
+    fontSize: 30,
   },
   container: {
     flex: 1,
     padding: 35,
-    backgroundColor: '#F5D349',
+    backgroundColor: "#F5D349",
     borderColor: "black",
     borderStyle: "solid",
     borderWidth: 1,
