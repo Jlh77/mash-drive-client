@@ -126,7 +126,7 @@ const styles = StyleSheet.create({
     borderColor: "black",
     borderStyle: "solid",
     borderTopWidth: 1,
-    borderBottomWidth: 1,
+
   },
   headerTitle: {
     textTransform: "capitalize",
@@ -153,7 +153,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 35,
-    borderWidth: 1,
+
   },
   inputGroup: {
     flex: 1,
@@ -177,7 +177,7 @@ const styles = StyleSheet.create({
   },
 
   commentForm: {
-    backgroundColor: "white",
+    backgroundColor: "#F5D349",
     borderColor: "black",
     borderStyle: "solid",
   },

@@ -46,7 +46,9 @@ const Login = ({ navigation }) => {
 
   return (
     <ScrollView style={styles.container}>
-      <Text style={{ fontWeight: "bold", fontSize: 40 }}>Login</Text>
+      <View style={{alignItems: 'center', marginBottom: 15}}>
+      <Text style={{ fontWeight: "bold", fontSize: 40, alignItems: 'center'}}>Sign In</Text>
+      </View>
       <View style={styles.inputGroup}>
         <TextInput
           placeholder={"email"}
@@ -62,7 +64,7 @@ const Login = ({ navigation }) => {
         ></TextInput>
       </View>
       <View style={styles.button}>
-        <Button title="Login" onPress={loginUser}></Button>
+        <Button title="Login" color='#6e9176' onPress={loginUser}></Button>
       </View>
     </ScrollView>
   );
@@ -71,13 +73,15 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 35,
+    backgroundColor: '#F5D349'
   },
   inputGroup: {
     flex: 1,
     padding: 0,
     marginBottom: 15,
-    borderBottomWidth: 1,
-    borderBottomColor: "#cccccc",
+    borderWidth: 1,
+    borderColor: "black",
+    backgroundColor: 'white'
   },
   preloader: {
     left: 0,

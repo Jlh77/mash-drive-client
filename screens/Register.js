@@ -58,7 +58,9 @@ const Register = ({ navigation }) => {
 
   return (
     <ScrollView style={styles.container}>
+      <View style={{alignItems: 'center', marginBottom: 15}}>
       <Text style={{ fontWeight: "bold", fontSize: 40 }}>Register</Text>
+      </View>
       <View style={styles.inputGroup}>
         <TextInput
           placeholder={"username"}
@@ -81,7 +83,7 @@ const Register = ({ navigation }) => {
         ></TextInput>
       </View>
       <View>
-        <Button title="Sign Up" onPress={storeUser}></Button>
+        <Button title="Sign Up" color='#6e9176' onPress={storeUser}></Button>
       </View>
     </ScrollView>
   );
@@ -90,13 +92,15 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 35,
+    backgroundColor: '#F5D349'
   },
   inputGroup: {
     flex: 1,
     padding: 0,
     marginBottom: 15,
-    borderBottomWidth: 1,
-    borderBottomColor: "#cccccc",
+    borderWidth: 1,
+    borderColor: "black",
+    backgroundColor: 'white'
   },
   preloader: {
     left: 0,

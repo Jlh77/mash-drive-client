@@ -103,6 +103,10 @@ const styles = StyleSheet.create({
     flex: 1,
     padding: 0,
     marginBottom: 15,
+    backgroundColor: 'white',
+borderWidth: 1,
+borderColor: 'black',
+borderStyle: 'solid',
 
 
   },

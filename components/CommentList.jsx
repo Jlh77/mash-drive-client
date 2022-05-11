@@ -11,7 +11,7 @@ const CommentList = ({ commentData, setCommentData }) => {
                 {/* <Text>Comment by {comment.username}</Text> */}
                 {/* <Text>Reputation: </Text> */}
                 <Text style={styles.body}>'{comment.text_body}'</Text>
-                <Text style={styles.username}>- {comment.username}</Text>
+                <Text style={styles.username}>- {comment.username}</Text> 
                 <DeleteCommentButton style={{color: 'black'}}  commenterUid={comment.uid} commentId={comment.id} setCommentData={setCommentData} postId={comment.post_id}>Hi</DeleteCommentButton>
                 </View>
             );
