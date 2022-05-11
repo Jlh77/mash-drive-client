@@ -20,18 +20,18 @@ import { useState } from "react";
     }
 
     return currentUser ? (
-        <View style={[styles.navbar , styles.wireframeBorder]}>
-            <TouchableOpacity style={[styles.iconContainer, styles.wireframeBorder]} onPress={() => navPress('Home')}>
-                <MaterialIcons style={[activeIconCheck("Home"), styles.wireframeBorder]} name="home" size={30} />
+        <View style={styles.navbar}>
+            <TouchableOpacity style={styles.iconContainer} onPress={() => navPress('Home')}>
+                <MaterialIcons style={activeIconCheck("Home")} name="home" size={30} />
             </TouchableOpacity>
-            <TouchableOpacity style={[styles.iconContainer, styles.wireframeBorder]} onPress={() => navPress('Leaderboard')}>
-                <MaterialIcons style={[activeIconCheck("Leaderboard"), styles.wireframeBorder]} name="leaderboard" size={30} />
+            <TouchableOpacity style={styles.iconContainer} onPress={() => navPress('Leaderboard')}>
+                <MaterialIcons style={activeIconCheck("Leaderboard")} name="leaderboard" size={30} />
             </TouchableOpacity>
-            <TouchableOpacity style={[styles.iconContainer, styles.wireframeBorder]} onPress={() => navPress('Upload')}>
-                <MaterialIcons style={[activeIconCheck("Upload"), styles.wireframeBorder]} name="add-circle" size={30} />
+            <TouchableOpacity style={styles.iconContainer} onPress={() => navPress('Upload')}>
+                <MaterialIcons style={activeIconCheck("Upload")} name="add-circle" size={30} />
             </TouchableOpacity>
-            <TouchableOpacity style={[styles.iconContainer, styles.wireframeBorder]} onPress={() => navPress('Account')}>
-                <MaterialIcons style={[activeIconCheck("Account"), styles.wireframeBorder]} name="account-box" size={30} />
+            <TouchableOpacity style={styles.iconContainer} onPress={() => navPress('Account')}>
+                <MaterialIcons style={activeIconCheck("Account")} name="account-box" size={30} />
             </TouchableOpacity>
         </View>
         ) : (
@@ -39,7 +39,7 @@ import { useState } from "react";
             <TouchableOpacity style={styles.iconContainer} onPress={() => navPress('Login')}>
                 <MaterialCommunityIcons style={activeIconCheck("Login")} name="login" size={30} />
             </TouchableOpacity>
-            <TouchableOpacity style={[styles.iconContainer, styles.wireframeBorder]} onPress={() => navPress('Register')}>
+            <TouchableOpacity style={styles.iconContainer} onPress={() => navPress('Register')}>
                 <MaterialCommunityIcons style={activeIconCheck("Register")} name="account-plus" size={30} />
             </TouchableOpacity>
         </View>
