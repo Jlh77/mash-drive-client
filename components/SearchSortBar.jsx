@@ -1,7 +1,10 @@
 import { StyleSheet, View, TextInput } from "react-native";
 import { MaterialIcons } from '@expo/vector-icons';
+import { useState } from "react";
 
 const SearchSortBar = ({ posts, setSearchFeedData, searchTerm, setSearchTerm }) => {
+
+    const [searchActive, setSearchActive] = useState(false);
 
     const performSearch = () => {
         const postsData = [...posts];
@@ -13,13 +16,18 @@ const SearchSortBar = ({ posts, setSearchFeedData, searchTerm, setSearchTerm }) 
             })
         ) 
     }
+
+    const activeIconCheck = (activeStyle, inactiveStyle) => {
+        return searchActive ? activeStyle : inactiveStyle
+    }
  
-    return <View style={styles.barContainer}>
+    return <View style={activeIconCheck(styles.barContainerActive, styles.barContainerInactive)}>
         <View style={styles.search}>
-            <MaterialIcons style={styles.searchIcon} name="search" size={30} />
-            <TextInput style={styles.searchText} 
+            <MaterialIcons style={activeIconCheck(styles.searchIconActive, styles.searchIconInactive)} name="search" size={30} />
+            <TextInput style={activeIconCheck(styles.searchTextActive, styles.searchTextInactive)} 
             keyboardType="web-search" 
             onChangeText={(text) => {
+                    setSearchActive(true)
                     if (!/\W+/.test(text)) {
                         setSearchTerm(text)
                     }
@@ -28,16 +36,23 @@ const SearchSortBar = ({ posts, setSearchFeedData, searchTerm, setSearchTerm }) 
             </TextInput>
         </View>
         <View style={styles.avi}></View>
+        {/* <Image style={styles.avi} source={currentUser.avatar_url}></Image> */}
     </View>
     
 }
 
-const styles = StyleSheet.create({
-    barContainer: {
+const styles = StyleSheet.create({ 
+    barContainerActive: {
         padding: 8,
         display: "flex",
         flexDirection: "row",
         backgroundColor: "#1B242A",
+    },
+    barContainerInactive: {
+        padding: 8,
+        display: "flex",
+        flexDirection: "row",
+        backgroundColor: "#F5D349",
     },
     search: {
         display: "flex",
@@ -51,18 +66,35 @@ const styles = StyleSheet.create({
         margin: 3,
         flexGrow: 0,
     },
-    searchIcon: {
+    searchIconActive: {
         flexGrow: 0,
         padding: 3,
-        // color: "#1B242A",
         color: "#F5D349",
     },
-    searchText: {
+    searchIconInactive: {
+        flexGrow: 0,
+        padding: 3,
+        color: "#1B242A",
+    },
+    searchTextActive: {
         flexGrow: 1,
         padding: 3,
         fontSize: 20,
-        // color: "#1B242A",
         color: "#F5D349",
+        borderStyle: "solid",
+        borderWidth: 2,
+        borderRadius: 3,
+        borderColor: "#F5D349",
+    },
+    searchTextInactive: {
+        flexGrow: 1,
+        padding: 3,
+        fontSize: 20,
+        color: "#1B242A",
+        borderStyle: "solid",
+        borderWidth: 2,
+        borderRadius: 3,
+        borderColor: "#1B242A",
     },
 })
 
