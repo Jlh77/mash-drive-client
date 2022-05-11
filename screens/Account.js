@@ -8,18 +8,18 @@ import {
   Text,
   FlatList,
   Image,
-} from 'react-native';
-import { db } from '../firebase.config';
-import { useAuth } from '../contexts/User';
-import { DefaultAvatar, DefaultImg } from '../img/avatar';
-import { collection } from 'firebase/firestore';
-import { useEffect, useState } from 'react';
-import { getPosts } from '../controllers/index';
+} from "react-native";
+import { db } from "../firebase.config";
+import { useAuth } from "../contexts/User";
+  import { DefaultAvatar, DefaultImg } from '../img/avatar';
+import { collection } from "firebase/firestore";
+import { useEffect, useState } from "react";
+import { getPosts } from "../controllers/index";
 
 const Account = ({ navigation }) => {
   const [posts, setPosts] = useState([]);
-  const postsCollection = collection(db, 'posts');
-  const [username, setUsername] = useState('testUser');
+  const postsCollection = collection(db, "posts");
+  const [username, setUsername] = useState("testUser");
   const [isLoading, setIsLoading] = useState(false);
   const { currentUser, logout } = useAuth();
 
@@ -27,7 +27,6 @@ const Account = ({ navigation }) => {
     getPosts(postsCollection).then((data) => {
       setPosts(() => {
         let splicedData = data.splice(0, 6);
-        console.log(splicedData, '<==== DATA');
         return splicedData;
       });
     });
@@ -54,15 +53,28 @@ const Account = ({ navigation }) => {
   return (
     <ScrollView style={styles.container}>
       <DefaultAvatar />
+      <View style={{ justifyContent: "center", alignItems: "center" }}>
+        <Image
+          source={currentUser.avatar_url}
+          style={{
+            width: 100,
+            height: 100,
+            borderRadius: 1000,
+            alignItems: "center",
+            borderColor: "black",
+            borderStyle: "solid",
+            borderWidth: 1,
+          }}
+        />
+      </View>
       <View>
         <Text style={styles.username}>{username}</Text>
       </View>
-
-      <View style={{ alignItems: 'center' }}>
+      <View style={{ alignItems: "center" }}>
         <View style={[styles.gallery, styles.wireframeBorder]}>
-          <Text style={{ color: '1b242A', fontWeight: 'bold', fontSize: 20 }}>
-            {' '}
-            {username}'s Gallery{' '}
+          <Text style={{ color: "1b242A", fontWeight: "bold", fontSize: 20 }}>
+            {" "}
+            {username}'s Gallery{" "}
           </Text>
           <FlatList
             numColumns={2}
@@ -82,18 +94,18 @@ const Account = ({ navigation }) => {
       <View>
         <View style={styles.footer_logout}>
           <Button
-            style={{ textAlign: 'center' }}
-            title='Logout'
+            style={{ textAlign: "center" }}
+            title="Logout"
             onPress={handleLogout}
-            color='#885a2c'
+            color="#885a2c"
           />
         </View>
         <View style={styles.footer_delete}>
           <Button
-            style={{ textAlign: 'center' }}
-            title='Delete Account'
+            style={{ textAlign: "center" }}
+            title="Delete Account"
             onPress={handleDelete}
-            color='#885a2c'
+            color="#885a2c"
           />
         </View>
       </View>
@@ -109,25 +121,25 @@ const styles = StyleSheet.create({
   },
 
   wireframeBorder: {
-    borderColor: 'black',
-    borderStyle: 'solid',
+    borderColor: "black",
+    borderStyle: "solid",
     borderWidth: 1,
-    alignContent: 'center',
+    alignContent: "center",
   },
 
   gallery: {
     margin: 50,
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-    justifyContent: 'space-evenly',
+    flexDirection: "row",
+    flexWrap: "wrap",
+    justifyContent: "space-evenly",
     padding: 10,
-    backgroundColor: '#6e9176',
+    backgroundColor: "#6e9176",
     width: 300,
-    alignContent: 'center',
+    alignContent: "center",
   },
   row: {
-    display: 'flex',
-    flexWrap: 'wrap',
+    display: "flex",
+    flexWrap: "wrap",
     padding: 10,
   },
 
@@ -139,31 +151,31 @@ const styles = StyleSheet.create({
 
   column_img: {
     marginTop: 8,
-    textAlignVertical: 'center',
+    textAlignVertical: "center",
     width: 100,
-    backgroundColor: 'black',
+    backgroundColor: "black",
   },
 
   footer_delete: {
-    alignItems: 'center',
+    alignItems: "center",
   },
   footer_logout: {
-    alignItems: 'center',
-    marginBottom: '10px',
+    alignItems: "center",
+    marginBottom: "10px",
   },
   username: {
-    textAlign: 'center',
-    textTransform: 'uppercase',
+    textAlign: "center",
+    textTransform: "uppercase",
     fontFamily: '"Times New Roman", Times, serif',
-    fontWeight: 'bold',
+    fontWeight: "bold",
     fontSize: 30,
   },
   container: {
     flex: 1,
     padding: 35,
-    backgroundColor: '#F5D349',
-    borderColor: 'black',
-    borderStyle: 'solid',
+    backgroundColor: "#F5D349",
+    borderColor: "black",
+    borderStyle: "solid",
     borderWidth: 1,
   },
   inputGroup: {
