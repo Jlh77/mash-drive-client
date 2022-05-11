@@ -48,14 +48,17 @@ const SearchSortBar = ({
             styles.searchTextActive,
             styles.searchTextInactive
           )}
-          keyboardType="web-search"
+          keyboardType="web-search"      
           onChangeText={(text) => {
             setSearchActive(true);
             if (!/\W+/.test(text)) {
               setSearchTerm(text);
             }
           }}
-          onSubmitEditing={() => performSearch()}
+          onSubmitEditing={() => {
+            performSearch()
+            setSearchActive(false);
+          }}
         ></TextInput>
       </View>
       <Image style={styles.avi} source={currentUser.avatar_url}></Image>
