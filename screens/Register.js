@@ -81,6 +81,7 @@ const Register = ({ navigation }) => {
           placeholder={"password"}
           value={password}
           onChangeText={setPassword}
+          secureTextEntry={true}
         ></TextInput>
       </View>
       <View>

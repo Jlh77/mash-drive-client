@@ -18,7 +18,7 @@ import { getPosts } from "../controllers/index";
 const Account = ({ navigation }) => {
   const [posts, setPosts] = useState([]);
   const postsCollection = collection(db, "posts");
-  const [username, setUsername] = useState("testUser");
+  const [username, setUsername] = useState("Gordon Ramsay");
   const [isLoading, setIsLoading] = useState(false);
   const { currentUser, logout } = useAuth();
 

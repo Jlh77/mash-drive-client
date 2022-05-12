@@ -80,6 +80,7 @@ const CommentForm = ({ navigation, postId, setCommentData }) => {
           disabled={disabled}
           title={'Post Comment'}
           onPress={handleSubmit}
+          color="#885a2c"
         ></Button>
       </View>
     </ScrollView>

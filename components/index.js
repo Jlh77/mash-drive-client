@@ -8,4 +8,4 @@ import SearchFeed from './SearchFeed';
 import UpDownVoteButtons from './UpDownVoteButtons';
 
 
-export { ShortPostCard, SearchSortBar, Feed, Navbar, CommentList, SearchFeed, UpDownVoteButtons };
+export { ShortPostCard, SearchBar, Feed, Navbar, CommentList, SearchFeed, UpDownVoteButtons };

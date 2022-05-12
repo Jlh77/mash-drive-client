@@ -206,7 +206,7 @@ const Upload = ({ navigation }) => {
         </View>
       </View>
       <View>
-        <Button margin={20} title="Create Post" onPress={handleUpload}></Button>
+        <Button margin={20} title="Create Post" color="rgb(245, 211, 73)" onPress={handleUpload}></Button>
       </View>
       <View>
         {isUploading && (
