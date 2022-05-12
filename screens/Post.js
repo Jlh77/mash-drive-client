@@ -15,7 +15,7 @@ import {
 import { ScrollView } from "react-native-gesture-handler";
 import CommentForm from "../components/CommentForm";
 import { CommentList, UpDownVoteButton } from "../components";
-import UpDownVoteButtons from '../components/UpDownVoteButtons';
+import UpDownVoteButtons from "../components/UpDownVoteButtons";
 const postImgPlaceholder = require("../img/defaultImage.jpeg");
 
 const Post = ({ route, navigation }) => {
@@ -55,7 +55,7 @@ const Post = ({ route, navigation }) => {
       <ScrollView>
         <View style={styles.poster}>
           <Image
-            defaultSource={postImgPlaceholder}
+            defaultSource={require("../img/default_avatar.jpeg")}
             style={styles.authorAvatar}
             source={{
               uri: postAuthorData.avatar_url,
@@ -77,9 +77,15 @@ const Post = ({ route, navigation }) => {
               ></Image>
 
               <Text>{postData.description}</Text>
-              <UpDownVoteButtons postData={postData}/>
+              <UpDownVoteButtons postData={postData} />
             </View>
 
+            <View style={styles.commentForm}>
+              <CommentForm
+                postId={postData.id}
+                setCommentData={setCommentData}
+              />
+            </View>
             <View style={styles.comments}>
               <CommentList
                 commentData={commentData}
@@ -89,9 +95,6 @@ const Post = ({ route, navigation }) => {
           </View>
         </View>
       </ScrollView>
-      <View style={styles.commentForm}>
-        <CommentForm postId={postData.id} setCommentData={setCommentData} />
-      </View>
     </SafeAreaView>
   );
 };
@@ -100,18 +103,20 @@ export default Post;
 
 const styles = StyleSheet.create({
   poster: {
-    backgroundColor: "#A47231",
+    backgroundColor: "rgb(27, 36, 42)",
     justifyContent: "center",
     alignItems: "center",
   },
   poster_username: {
+    color: "#F5D349",
     textAlign: "center",
-    textTransform: "uppercase",
+
     fontFamily: '"Times New Roman", Times, serif',
     fontWeight: "bold",
-    fontSize: 30,
+    fontSize: 25,
+    marginTop: 8,
+    marginBottom: 8,
   },
-
   postSolo: {
     backgroundColor: "#F5D349",
   },
@@ -127,12 +132,14 @@ const styles = StyleSheet.create({
     borderColor: "black",
     borderStyle: "solid",
     borderTopWidth: 1,
-
   },
   headerTitle: {
     textTransform: "capitalize",
     textAlign: "center",
-    fontSize: 40,
+    fontSize: 30,
+    marginTop: 8,
+    marginBottom: 8,
+    fontWeight: "bold",
   },
   image: {
     height: 200,
@@ -154,7 +161,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 35,
-
   },
   inputGroup: {
     flex: 1,
