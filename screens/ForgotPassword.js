@@ -37,9 +37,18 @@ const ForgotPassword = ({ navigation }) => {
         setIsLoading(true);
         await resetPassword(email);
         alert("Check your inbox to reset your password.");
+        navigation.navigate("Login");
       } catch (err) {
-        //IMPORTANT --------- Firebase throws an error if there is no record, we don't want user to know if it exists or not, so we should do the same either way (left this alert here for now for testing)
-        alert(`Failed to reset password: ${err}`);
+        // IMPORRTANT broken: Firebase throws an error if there is no record, we don't want user to know if it exists or not, so we should do the same either way
+        if (
+          err ===
+          "FirebaseError: Firebase: There is no user record corresponding to this identifier. The user may have been deleted. (auth/user-not-found)."
+        ) {
+          alert("Check your inbox to reset your password.");
+          navigation.navigate("Login");
+        } else {
+          alert(`Failed to reset password. Please Try again: ${err}`);
+        }
       }
 
       setIsLoading(false);
@@ -59,7 +68,7 @@ const ForgotPassword = ({ navigation }) => {
       <View style={styles.inputGroup}>
         <TextInput
           placeholder={"email"}
-          value={currentUser.email ? currentUser.email : email}
+          value={currentUser?.email || email}
           onChangeText={setEmail}
         ></TextInput>
       </View>
