@@ -8,7 +8,7 @@ const UpDownVoteButtons = ({ postData }) => {
     const [ votecount, setVotecount] = useState()
     const [upIsPressed, setUpIsPressed] = useState()
     const [downIsPressed, setDownIsPressed] = useState()
-    console.log(postData, 'postData')
+    /* console.log(postData, 'postData')
     console.log(currentUser, 'currentUser')
 
     useEffect(() => {
@@ -18,7 +18,7 @@ const UpDownVoteButtons = ({ postData }) => {
         if (currentUser.downvotes.includes(postData.id)) {
             setDownIsPressed(true);
         }
-    }, [])
+    }, []) */
 
     const upvotePressed = () => {
 
