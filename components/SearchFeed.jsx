@@ -1,7 +1,12 @@
 import { StyleSheet, View, Text, FlatList, Pressable } from "react-native";
 import ShortPostCard from "./ShortPostCard.jsx";
 
-const SearchFeed = ({ searchFeedData, setSearchFeedData, searchTerm }) => {
+const SearchFeed = ({
+  searchFeedData,
+  setSearchFeedData,
+  searchTerm,
+  users,
+}) => {
   return (
     <View style={styles.feedContainer}>
       <View style={styles.buttonContainer}>
@@ -27,7 +32,7 @@ const SearchFeed = ({ searchFeedData, setSearchFeedData, searchTerm }) => {
           style={styles.feedList}
           data={searchFeedData}
           renderItem={(post) => {
-            return <ShortPostCard post={post} />;
+            return <ShortPostCard post={post} users={users} />;
           }}
         ></FlatList>
       </View>
