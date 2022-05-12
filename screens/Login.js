@@ -46,27 +46,45 @@ const Login = ({ navigation }) => {
 
   return (
     <ScrollView style={styles.container}>
-      <View style ={{marginTop: 200}}>
-      <View style={{alignItems: 'center', marginBottom: 15}}>
-      <Text style={{ fontWeight: "bold", fontSize: 40, alignItems: 'center'}}>Sign In</Text>
-      </View>
-      <View style={styles.inputGroup}>
-        <TextInput
-          placeholder={"email"}
-          value={email}
-          onChangeText={setEmail}
-        ></TextInput>
-      </View>
-      <View style={styles.inputGroup}>
-        <TextInput
-          placeholder={"password"}
-          value={password}
-          onChangeText={setPassword}
-        ></TextInput>
-      </View>
-      <View style={styles.button}>
-        <Button title="Login" color='#6e9176' onPress={loginUser}></Button>
-      </View>
+      <View style={{ marginTop: 200 }}>
+        <View style={{ alignItems: "center", marginBottom: 15 }}>
+          <Text
+            style={{ fontWeight: "bold", fontSize: 40, alignItems: "center" }}
+          >
+            Sign In
+          </Text>
+        </View>
+        <View style={styles.inputGroup}>
+          <TextInput
+            placeholder={"Email"}
+            value={email}
+            onChangeText={setEmail}
+          ></TextInput>
+        </View>
+        <View style={styles.inputGroup}>
+          <TextInput
+            placeholder={"Password"}
+            value={password}
+            onChangeText={setPassword}
+            secureTextEntry={true}
+          ></TextInput>
+        </View>
+        <View style={styles.button}>
+          <Button title="Login" color="#6e9176" onPress={loginUser}></Button>
+        </View>
+        <View>
+          <Text
+            style={styles.forgotPassword}
+            onPress={() => {
+              navigation.navigate("ForgotPassword");
+            }}
+          >
+            Forgot Password?
+          </Text>
+        </View>
+        <View>
+          <Text>New to Mash Drive? Click Register below</Text>
+        </View>
       </View>
     </ScrollView>
   );
@@ -75,15 +93,19 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 35,
-    backgroundColor: '#F5D349',
+    backgroundColor: "#F5D349",
+  },
+  forgotPassword: {
+    color: "#5555ff",
+    marginTop: 30,
   },
   inputGroup: {
     flex: 1,
-    padding: 0,
+    padding: 7,
     marginBottom: 15,
     borderWidth: 1,
     borderColor: "black",
-    backgroundColor: 'white'
+    backgroundColor: "white",
   },
   preloader: {
     left: 0,

@@ -5,6 +5,7 @@ import Navbar from './Navbar';
 // import CommentList from './CommentList';
 import CommentList from './CommentList';
 import SearchFeed from './SearchFeed';
-import UserProfileCard from './UserProfileCard';
+import UpDownVoteButtons from './UpDownVoteButtons';
 
-export { ShortPostCard, SearchBar, Feed, Navbar, CommentList, SearchFeed, UserProfileCard };
+
+export { ShortPostCard, SearchBar, Feed, Navbar, CommentList, SearchFeed, UpDownVoteButtons };

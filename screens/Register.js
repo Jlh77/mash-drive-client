@@ -58,34 +58,35 @@ const Register = ({ navigation }) => {
 
   return (
     <ScrollView style={styles.container}>
-         <View style ={{marginTop: 200}}>
-      <View style={{alignItems: 'center', marginBottom: 15}}>
-      <Text style={{ fontWeight: "bold", fontSize: 40 }}>Register</Text>
-      </View>
-      <View style={styles.inputGroup}>
-        <TextInput
-          placeholder={"username"}
-          value={username}
-          onChangeText={setUsername}
-        ></TextInput>
-      </View>
-      <View style={styles.inputGroup}>
-        <TextInput
-          placeholder={"email"}
-          value={email}
-          onChangeText={setEmail}
-        ></TextInput>
-      </View>
-      <View style={styles.inputGroup}>
-        <TextInput
-          placeholder={"password"}
-          value={password}
-          onChangeText={setPassword}
-        ></TextInput>
-      </View>
-      <View>
-        <Button title="Sign Up" color='#6e9176' onPress={storeUser}></Button>
-      </View>
+      <View style={{ marginTop: 200 }}>
+        <View style={{ alignItems: "center", marginBottom: 15 }}>
+          <Text style={{ fontWeight: "bold", fontSize: 40 }}>Register</Text>
+        </View>
+        <View style={styles.inputGroup}>
+          <TextInput
+            placeholder={"Username"}
+            value={username}
+            onChangeText={setUsername}
+          ></TextInput>
+        </View>
+        <View style={styles.inputGroup}>
+          <TextInput
+            placeholder={"Email"}
+            value={email}
+            onChangeText={setEmail}
+          ></TextInput>
+        </View>
+        <View style={styles.inputGroup}>
+          <TextInput
+            placeholder={"Password"}
+            value={password}
+            onChangeText={setPassword}
+            secureTextEntry={true}
+          ></TextInput>
+        </View>
+        <View>
+          <Button title="Sign Up" color="#6e9176" onPress={storeUser}></Button>
+        </View>
       </View>
     </ScrollView>
   );
@@ -94,15 +95,15 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 35,
-    backgroundColor: '#F5D349'
+    backgroundColor: "#F5D349",
   },
   inputGroup: {
     flex: 1,
-    padding: 0,
+    padding: 7,
     marginBottom: 15,
     borderWidth: 1,
     borderColor: "black",
-    backgroundColor: 'white'
+    backgroundColor: "white",
   },
   preloader: {
     left: 0,

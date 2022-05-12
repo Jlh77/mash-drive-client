@@ -18,7 +18,6 @@ import { getPosts } from "../controllers/index";
 const Account = ({ navigation }) => {
   const [posts, setPosts] = useState([]);
   const postsCollection = collection(db, "posts");
-  const [username, setUsername] = useState("testUser");
   const [isLoading, setIsLoading] = useState(false);
   const { currentUser, logout } = useAuth();
 
@@ -66,13 +65,13 @@ const Account = ({ navigation }) => {
         />
       </View>
       <View>
-        <Text style={styles.username}>{username}</Text>
+        <Text style={styles.username}>{currentUser.username}</Text>
       </View>
       <View style={{ alignItems: "center" }}>
         <View style={[styles.gallery, styles.wireframeBorder]}>
           <Text style={{ color: "1b242A", fontWeight: "bold", fontSize: 20 }}>
             {" "}
-            {username}'s Gallery{" "}
+            {currentUser.username}'s Gallery{" "}
           </Text>
           <FlatList
             numColumns={2}

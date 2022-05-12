@@ -76,7 +76,6 @@ const Upload = ({ navigation }) => {
   const handleUpload = async () => {
     if (title === "") {
       alert("Please enter a valid title for your post");
-      setError("Oops");
     } else if (!image) {
       alert("Please upload an image of your post");
     } else if (!currentUser) {
@@ -174,33 +173,40 @@ const Upload = ({ navigation }) => {
         onPress={pickImage}
         color="rgb(245, 211, 73)"
       />
-      {/* Choose either this or below depending on ultimate styling preferences */}
-      {image && (
-        <Image source={{ uri: image.uri }} style={styles.selectedImage} />
-      )}
-      {/* <Image
-        // Choose a different placeholder below
-        source={{ uri: image?.uri || "http://via.placeholder.com/200x200" }}
-        style={{ width: 200, height: 200 }}
-      /> */}
-      <View style={styles.inputGroup}>
-        <TextInput
-          style={styles.inputBox}
-          placeholder={"Title"}
-          value={title}
-          onChangeText={setTitle}
-        ></TextInput>
-      </View>
-      <View style={styles.inputGroup}>
-        <TextInput
-          style={styles.inputBox}
-          placeholder={"Description"}
-          value={description}
-          onChangeText={setDescription}
-        ></TextInput>
+      {/* Choose either this or below  depending on ultimate styling preferences */}
+      {/* {image && (
+        <>
+          <Image source={{ uri: image.uri }} style={styles.selectedImage} />
+          <Button title="X" onPress={setImage(null)} />
+        </>
+      )} */}
+      <View style={styles.imageContainer}>
+        <Image
+          // Choose a different placeholder below
+          source={{ uri: image?.uri || require("../img/mashholder.png") }}
+          style={styles.selectedImage}
+        />
       </View>
       <View>
-        <Button margin={20} title="Create Post" onPress={handleUpload}></Button>
+        <View style={styles.inputGroup}>
+          <TextInput
+            style={styles.inputBox}
+            placeholder={"Title"}
+            value={title}
+            onChangeText={setTitle}
+          ></TextInput>
+        </View>
+        <View style={styles.inputGroup}>
+          <TextInput
+            style={styles.inputBox}
+            placeholder={"Description"}
+            value={description}
+            onChangeText={setDescription}
+          ></TextInput>
+        </View>
+      </View>
+      <View>
+        <Button margin={20} title="Create Post" color="rgb(245, 211, 73)" onPress={handleUpload}></Button>
       </View>
       <View>
         {isUploading && (
@@ -279,11 +285,16 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
   },
-  selectedImage: {
-    height: "100%",
+  imageContainer: {
+    height: "60%",
     width: "100%",
-    maxWidth: 400,
-    maxHeight: 400,
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  selectedImage: {
+    height: 400,
+    width: 400,
   },
   progressBar: {
     height: 20,
