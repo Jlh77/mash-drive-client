@@ -1,12 +1,12 @@
 import { StyleSheet, View, Text, FlatList } from 'react-native';
 import ShortPostCard from './ShortPostCard'
 
-const Feed = ({ posts }) => {
+const Feed = ({ posts, users }) => {
   
     return <View style={styles.feedContainer}>
                 <Text style={styles.text}>Your feed...</Text>
                 <FlatList style={styles.feedList} data={posts} renderItem={(post) => {
-                    return <ShortPostCard post={post} ></ShortPostCard>
+                    return <ShortPostCard post={post} users={users} ></ShortPostCard>
                 }}>
                 </FlatList >
             </View>

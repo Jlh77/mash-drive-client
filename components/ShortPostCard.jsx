@@ -8,27 +8,43 @@ import {
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { useEffect, useState } from "react";
-import { fetchUserByUid } from "../utils/utils";
+// import { fetchUserByUid } from "../utils/utils";
 
-const ShortPostCard = ({ post }) => {
+const ShortPostCard = ({ post, users }) => {
   const content = post.item;
+  const postuid = content.uid;
   const navigation = useNavigation();
-  const [userData, setUserData] = useState({});
+  // const [userData, setUserData] = useState({});
   const [isLoading, setIsLoading] = useState(false);
 
   const postPress = (id) => {
     navigation.navigate("Post", { id: content.id });
   };
 
-  useEffect(() => {
-    setIsLoading(true);
-    fetchUserByUid(content.uid).then((data) => {
-      setUserData(() => {
-        return data;
-      });
-      setIsLoading(false);
-    });
-  }, []);
+  const usersData = {};
+
+  users.forEach((user) => {
+    const userDataId = user.id;
+    usersData[userDataId] = {};
+    usersData[userDataId].username = user.username;
+    usersData[userDataId].avatar_url = user.avatar_url;
+  })
+
+  const addUserData = (key) => {
+    if (usersData[postuid]) {
+      return usersData[postuid][key]
+    }
+  }
+
+  // useEffect(() => {
+  //   setIsLoading(true);
+  //   fetchUserByUid(content.uid).then((data) => {
+  //     setUserData(() => {
+  //       return data;
+  //     });
+  //     setIsLoading(false);
+  //   });
+  // }, []);
 
   if (isLoading) {
     return (
@@ -44,12 +60,21 @@ const ShortPostCard = ({ post }) => {
               <Image
                 style={styles.avi}
                 source={
+                  addUserData("avatar_url")
+                    ? addUserData("avatar_url")
+                    : require("../img/default_avatar.jpeg")
+                }
+              ></Image>
+              {/* <Image
+                style={styles.avi}
+                source={
                   userData.avatar_url
                     ? userData.avatar_url
                     : require("../img/default_avatar.jpeg")
                 }
-              ></Image>
-            <Text style={styles.username}>{userData.username}</Text>
+              ></Image> */}
+              <Text style={styles.username}>{addUserData("username")}</Text>
+            {/* <Text style={styles.username}>{userData.username}</Text> */}
           </TouchableOpacity>
           <View style={styles.titleContainer}>
             <Text style={styles.title}>{content.title}</Text>
