@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { View, StyleSheet, ActivityIndicator } from "react-native";
 import { db } from "../firebase.config";
-import { SearchSortBar, Feed, SearchFeed } from "../components/index";
+import { SearchBar, Feed, SearchFeed } from "../components/index";
 import { collection } from "firebase/firestore";
 import { getPosts } from "../controllers/index";
 
@@ -31,7 +31,7 @@ const Home = ({ route }) => {
   } else {
     return (
       <View style={styles.container}>
-        <SearchSortBar
+        <SearchBar
           posts={posts}
           setSearchFeedData={setSearchFeedData}
           searchTerm={searchTerm}
