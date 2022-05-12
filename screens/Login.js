@@ -72,8 +72,9 @@ const Login = ({ navigation }) => {
         <View style={styles.button}>
           <Button title="Login" color="#6e9176" onPress={loginUser}></Button>
         </View>
-        <View style={styles.forgotPassword}>
+        <View>
           <Text
+            style={styles.forgotPassword}
             onPress={() => {
               navigation.navigate("ForgotPassword");
             }}
@@ -93,6 +94,10 @@ const styles = StyleSheet.create({
     flex: 1,
     padding: 35,
     backgroundColor: "#F5D349",
+  },
+  forgotPassword: {
+    color: "#5555ff",
+    marginTop: 30,
   },
   inputGroup: {
     flex: 1,
