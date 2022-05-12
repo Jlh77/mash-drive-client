@@ -54,6 +54,7 @@ const Home = ({ route }) => {
             setSearchFeedData={setSearchFeedData}
             searchFeedData={searchFeedData}
             searchTerm={searchTerm}
+            users={users}
           />
         ) : (
           <Feed posts={posts} users={users} />
