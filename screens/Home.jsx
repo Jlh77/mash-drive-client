@@ -3,11 +3,13 @@ import { View, StyleSheet, ActivityIndicator } from "react-native";
 import { db } from "../firebase.config";
 import { SearchBar, Feed, SearchFeed } from "../components/index";
 import { collection } from "firebase/firestore";
-import { getPosts } from "../controllers/index";
+import { getPosts, getUsers } from "../controllers/index";
 
 const Home = ({ route }) => {
   const [posts, setPosts] = useState([]);
   const postsCollection = collection(db, "posts");
+  const [users, setUsers] = useState([]);
+  const usersCollection = collection(db, "users");
   const [searchFeedData, setSearchFeedData] = useState([]);
   const [searchTerm, setSearchTerm] = useState('');
   const [isLoading, setIsLoading] = useState(false);
@@ -16,6 +18,16 @@ const Home = ({ route }) => {
     setIsLoading(true);
     getPosts(postsCollection).then((data) => {
       setPosts(() => {
+        return data;
+      });
+      setIsLoading(false);
+    });
+  }, []);
+
+  useEffect(() => {
+    setIsLoading(true);
+    getUsers(usersCollection).then((data) => {
+      setUsers(() => {
         return data;
       });
       setIsLoading(false);
@@ -44,7 +56,7 @@ const Home = ({ route }) => {
             searchTerm={searchTerm}
           />
         ) : (
-          <Feed posts={posts} />
+          <Feed posts={posts} users={users} />
         )}
       </View>
     );
