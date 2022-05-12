@@ -8,7 +8,6 @@ import {
   Text,
   ActivityIndicator,
 } from "react-native";
-import { db } from "../firebase.config";
 import { useAuth } from "../contexts/User";
 
 const Login = ({ navigation }) => {
@@ -27,7 +26,8 @@ const Login = ({ navigation }) => {
       try {
         setIsLoading(true);
         await login(email, password).then(() => {
-          navigation.navigate("Home");
+          // turns out we were trying to navigate when home didnt exist yet
+          // navigation.navigate("Home");
         });
       } catch (err) {
         alert(`Error: ${err}`);
@@ -101,11 +101,12 @@ const styles = StyleSheet.create({
   },
   inputGroup: {
     flex: 1,
-    padding: 7,
+    padding: 0,
     marginBottom: 15,
     borderWidth: 1,
     borderColor: "black",
     backgroundColor: "white",
+    height: 40,
   },
   preloader: {
     left: 0,

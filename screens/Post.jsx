@@ -14,7 +14,7 @@ import {
 } from "../utils/utils";
 import { ScrollView } from "react-native-gesture-handler";
 import CommentForm from "../components/CommentForm";
-import { CommentList, UpDownVoteButton } from "../components";
+import { CommentList } from "../components";
 import UpDownVoteButtons from "../components/UpDownVoteButtons";
 const postImgPlaceholder = require("../img/defaultImage.jpeg");
 
@@ -111,7 +111,7 @@ const styles = StyleSheet.create({
     color: "#F5D349",
     textAlign: "center",
 
-    fontFamily: '"Times New Roman", Times, serif',
+    // fontFamily: '"Times New Roman", Times, serif',
     fontWeight: "bold",
     fontSize: 25,
     marginTop: 8,

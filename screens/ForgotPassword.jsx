@@ -8,7 +8,6 @@ import {
   Text,
 } from "react-native";
 import { ActivityIndicator } from "react-native-web";
-import { db } from "../firebase.config";
 import { useAuth } from "../contexts/User";
 
 const ForgotPassword = ({ navigation }) => {

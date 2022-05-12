@@ -1,18 +1,16 @@
-import Account from "./Account";
-import ForgotPassword from "./ForgotPassword";
-import Gallery from "./Gallery";
-import Home from "./Home";
-import Leaderboard from "./Leaderboard";
-import Login from "./Login";
-import Post from "./Post";
-import Register from "./Register";
-import Upload from "./Upload";
-import User from "./User";
+import Account from "./Account.jsx";
+import ForgotPassword from "./ForgotPassword.jsx";
+import Home from "./Home.jsx";
+import Leaderboard from "./Leaderboard.jsx";
+import Login from "./Login.jsx";
+import Post from "./Post.jsx";
+import Register from "./Register.jsx";
+import Upload from "./Upload.jsx";
+import User from "./User.jsx";
 
 export {
   Account,
   ForgotPassword,
-  Gallery,
   Home,
   Leaderboard,
   Login,

@@ -12,6 +12,7 @@ import {
   Image,
 } from "react-native";
 import * as ImagePicker from "expo-image-picker";
+import * as placeholder from "../img/mashholder.png";
 
 import { db, storage } from "../firebase.config";
 import { useAuth } from "../contexts/User";
@@ -183,7 +184,7 @@ const Upload = ({ navigation }) => {
       <View style={styles.imageContainer}>
         <Image
           // Choose a different placeholder below
-          source={{ uri: image?.uri || require("../img/mashholder.png") }}
+          source={{ uri: image?.uri || placeholder.uri }}
           style={styles.selectedImage}
         />
       </View>
@@ -206,7 +207,12 @@ const Upload = ({ navigation }) => {
         </View>
       </View>
       <View>
-        <Button margin={20} title="Create Post" color="rgb(245, 211, 73)" onPress={handleUpload}></Button>
+        <Button
+          margin={20}
+          title="Create Post"
+          color="rgb(245, 211, 73)"
+          onPress={handleUpload}
+        ></Button>
       </View>
       <View>
         {isUploading && (

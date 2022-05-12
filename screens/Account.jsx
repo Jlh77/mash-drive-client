@@ -50,9 +50,11 @@ const Account = ({ navigation }) => {
 
   return (
     <ScrollView style={styles.container}>
+      {/*
+      // Something in here kills expo but no idea what 
       <View style={{ justifyContent: "center", alignItems: "center" }}>
         <Image
-          source={currentUser.avatar_url}
+          source={{ uri: currentUser.avatar_url }}
           style={{
             width: 100,
             height: 100,
@@ -69,7 +71,7 @@ const Account = ({ navigation }) => {
       </View>
       <View style={{ alignItems: "center" }}>
         <View style={[styles.gallery, styles.wireframeBorder]}>
-          <Text style={{ color: "1b242A", fontWeight: "bold", fontSize: 20 }}>
+          <Text style={{ color: "#1b242A", fontWeight: "bold", fontSize: 20 }}>
             {" "}
             {currentUser.username}'s Gallery{" "}
           </Text>
@@ -80,7 +82,7 @@ const Account = ({ navigation }) => {
               return (
                 <Image
                   style={[styles.image, styles.wireframeBorder]}
-                  source={{ uri: `${post.item.image_url}` }}
+                  source={{ uri: post.item.image_url }}
                 ></Image>
               );
             }}
@@ -105,7 +107,7 @@ const Account = ({ navigation }) => {
             color="#885a2c"
           />
         </View>
-      </View>
+      </View> */}
     </ScrollView>
   );
 };
@@ -163,7 +165,7 @@ const styles = StyleSheet.create({
   username: {
     textAlign: "center",
     textTransform: "uppercase",
-    fontFamily: '"Times New Roman", Times, serif',
+    // fontFamily: '"Times New Roman", Times, serif',
     fontWeight: "bold",
     fontSize: 30,
   },

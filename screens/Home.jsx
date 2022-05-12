@@ -5,13 +5,13 @@ import { SearchBar, Feed, SearchFeed } from "../components/index";
 import { collection } from "firebase/firestore";
 import { getPosts, getUsers } from "../controllers/index";
 
-const Home = ({ route }) => {
+const Home = ({ navigation }) => {
   const [posts, setPosts] = useState([]);
   const postsCollection = collection(db, "posts");
   const [users, setUsers] = useState([]);
   const usersCollection = collection(db, "users");
   const [searchFeedData, setSearchFeedData] = useState([]);
-  const [searchTerm, setSearchTerm] = useState('');
+  const [searchTerm, setSearchTerm] = useState("");
   const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
@@ -66,7 +66,7 @@ const Home = ({ route }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#F5D349',
+    backgroundColor: "#F5D349",
   },
 });
 

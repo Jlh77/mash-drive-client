@@ -3,7 +3,6 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import {
   Account,
   ForgotPassword,
-  Gallery,
   Home,
   Leaderboard,
   Login,
@@ -48,11 +47,6 @@ function ScreenStack() {
       <Stack.Screen
         name="User"
         component={User}
-        options={{ headerShown: false }}
-      />
-      <Stack.Screen
-        name="Gallery"
-        component={Gallery}
         options={{ headerShown: false }}
       />
     </Stack.Navigator>

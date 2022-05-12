@@ -8,7 +8,8 @@ import {
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { useEffect, useState } from "react";
-// import { fetchUserByUid } from "../utils/utils";
+
+const defaultAvatar = require("../img/defaultImage.jpeg");
 
 const ShortPostCard = ({ post, users }) => {
   const content = post.item;
@@ -28,13 +29,13 @@ const ShortPostCard = ({ post, users }) => {
     usersData[userDataId] = {};
     usersData[userDataId].username = user.username;
     usersData[userDataId].avatar_url = user.avatar_url;
-  })
+  });
 
   const addUserData = (key) => {
     if (usersData[postuid]) {
-      return usersData[postuid][key]
+      return usersData[postuid][key];
     }
-  }
+  };
 
   // useEffect(() => {
   //   setIsLoading(true);
@@ -56,16 +57,18 @@ const ShortPostCard = ({ post, users }) => {
     return (
       <View style={styles.cardContainer}>
         <View style={styles.dataContainer}>
-          <TouchableOpacity style={styles.userDataContainer} onPress={() => navigation.navigate('User', { userId: content.uid })}>
-              <Image
-                style={styles.avi}
-                source={
-                  addUserData("avatar_url")
-                    ? addUserData("avatar_url")
-                    : require("../img/default_avatar.jpeg")
-                }
-              ></Image>
-              {/* <Image
+          <TouchableOpacity
+            style={styles.userDataContainer}
+            onPress={() => navigation.navigate("User", { userId: content.uid })}
+          >
+            <Image
+              style={styles.avi}
+              source={{
+                // add default avatar here, was throwing error with - || default avatar - at the end?
+                uri: addUserData("avatar_url"),
+              }}
+            ></Image>
+            {/* <Image
                 style={styles.avi}
                 source={
                   userData.avatar_url
@@ -73,7 +76,7 @@ const ShortPostCard = ({ post, users }) => {
                     : require("../img/default_avatar.jpeg")
                 }
               ></Image> */}
-              <Text style={styles.username}>{addUserData("username")}</Text>
+            <Text style={styles.username}>{addUserData("username")}</Text>
             {/* <Text style={styles.username}>{userData.username}</Text> */}
           </TouchableOpacity>
           <View style={styles.titleContainer}>
@@ -87,11 +90,7 @@ const ShortPostCard = ({ post, users }) => {
           <Image
             style={styles.imageContainer}
             source={{
-              uri: `${
-                content.image_url
-                  ? content.image_url
-                  : require("../img/defaultImage.jpeg")
-              }`,
+              uri: content.image_url || defaultAvatar,
             }}
           ></Image>
         </TouchableOpacity>

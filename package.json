@@ -30,13 +30,14 @@
     "react-native-fast-image": "^8.5.11",
     "react-native-gesture-handler": "~2.1.0",
     "react-native-navigation": "^7.27.1",
-    "react-native-reanimated": "~2.3.1",
+    "react-native-reanimated": "^2.8.0",
     "react-native-safe-area-context": "3.3.2",
     "react-native-safe-area-view": "^1.1.1",
     "react-native-screens": "~3.10.1",
     "react-native-web": "0.17.1",
     "react-navigation": "^4.4.4",
     "react-navigation-stack": "^2.10.4",
+    "react-navigation-tabs": "^2.11.2",
     "save": "^2.5.0"
   },
   "devDependencies": {

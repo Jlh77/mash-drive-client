@@ -1,15 +1,16 @@
-import { StyleSheet, View, TextInput, Image, TouchableOpacity } from "react-native";
+import {
+  StyleSheet,
+  View,
+  TextInput,
+  Image,
+  TouchableOpacity,
+} from "react-native";
 import { MaterialIcons } from "@expo/vector-icons";
 import { useState } from "react";
 import { useAuth } from "../contexts/User";
 import { useNavigation } from "@react-navigation/native";
 
-const SearchBar = ({
-  posts,
-  setSearchFeedData,
-  searchTerm,
-  setSearchTerm,
-}) => {
+const SearchBar = ({ posts, setSearchFeedData, searchTerm, setSearchTerm }) => {
   const [searchActive, setSearchActive] = useState(false);
   const { currentUser } = useAuth();
   const navigation = useNavigation();
@@ -50,7 +51,7 @@ const SearchBar = ({
             styles.searchTextActive,
             styles.searchTextInactive
           )}
-          keyboardType="web-search"      
+          keyboardType="web-search"
           onChangeText={(text) => {
             setSearchActive(true);
             if (!/\W+/.test(text)) {
@@ -58,14 +59,20 @@ const SearchBar = ({
             }
           }}
           onSubmitEditing={() => {
-            performSearch()
+            performSearch();
             setSearchActive(false);
           }}
         ></TextInput>
       </View>
       {/* <TouchableOpacity style={styles.aviContainer} onPress={() => console.log(currentUser.uid)}> */}
-      <TouchableOpacity style={styles.aviContainer} onPress={() => navigation.navigate('User', { userId: currentUser.uid })}>
-        <Image style={styles.avi} source={currentUser.avatar_url}></Image>
+      <TouchableOpacity
+        style={styles.aviContainer}
+        onPress={() => navigation.navigate("User", { userId: currentUser.uid })}
+      >
+        <Image
+          style={styles.avi}
+          source={{ uri: currentUser.avatar_url }}
+        ></Image>
       </TouchableOpacity>
     </View>
   );

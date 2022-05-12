@@ -8,9 +8,7 @@ import {
   Text,
   ActivityIndicator,
 } from "react-native";
-import { db } from "../firebase.config";
 import { useAuth } from "../contexts/User";
-import { NavigationActions } from "react-navigation";
 
 const Register = ({ navigation }) => {
   const [username, setUsername] = useState("");
