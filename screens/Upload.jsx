@@ -184,7 +184,7 @@ const Upload = ({ navigation }) => {
       <View style={styles.imageContainer}>
         <Image
           // Choose a different placeholder below
-          source={{ uri: image?.uri || placeholder.uri }}
+          source={{ uri: image?.uri || placeholder }}
           style={styles.selectedImage}
         />
       </View>

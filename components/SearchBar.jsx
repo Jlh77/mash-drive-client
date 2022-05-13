@@ -9,6 +9,7 @@ import { MaterialIcons } from "@expo/vector-icons";
 import { useState } from "react";
 import { useAuth } from "../contexts/User";
 import { useNavigation } from "@react-navigation/native";
+import defaultAvatar from "../img/default_avatar.jpeg";
 
 const SearchBar = ({ posts, setSearchFeedData, searchTerm, setSearchTerm }) => {
   const [searchActive, setSearchActive] = useState(false);
@@ -71,7 +72,7 @@ const SearchBar = ({ posts, setSearchFeedData, searchTerm, setSearchTerm }) => {
       >
         <Image
           style={styles.avi}
-          source={{ uri: currentUser.avatar_url }}
+          source={{ uri: currentUser.avatar_url || defaultAvatar }}
         ></Image>
       </TouchableOpacity>
     </View>
