@@ -50,7 +50,7 @@ const Account = ({ navigation }) => {
 
   return (
     <ScrollView style={styles.container}>
-      // Something in here kills expo but no idea what
+      {/* // Something in here kills expo but no idea what */}
       <View style={{ justifyContent: "center", alignItems: "center" }}>
         <Image
           source={{ uri: currentUser.avatar_url }}

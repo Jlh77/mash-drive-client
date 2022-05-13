@@ -9,7 +9,8 @@ import {
 import { useNavigation } from "@react-navigation/native";
 import { useEffect, useState } from "react";
 
-const defaultAvatar = require("../img/defaultImage.jpeg");
+const placeholder = require("../img/defaultImage.jpeg");
+const defaultAvatar = require("../img/default_avatar.jpeg");
 
 const ShortPostCard = ({ post, users }) => {
   const content = post.item;
@@ -65,7 +66,7 @@ const ShortPostCard = ({ post, users }) => {
               style={styles.avi}
               source={{
                 // add default avatar here, was throwing error with - || default avatar - at the end?
-                uri: addUserData("avatar_url"),
+                uri: addUserData("avatar_url") || defaultAvatar,
               }}
             ></Image>
             {/* <Image
@@ -90,7 +91,7 @@ const ShortPostCard = ({ post, users }) => {
           <Image
             style={styles.imageContainer}
             source={{
-              uri: content.image_url || defaultAvatar,
+              uri: content.image_url || placeholder,
             }}
           ></Image>
         </TouchableOpacity>
