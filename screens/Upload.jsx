@@ -224,7 +224,10 @@ const Upload = ({ navigation }) => {
               <Animated.View
                 style={
                   ([StyleSheet.absoluteFill],
-                  { backgroundColor: "#8BED4F", width: Math.trunc(progress) })
+                  {
+                    backgroundColor: "#8BED4F",
+                    width: `${progress}%`,
+                  })
                 }
               />
             </View>
